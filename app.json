@@ -1,0 +1,149 @@
+{
+	"id": "com.iungo",
+	"name": {
+		"en": "Iungo"
+	},
+	"version": "0.1.0",
+	"compatibility": ">=1.2",
+	"description": {
+		"en": "Control Iungo using Homey",
+		"nl": "Bedien Iungo met je Homey"
+	},
+	"category": "appliances",
+	"images": {
+		"large": "assets/images/large.png",
+		"small": "assets/images/small.png"
+	},
+	"author": {
+		"name": "Robert Raaijmakers",
+		"email": "dutchfighter@live.nl"
+	},
+	"contributors": {
+		"developers": [{
+			"name": "Robert Raaijmakers",
+			"email": "dutchfighter@live.nl"
+		}]
+	},
+	"flow": {
+		"triggers": [],
+		"conditions": [],
+		"actions": []
+	},
+	"drivers": [{
+		"id": "energy_meter",
+		"name": {
+			"en": "Energy Controller",
+			"nl": "Energie Controller"
+		},
+		"images": {
+			"large": "drivers/energy_meter/assets/images/large.jpg",
+			"small": "drivers/energy_meter/assets/images/small.jpg"
+		},
+		"class": "sensor",
+		"capabilities": ["measure_power", "meter_power.sum", "meter_power.t1", "meter_power.t2", "meter_gas.sum", "meter_gas"],
+		"capabilitiesOptions": {
+			"measure_power": {
+				"title": {
+					"en": "Power",
+					"nl": "Verbruik"
+				}
+			},
+			"meter_power.sum": {
+				"title": {
+					"en": "Power Total",
+					"nl": "Totaal verbruik"
+				}
+			},
+			"meter_power.t1": {
+				"title": {
+					"en": "Power T1",
+					"nl": "Telwerk 1"
+				}
+			},
+			"meter_power.t2": {
+				"title": {
+					"en": "Power T2",
+					"nl": "Telwerk 2"
+				}
+			},
+			"meter_gas.sum": {
+				"title": {
+					"en": "Power Total",
+					"nl": "Totaal verbruik"
+				}
+			},
+			"meter_gas": {
+				"title": {
+					"en": "Gas",
+					"nl": "Gas"
+				}
+			}
+		},
+		"pair": [
+			{
+				"id": "select_iungo",
+				"navigation": {
+					"next": "enter_credentials"
+				}
+			},
+			{
+				"id": "enter_credentials"
+			},
+			{
+				"id": "list_devices",
+				"template": "list_devices",
+				"navigation": {
+					"next": "add_devices"
+				}
+			},
+			{
+				"id": "add_devices",
+				"template": "add_devices"
+			}
+		]
+	}, {
+		"id": "water_meter",
+		"name": {
+			"en": "Water Meter",
+			"nl": "Watermeter"
+		},
+		"images": {
+			"large": "drivers/water_meter/assets/images/large.jpg",
+			"small": "drivers/water_meter/assets/images/small.jpg"
+		},
+		"class": "sensor",
+		"capabilities": [
+			"meter_water"
+		],
+		"capabilitiesOptions": {
+			"meter_water": {
+				"title": {
+					"en": "Water",
+					"nl": "Water"
+				}
+			}
+		},
+		"pair": [
+			{
+				"id": "select_iungo",
+				"navigation": {
+					"next": "enter_credentials"
+				}
+			},
+			{
+				"id": "enter_credentials"
+			},
+			{
+				"id": "list_devices",
+				"template": "list_devices",
+				"navigation": {
+					"next": "add_devices"
+				}
+			},
+			{
+				"id": "add_devices",
+				"template": "add_devices"
+			}
+		]
+	}]
+}
