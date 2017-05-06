@@ -2,9 +2,9 @@
 
 const IungoDriver	= require('../../includes/iungoDriver.js');
 
-const defaultIcon 			= 'default';
+const defaultIcon 			= 'POWER_METER';
 const iconsMap				= {
-	'default': 'default'
+	'POWER_METER': 'POWER_METER'
 }
 
 class DriverEnergyMeter extends IungoDriver {

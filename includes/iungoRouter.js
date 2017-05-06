@@ -31,7 +31,7 @@ class IungoRouter extends events.EventEmitter {
 		// Get detailed device data (via UPNP??)
 		this.id 			= id.toLowerCase();
 		this.address 		= address;
-		this.name 			= "iungo.box";
+		this.name 			= "IungoBox";
 		this.modelId 		= "default";
 		this.modelName 		= undefined;
 		this.icon 			= `/app/${Homey.manifest.id}/assets/images/routers/${this.modelId}.svg`;
@@ -73,18 +73,8 @@ class IungoRouter extends events.EventEmitter {
 			if( err ) return this.error( err );
 		})
 
-		//this._credentials = this._getUserCredentials();
-		
-		// Check if credentials are known
-		//if( !this._credentials )
-		//	return callback( new Error('no_credentials') );
-		
 		this._client = new Iungo("", "", this.address);
-
-		// Check if credentials are valid
-		//if( !this.isAuthenticated )
-		//	return callback( new Error('invalid_credentials') );
-
+		
 		// Set refresh interval
 		if( this._refreshInterval ) clearInterval(this._refreshInterval);
 		this._refreshInterval = setInterval( this._refreshDevices.bind(this), pollInterval);
@@ -149,6 +139,9 @@ class IungoRouter extends events.EventEmitter {
 
 		if( type === 'meter_water' )
 			return this.saveWater( instance );
+
+		if ( type === 'socket' )
+			return this.saveSocket ( instance );
 
 		return new Error('invalid_type');
 	}
@@ -251,43 +244,6 @@ function parseEnergyMeterValues(oid, name, type, properties)
 		{
 			energyMeter[energyMeterCapabilitiesMap[property.id]] = property.value;
 		}
-		
-		// switch(property.id)
-		// {
-			// case "available":
-				// energyMeter["present"] = property.value;
-			// break;
-			// case "gas":
-				// energyMeter["meter_gas"] = property.value;
-			// break;
-			// case "gas_usage":
-				// energyMeter["measure_gas"] = property.value;
-			// break;
-			// case "usage":
-				// energyMeter["measure_power"] = property.value;
-			// break;
-			// case "T1":
-				// energyMeter["meter_power.t1"] = property.value;
-			// break;
-			// case "T2":
-				// energyMeter["meter_power.t2"] = property.value;
-			// break;
-			// case "-T1":
-				// energyMeter["meter_power.tl1"] = property.value;
-			// break;
-			// case "-T2":
-				// energyMeter["meter_power.tl2"] = property.value;
-			// break;
-			// case "L1I":
-				// energyMeter["measure_current.l1"] = property.value;
-			// break;
-			// case "L2I":
-				// energyMeter["measure_current.l2"] = property.value;
-			// break;
-			// case "L3I":
-				// energyMeter["measure_current.l3"] = property.value;
-			// break;
-		// }
 	}
 
 	return energyMeter;
