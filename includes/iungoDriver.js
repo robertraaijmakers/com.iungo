@@ -114,12 +114,18 @@ class IungoDriver {
 						if( typeof this._onBeforeSave === 'function' ) {
 							this._onBeforeSave( device_data );
 						}
+						
+						console.log("This is the beginning device instance");
+						console.log(deviceInstance);
 
 						// apply queued instance properties
 						for( let key in this._devices[ device_data.id ].setInstanceProperties ) {
 							let value = this._devices[ device_data.id ].setInstanceProperties[ key ];
 							deviceInstance[ key ] = value;
 						}
+						
+						console.log("This is the device instance after the set of instance properties");
+						console.log(deviceInstance);
 						
 						this._devices[ device_data.id ].setInstanceProperties = {};
 
@@ -128,6 +134,9 @@ class IungoDriver {
 							let value = this._devices[ device_data.id ].setInstanceConfigProperties[ key ];
 							deviceInstance.config[ key ] = value;
 						}
+						
+						console.log("This is the device instance after the set of instance config properties");
+						console.log(deviceInstance);
 						
 						this._devices[ device_data.id ].setInstanceConfigProperties = {};
 

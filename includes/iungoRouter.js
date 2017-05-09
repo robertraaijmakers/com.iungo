@@ -134,7 +134,8 @@ class IungoRouter extends events.EventEmitter {
 	*/
 	save( type, instance )
 	{
-		if( type === 'meter_power' )
+		this.debug('save', type, instance);
+		if( type === 'energy_meter' )
 			return this.savePower( instance );
 
 		if( type === 'meter_water' )
@@ -144,6 +145,13 @@ class IungoRouter extends events.EventEmitter {
 			return this.saveSocket ( instance );
 
 		return new Error('invalid_type');
+	}
+
+	savePower ( settings )
+	{
+		this.debug('savePower');
+		console.log( settings );
+		return Promise.resolve(false);
 	}
 
 	/*
