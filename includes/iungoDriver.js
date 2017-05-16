@@ -63,7 +63,10 @@ class IungoDriver {
 			device = iungo.getEnergyMeter( device_data.id );
 		} else if( this._deviceType === 'water_meter' ) {
 			device = iungo.getWaterMeter( device_data.id );
-		} else {
+		} else if( this._deviceType === 'socket' ) {
+			device = iungo.getSocket( device_data.id );
+		}
+		else {
 			device = new Error('invalid_device_type');
 		}
 		return device;
@@ -92,7 +95,7 @@ class IungoDriver {
 				instance	: undefined,
 				saveTimeout	: undefined,
 				saveCbs		: [],
-				save		: ( callback ) => {
+				save		: ( callback, action, value ) => {
 					callback = callback || function(){}
 
 					let iungo = this.getIungo( device_data );
@@ -115,17 +118,11 @@ class IungoDriver {
 							this._onBeforeSave( device_data );
 						}
 						
-						console.log("This is the beginning device instance");
-						console.log(deviceInstance);
-
 						// apply queued instance properties
 						for( let key in this._devices[ device_data.id ].setInstanceProperties ) {
 							let value = this._devices[ device_data.id ].setInstanceProperties[ key ];
 							deviceInstance[ key ] = value;
 						}
-						
-						console.log("This is the device instance after the set of instance properties");
-						console.log(deviceInstance);
 						
 						this._devices[ device_data.id ].setInstanceProperties = {};
 
@@ -134,14 +131,11 @@ class IungoDriver {
 							let value = this._devices[ device_data.id ].setInstanceConfigProperties[ key ];
 							deviceInstance.config[ key ] = value;
 						}
-						
-						console.log("This is the device instance after the set of instance config properties");
-						console.log(deviceInstance);
-						
+												
 						this._devices[ device_data.id ].setInstanceConfigProperties = {};
 
 						// save and fire callbacks
-						return iungo.save( this._deviceType, deviceInstance )
+						return iungo.save( this._deviceType, deviceInstance, action, value )
 							.then(( result ) => {
 								this._devices[ device_data.id ].saveCbs.forEach(( callback ) => {
 									callback( null, result );
@@ -267,7 +261,7 @@ class IungoDriver {
 		device.setInstanceProperty( 'name', newName );
 		device.save(( err, result ) => {
 			if( err ) return this.error( err );
-		});
+		}, 'name', newName);
 	}
 
 	_onExportsPair( socket ) {

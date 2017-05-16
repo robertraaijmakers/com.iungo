@@ -32,7 +32,7 @@ Iungo.prototype = {
 		let formData = {
 			seq: this.sequence,
 			method: apiMethod,
-			arguments: JSON.stringify(apiArguments)
+			arguments: apiArguments
 		};
 		
 		var opts = {
@@ -43,8 +43,11 @@ Iungo.prototype = {
 			body: {
 				"seq": this.sequence,
 				"method": apiMethod,
+				"arguments": apiArguments
 			}
 		};
+		
+		console.log(formData);
 		
 		request(opts, function (error, response, body) {
 				//console.log(error);
@@ -80,5 +83,39 @@ Iungo.prototype = {
 	
 	getDevices: function(callback) {
         this.call("objmgr_get_objects_init", null, callback);
-    }
+    },
+	
+	getDevice: function(oid, callback) {
+		
+		var args = {
+			oid: oid
+		};
+		
+		this.call("objmgr_get_objects_init", args, callback);
+	},
+	
+	setDeviceName: function(oid, newName, callback)
+	{
+		var args = {
+			oid: oid,
+			prop: "name",
+			value: newName
+		};
+		
+		//console.log("Set device name");
+		//console.log(args);
+		
+		this.call("object_prop_set", args, callback);
+	},
+	
+	setDeviceOnOff: function(oid, state, callback)
+	{
+		var args = {
+			oid: oid,
+			prop: "command",
+			value: (state === true ? "on" : "off")
+		};
+				
+		this.call("object_prop_set", args, callback);
+	},
 };

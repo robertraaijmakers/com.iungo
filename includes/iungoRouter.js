@@ -126,32 +126,65 @@ class IungoRouter extends events.EventEmitter {
 		// Get a device by ID.
 		console.log("_getDevice");
 		
-		//return this._client.getDevice(ain);
+		return this._client.getDevice(oid);
 	}
 
 	/*
 		Generic save	
 	*/
-	save( type, instance )
+	save( type, instance, action, value )
 	{
-		this.debug('save', type, instance);
+		this.debug('save', type, instance, action, value);
+		
+		switch(action)
+		{
+			case 'name':
+				this.debug("Setting name for ", instance.uniqueId, value);
+				this._client.setDeviceName(instance.uniqueId, value, (err, result) => { });
+				return Promise.resolve(true);
+			break;
+		}
+		
 		if( type === 'energy_meter' )
-			return this.savePower( instance );
+			return this.savePower( instance, action, value );
 
 		if( type === 'meter_water' )
-			return this.saveWater( instance );
+			return this.saveWater( instance, action, value );
 
 		if ( type === 'socket' )
-			return this.saveSocket ( instance );
+			return this.saveSocket ( instance, action, value );
 
 		return new Error('invalid_type');
 	}
 
-	savePower ( settings )
+	savePower ( settings, action, value )
 	{
 		this.debug('savePower');
 		console.log( settings );
 		return Promise.resolve(false);
+	}
+	
+	saveWater ( settings, action, value )
+	{
+		this.debug('savePower');
+		console.log( settings );
+		return Promise.resolve(false);
+	}
+	
+	saveSocket ( instance, action, value )
+	{
+		this.debug('saveSocket');
+		
+		switch(action)
+		{
+			case 'onoff':
+				this._client.setDeviceOnOff(instance.uniqueId, value, (err, result) => { });
+				return Promise.resolve(true);
+			break;
+		}
+		
+		//console.log( settings );
+		return Promise.resolve(false);		
 	}
 
 	/*
@@ -180,6 +213,7 @@ class IungoRouter extends events.EventEmitter {
 			for(var obj in response.objects)
 			{				
 				var device = response.objects[obj];
+				//console.log(device.type);
 				
 				if(device.type.indexOf("energy") !== -1)
 				{
@@ -191,6 +225,14 @@ class IungoRouter extends events.EventEmitter {
 				else if(device.type.indexOf("water") !== -1)
 				{
 					// Water meter
+					var meter = parseWaterMeterValues(device.oid, device.name, device.driver, device.propsval);
+					this._waterMeters[meter.id] = meter;
+				}
+				else if(device.type.indexOf("powerswitch") !== -1)
+				{
+					// Wall socket
+					var socket = parseSocketValues(device.oid, device.name, device.driver, device.propsval);
+					this._sockets[socket.id] = socket;
 				}
 			}
 			
@@ -201,7 +243,6 @@ class IungoRouter extends events.EventEmitter {
 	
 	getEnergyMeter( meterId ) {
 		let device = _.findWhere( this._energyMeters, { uniqueId: meterId });
-		console.log(device);
 		if(typeof device === 'undefined' || device === null || device.present !== true)
 		{
 			return  new Error('invalid_energy_meter');
@@ -222,8 +263,10 @@ class IungoRouter extends events.EventEmitter {
 	
 	getSocket( socketId ) {
 		let device = _.findWhere( this._sockets, { uniqueId: socketId });
+		//console.log(this._sockets);
 		if(typeof device === 'undefined' || device === null || device.present !== true)
 		{
+			console.log("Socket is invalid");
 			return  new Error('invalid_socket');
 		}
 		
@@ -255,4 +298,84 @@ function parseEnergyMeterValues(oid, name, type, properties)
 	}
 
 	return energyMeter;
+}
+
+function parseWaterMeterValues(oid, name, type, properties)
+{
+	// Register device variables
+	let waterMeter = 
+	{
+		id: oid,
+		uniqueId: oid,
+		name: name,
+		modelId: type.replace("water","")
+	}
+		
+	var offset = null;
+	var pulstotal = null;
+	var kfact = null;
+	
+	for(var obj in properties)
+	{
+		var property = properties[obj];
+		//console.log(property);
+		//console.log(property.id);
+		
+		switch(property.id)
+		{
+			case "flow":
+				waterMeter["measure_water"] = property.value;
+			break;
+			case "offset":
+				offset = property.value;
+			break;
+			case "pulstotal":
+				pulstotal = property.value;
+			break;
+			case "kfact":
+				kfact = property.value;
+			break;
+		}
+	}
+	
+	if(offset !== null && pulstotal !== null && kfact !== null)
+	{
+		waterMeter["meter_water"] = offset + (pulstotal / kfact);
+	}
+
+	return waterMeter;
+}
+
+function parseSocketValues(oid, name, type, properties)
+{
+	// Register device variables
+	let socket = 
+	{
+		id: oid,
+		uniqueId: oid,
+		name: name,
+		modelId: type.replace("powerswitch-","")
+	}
+	
+	for(var obj in properties)
+	{
+		var property = properties[obj];
+		//console.log(property);
+		//console.log(property.id);
+		
+		switch(property.id)
+		{
+			case "usage":
+				socket["measure_power"] = property.value;
+			break;
+			case "available":
+				socket["present"] = property.value;
+			break;
+			case "state":
+				socket["onoff"] = (property.value === "on");
+			break;
+		}
+	}
+
+	return socket;
 }

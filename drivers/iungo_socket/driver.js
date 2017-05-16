@@ -2,28 +2,23 @@
 
 const IungoDriver	= require('../../includes/iungoDriver.js');
 
-const defaultIcon 			= 'POWER_METER';
+const defaultIcon 			= 'default';
 const iconsMap				= {
-	'POWER_METER': 'POWER_METER'
+	'default': 'default'
 }
 
-class DriverEnergyMeter extends IungoDriver {
+class DriverSockets extends IungoDriver {
 
 	constructor() {
 		super();
 
-		this._deviceType = 'energy_meter';
+		this._deviceType = 'socket';
 		
 		this.capabilities = {};
 		
-		this.capabilities.meter_gas = {};
-		this.capabilities.meter_gas.get = this._onExportsCapabilitiesMeterGasGet.bind(this);
-		
-		this.capabilities["meter_power.t1"] = {};
-		this.capabilities["meter_power.t1"].get = this._onExportsCapabilitiesMeterPowerT1Get.bind(this);
-		
-		this.capabilities["meter_power.t2"] = {};
-		this.capabilities["meter_power.t2"].get = this._onExportsCapabilitiesMeterPowerT2Get.bind(this);
+		this.capabilities.onoff = {};
+		this.capabilities.onoff.get = this._onExportsCapabilitiesOnOffGet.bind(this);
+		this.capabilities.onoff.set = this._onExportsCapabilitiesOnOffSet.bind(this);
 		
 		this.capabilities.measure_power = {};
 		this.capabilities.measure_power.get = this._onExportsCapabilitiesMeasurePowerGet.bind(this);
@@ -33,13 +28,18 @@ class DriverEnergyMeter extends IungoDriver {
 		this.debug('_syncDevice', device_data.id);
 
 		let device = this.getDevice( device_data );
+		// console.log("device");
+		// console.log(device);
 		if( device instanceof Error )
 			return module.exports.setUnavailable( device_data, __('unreachable') );
 		
 		let deviceInstance = this.getDeviceInstance( device_data );
+		// console.log("instance");
+		// console.log(deviceInstance);
 		if( deviceInstance instanceof Error )
 			return module.exports.setUnavailable( device_data, __('unreachable') );
 		
+		// console.log("available");
 		module.exports.setAvailable( device_data );
 
 		// Sync values to internal state
@@ -83,18 +83,18 @@ class DriverEnergyMeter extends IungoDriver {
 		
 		let result = [];
 		
-		for( let power_meter in state.iungo._energyMeters )
+		for( let socket in state.iungo._sockets )
 		{
-			let deviceData = this.getDeviceData( state.iungo, power_meter );
+			let deviceData = this.getDeviceData( state.iungo, socket );
 			
 			let deviceObj = {
-				name			: state.iungo._energyMeters[power_meter].name,
+				name			: state.iungo._sockets[socket].name,
 				data 			: deviceData,
-				capabilities	: [ "measure_power", "meter_power.t1", "meter_power.t2", "meter_gas" ]
+				capabilities	: [ "measure_power", "onoff" ]
 			};
 
-			if( typeof iconsMap[ state.iungo._energyMeters[power_meter].modelId ] === 'string' ) {
-				let modelId = state.iungo._energyMeters[power_meter].modelId;
+			if( typeof iconsMap[ state.iungo._sockets[socket].modelId ] === 'string' ) {
+				let modelId = state.iungo._sockets[socket].modelId;
 				deviceObj.icon = `/icons/${iconsMap[modelId]}.svg`;
 			}
 
@@ -104,34 +104,27 @@ class DriverEnergyMeter extends IungoDriver {
 		callback( null, result );
 	}
 
-	// meter_gas
-	_onExportsCapabilitiesMeterGasGet( device_data, callback ) {
-		this.debug('_onExportsCapabilitiesMeterGasGet', device_data.id);
+	// onoff
+	_onExportsCapabilitiesOnOffGet( device_data, callback ) {
+		this.debug('_onExportsCapabilitiesOnOffGet', device_data.id);
 
 		let device = this.getDevice( device_data );
 		if( device instanceof Error ) return callback( device );
 
-		callback( null, device.state.meter_gas );
+		callback( null, device.state.onoff );
 	}
 	
-	// meter_power.t1
-	_onExportsCapabilitiesMeterPowerT1Get( device_data, callback ) {
-		this.debug('_onExportsCapabilitiesMeterPower.t1', device_data.id);
+	_onExportsCapabilitiesOnOffSet( device_data, value, callback ) {
+		this.debug('_onExportsCapabilitiesOnoffSet', device_data.id, value);
 
 		let device = this.getDevice( device_data );
 		if( device instanceof Error ) return callback( device );
+		
+		console.log("set on/off value");
+		console.log(value);
 
-		callback( null, device.state["meter_power.t1"] );
-	}
-	
-	// meter_power.t2
-	_onExportsCapabilitiesMeterPowerT2Get( device_data, callback ) {
-		this.debug('_onExportsCapabilitiesMeterPower.t2', device_data.id);
-
-		let device = this.getDevice( device_data );
-		if( device instanceof Error ) return callback( device );
-
-		callback( null, device.state["meter_power.t2"] );
+		device.state.onoff = value;
+		device.save( callback, "onoff", value );
 	}
 	
 	// measure_power
@@ -145,4 +138,4 @@ class DriverEnergyMeter extends IungoDriver {
 	}
 }
 
-module.exports = new DriverEnergyMeter();
+module.exports = new DriverSockets();
