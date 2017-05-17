@@ -118,4 +118,15 @@ Iungo.prototype = {
 				
 		this.call("object_prop_set", args, callback);
 	},
+	
+	setDeviceSettings: function(oid, props, callback)
+	{
+		var args = {
+			oid: oid,
+			prop: props["key"],
+			value: props["value"]
+		};
+				
+		this.call("object_prop_set", args, callback);
+	}
 };

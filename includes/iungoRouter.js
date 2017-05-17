@@ -143,6 +143,11 @@ class IungoRouter extends events.EventEmitter {
 				this._client.setDeviceName(instance.uniqueId, value, (err, result) => { });
 				return Promise.resolve(true);
 			break;
+			case 'settings':
+				this.debug("Setting settings for ", instance.uniqueId, value);
+				this._client.setDeviceSettings(instance.uniqueId, value, (err, result) => { });
+				return Promise.resolve(true);
+			break;
 		}
 		
 		if( type === 'energy_meter' )

@@ -22,6 +22,8 @@ class DriverSockets extends IungoDriver {
 		
 		this.capabilities.measure_power = {};
 		this.capabilities.measure_power.get = this._onExportsCapabilitiesMeasurePowerGet.bind(this);
+		
+		this.settings = this._onSettingsChange.bind(this);
 	}
 
 	_syncDevice( device_data ) {
@@ -135,6 +137,22 @@ class DriverSockets extends IungoDriver {
 		if( device instanceof Error ) return callback( device );
 
 		callback( null, device.state.measure_power );
+	}
+	
+	// Settings functions
+	_onSettingsChange ( device_data, newSettingsObj, oldSettingsObj, changedKeysArr, callback )
+	{
+		Homey.log ('Changed settings: ' + JSON.stringify(device_data) + ' / ' + JSON.stringify(newSettingsObj) + ' / old = ' + JSON.stringify(oldSettingsObj));
+		try {
+			changedKeysArr.forEach(function (key) {
+				devices[device_data.id].settings[key] = newSettingsObj[key];
+				device.save( callback, "settings", { "key": key, "value": newSettingsObj[key] });
+			});
+			
+			callback(null, true);
+		} catch (error) {
+			callback(error); 
+		}
 	}
 }
 
