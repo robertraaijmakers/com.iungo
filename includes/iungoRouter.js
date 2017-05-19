@@ -365,8 +365,6 @@ function parseSocketValues(oid, name, type, properties)
 	for(var obj in properties)
 	{
 		var property = properties[obj];
-		//console.log(property);
-		//console.log(property.id);
 		
 		switch(property.id)
 		{
