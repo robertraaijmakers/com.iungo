@@ -3,7 +3,7 @@
 	"name": {
 		"en": "Iungo"
 	},
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"compatibility": ">=1.3",
 	"description": {
 		"en": "Control Iungo using Homey",
@@ -25,7 +25,47 @@
 		}]
 	},
 	"flow": {
-		"triggers": [],
+		"triggers": [
+		{
+			"id": "meter_power_t1_changed",
+			"title": {
+				"en": "Power meter T1 changed",
+				"nl": "Verbruik T1 veranderd"
+			},
+			"args": [{
+				"name": "device",
+				"type": "device",
+				"filter": "driver_id=energy_meter"
+			}],
+			"tokens": [{
+				"name": "power_used",
+				"type": "number",
+				"title": {
+					"en": "kWh",
+					"nl": "kWh"
+				}
+			}]
+		},
+		{
+			"id": "meter_power_t2_changed",
+			"title": {
+				"en": "Power meter T2 changed",
+				"nl": "Verbruik T2 veranderd"
+			},
+			"args": [{
+				"name": "device",
+				"type": "device",
+				"filter": "driver_id=energy_meter"
+			}],
+			"tokens": [{
+				"name": "power_used",
+				"type": "number",
+				"title": {
+					"en": "kWh",
+					"nl": "kWh"
+				}
+			}]
+		}],
 		"conditions": [],
 		"actions": []
 	},

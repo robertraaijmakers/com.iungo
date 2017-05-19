@@ -4,7 +4,9 @@ const IungoDriver	= require('../../includes/iungoDriver.js');
 
 const defaultIcon 			= 'default';
 const iconsMap				= {
-	'default': 'default'
+	'default': 'default',
+	'plugwiserf': 'plugwise',
+	'plugwiseplus': 'plugwise'
 }
 
 class DriverSockets extends IungoDriver {

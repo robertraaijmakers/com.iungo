@@ -47,8 +47,27 @@ class DriverEnergyMeter extends IungoDriver {
 		{
 			let value = deviceInstance[ capabilityId ];
 			if( typeof value !== 'undefined' ) {
-				device.state[ capabilityId ] = value;
-				module.exports.realtime( device_data, capabilityId, device.state[ capabilityId ] );
+				
+				let oldValue = device.state[capabilityId];								
+				device.state[ capabilityId ] = value;	
+				
+				if(oldValue !== null && oldValue !== value)
+				{					
+					switch(capabilityId)
+					{
+						case 'meter_power.t1':
+							Homey.manager('flow').triggerDevice('meter_power_t1_changed', { power_used: value }, null, device_data, function(err, result) { if( err ) return Homey.error(err); });
+						break;
+						case 'meter_power.t2':
+							Homey.manager('flow').triggerDevice('meter_power_t2_changed', { power_used: value }, null, device_data, function(err, result) { if( err ) return Homey.error(err); });
+						break;
+					}
+				}
+				
+				if(oldValue !== value)
+				{
+					module.exports.realtime( device_data, capabilityId, value );
+				}
 			}
 		}
 	}
