@@ -3,13 +3,13 @@
 	"name": {
 		"en": "Iungo"
 	},
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"compatibility": ">=1.3",
 	"description": {
 		"en": "Control Iungo using Homey",
 		"nl": "Bedien Iungo met je Homey"
 	},
-	"category": "appliances",
+	"category": ["energy","appliances", "tools"],
 	"images": {
 		"large": "assets/images/large.png",
 		"small": "assets/images/small.png"
