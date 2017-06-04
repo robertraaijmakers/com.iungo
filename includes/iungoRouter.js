@@ -340,6 +340,9 @@ function parseWaterMeterValues(oid, name, type, properties)
 			case "kfact":
 				kfact = property.value;
 			break;
+			case "available":
+				waterMeter["present"] = property.value;
+			break;
 		}
 	}
 	
