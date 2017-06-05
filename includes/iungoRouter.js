@@ -153,7 +153,7 @@ class IungoRouter extends events.EventEmitter {
 		if( type === 'energy_meter' )
 			return this.savePower( instance, action, value );
 
-		if( type === 'meter_water' )
+		if( type === 'water_meter' )
 			return this.saveWater( instance, action, value );
 
 		if ( type === 'socket' )

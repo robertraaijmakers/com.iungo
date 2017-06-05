@@ -3,7 +3,7 @@
 	"name": {
 		"en": "Iungo"
 	},
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"compatibility": ">=1.3",
 	"description": {
 		"en": "Control Iungo using Homey",
