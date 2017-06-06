@@ -131,7 +131,7 @@ class DriverWaterMeter extends IungoDriver {
 		Homey.log ('Changed settings: ' + JSON.stringify(device_data) + ' / ' + JSON.stringify(newSettingsObj) + ' / old = ' + JSON.stringify(oldSettingsObj));
 		try {
 			changedKeysArr.forEach(function (key) {
-				devices[device_data.id].settings[key] = newSettingsObj[key];
+				//devices[device_data.id].settings[key] = newSettingsObj[key];
 				device.save( callback, "settings", { "key": key, "value": newSettingsObj[key] });
 			});
 			
