@@ -91,6 +91,7 @@ class IungoDriver {
 			this._devices[ device_data.id ] = {
 				data		: device_data,
 				state		: {},
+				settings	: {},
 				iungo		: undefined,
 				instance	: undefined,
 				saveTimeout	: undefined,

@@ -19,6 +19,19 @@ const energyMeterCapabilitiesMap = {
 	'L3I': 'measure_current.l3',
 }
 
+const energyMeterSettingsMap = {
+	'Cost-T1': 'Cost-T1',
+	'Cost-T2': 'Cost-T2',
+	'Cost-nT1': 'Cost-nT1',
+	'Cost-nT2': 'Cost-nT2',
+	'Cost-gas': 'Cost-gas',
+	'Gas-interval': 'Gas-interval'
+}
+
+const waterMeterSettingsMap = {
+	'offset': 'offset'
+}
+
 class IungoRouter extends events.EventEmitter {
 
 	constructor( id, address ) {
@@ -125,7 +138,6 @@ class IungoRouter extends events.EventEmitter {
 	{
 		// Get a device by ID.
 		console.log("_getDevice");
-		
 		return this._client.getDevice(oid);
 	}
 
@@ -289,7 +301,8 @@ function parseEnergyMeterValues(oid, name, type, properties)
 		id: oid,
 		uniqueId: oid,
 		name: name,
-		modelId: type.replace("energy-","")
+		modelId: type.replace("energy-",""),
+		settings: {}
 	}
 	
 	for(var obj in properties)
@@ -299,6 +312,11 @@ function parseEnergyMeterValues(oid, name, type, properties)
 		if(typeof energyMeterCapabilitiesMap[property.id] !== 'undefined')
 		{
 			energyMeter[energyMeterCapabilitiesMap[property.id]] = property.value;
+		}
+		
+		if(typeof energyMeterSettingsMap[property.id] !== 'undefined')
+		{
+			energyMeter['settings'][energyMeterSettingsMap[property.id]] = property.value;
 		}
 	}
 
@@ -314,7 +332,8 @@ function parseWaterMeterValues(oid, name, type, properties)
 		uniqueId: oid,
 		name: name,
 		modelId: type.replace("water",""),
-		present: true
+		present: true,
+		settings: {}
 	}
 		
 	var offset = null;
@@ -334,6 +353,7 @@ function parseWaterMeterValues(oid, name, type, properties)
 			break;
 			case "offset":
 				offset = property.value;
+				waterMeter["settings"]["offset"] = property.value;
 			break;
 			case "pulstotal":
 				pulstotal = property.value;

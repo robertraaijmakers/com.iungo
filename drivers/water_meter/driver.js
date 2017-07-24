@@ -52,6 +52,45 @@ class DriverWaterMeter extends IungoDriver {
 				module.exports.realtime( device_data, capabilityId, device.state[ capabilityId ] );
 			}
 		}
+		
+		// Sync settings to internal state
+		module.exports.getSettings(device_data, function(err, settings)
+		{
+			console.log(deviceInstance)
+			console.log(settings);
+			
+			if(settings.length === 0) {
+				// No settings yet available. Apply all settings.
+				module.exports.setSettings( device_data, deviceInstance.settings, function( err, settings )
+				{
+					console.log(err);
+					console.log(settings);
+				});
+			}
+			else
+			{
+				// Check if there are differences, and update all values (performance wise cheaper, only one call).
+				let changed = false;
+				for( let settingId in settings )
+				{
+					var oldSetting = settings[settingId];
+					var newSetting = deviceInstance.settings[settingId];
+					if(oldSetting !== newSetting)
+					{
+						changed = true;
+					}
+				}
+				
+				if(changed)
+				{
+					module.exports.setSettings( device_data, deviceInstance.settings, function( err, settings )
+					{
+						console.log(err);
+						console.log(settings);
+					});
+				}
+			}
+		});
 	}
 
 	_onBeforeSave( device_data ) {
@@ -128,6 +167,9 @@ class DriverWaterMeter extends IungoDriver {
 	// Settings functions
 	_onSettingsChange ( device_data, newSettingsObj, oldSettingsObj, changedKeysArr, callback )
 	{
+		let device = this.getDevice( device_data );
+		if( device instanceof Error ) return callback( "No device found to save settings to" );
+		
 		Homey.log ('Changed settings: ' + JSON.stringify(device_data) + ' / ' + JSON.stringify(newSettingsObj) + ' / old = ' + JSON.stringify(oldSettingsObj));
 		try {
 			changedKeysArr.forEach(function (key) {
