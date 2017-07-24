@@ -8,10 +8,11 @@ This app let's you connect your Iungo to Homey. You can add your Iungo smart met
 
 
 If you have any suggestions or bugs, please post them on GitHub: https://github.com/robertraaijmakers/com.iungo/
+
 If you have any questions regarding flows, usage or other questions about the app. Please post them in the official app topic: https://forum.athom.com/discussion/3217/app-iungo
 
 v0.2.8:
-* Added redelivery (solar panels) capabilities to smart meter (**repair needed**)
+* Added redelivery (solar panels) capabilities to smart meter (**repair of device needed**)
 * Added some setting options to the smart meter (tariff, gas meter interval)
 * Fixt a defect that water meter offset value wasn't retrieved from Iungo
 
