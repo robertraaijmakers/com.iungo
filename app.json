@@ -2,7 +2,8 @@
 	"id": "com.iungo",
 	"sdk": 2,
 	"name": {
-		"en": "Iungo"
+		"en": "Iungo",
+		"nl": "Iungo"
 	},
 	"version": "0.2.9",
 	"compatibility": ">=1.5",
@@ -106,6 +107,66 @@
 					"nl": "kWh"
 				}
 			}]
+		},
+		{
+			"id": "measure_current_l1_changed",
+			"title": {
+				"en": "Current L1 changed",
+				"nl": "Vermogen L1 veranderd"
+			},
+			"args": [{
+				"name": "device",
+				"type": "device",
+				"filter": "driver_id=energy_meter"
+			}],
+			"tokens": [{
+				"name": "current_value",
+				"type": "number",
+				"title": {
+					"en": "Ampere",
+					"nl": "Ampère"
+				}
+			}]
+		},
+		{
+			"id": "measure_current_l2_changed",
+			"title": {
+				"en": "Current L2 changed",
+				"nl": "Vermogen L2 veranderd"
+			},
+			"args": [{
+				"name": "device",
+				"type": "device",
+				"filter": "driver_id=energy_meter"
+			}],
+			"tokens": [{
+				"name": "current_value",
+				"type": "number",
+				"title": {
+					"en": "Ampere",
+					"nl": "Ampère"
+				}
+			}]
+		},
+		{
+			"id": "measure_current_l3_changed",
+			"title": {
+				"en": "Current L3 changed",
+				"nl": "Vermogen L3 veranderd"
+			},
+			"args": [{
+				"name": "device",
+				"type": "device",
+				"filter": "driver_id=energy_meter"
+			}],
+			"tokens": [{
+				"name": "current_value",
+				"type": "number",
+				"title": {
+					"en": "Ampere",
+					"nl": "Ampère"
+				}
+			}]
 		}],
 		"conditions": [],
 		"actions": []
@@ -121,7 +182,7 @@
 			"small": "drivers/energy_meter/assets/images/small.jpg"
 		},
 		"class": "sensor",
-		"capabilities": ["measure_power", "meter_power.sum", "meter_gas.sum", "meter_gas", "meter_power.t1", "meter_power.t2", "meter_power.rt1", "meter_power.rt2" ],
+		"capabilities": ["measure_power", "meter_power.sum", "meter_gas.sum", "meter_gas", "meter_power.t1", "meter_power.t2", "meter_power.rt1", "meter_power.rt2", "measure_current.l1", "measure_current.l2", "measure_current.l3" ],
 		"capabilitiesOptions": {
 			"measure_power": {
 				"title": {
@@ -169,6 +230,24 @@
 				"title": {
 					"en": "Gas",
 					"nl": "Gas"
+				}
+			},
+			"measure_current.l1": {
+				"title": {
+					"en": "Current L1",
+					"nl": "Vermogen L1"
+				}
+			},
+			"measure_current.l2": {
+				"title": {
+					"en": "Current L2",
+					"nl": "Vermogen L2"
+				}
+			},
+			"measure_current.l3": {
+				"title": {
+					"en": "Current L2",
+					"nl": "Vermogen L3"
 				}
 			}
 		},

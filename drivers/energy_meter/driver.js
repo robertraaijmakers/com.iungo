@@ -26,13 +26,22 @@ class DriverEnergyMeter extends IungoDriver {
 		this.capabilities["meter_power.t2"].get = this._onExportsCapabilitiesMeterPowerT2Get.bind(this);
 		
 		this.capabilities["meter_power.rt1"] = {};
-		this.capabilities["meter_power.rt1"].get = this._onExportsCapabilitiesMeterPowerRT2Get.bind(this);
+		this.capabilities["meter_power.rt1"].get = this._onExportsCapabilitiesMeterPowerRT1Get.bind(this);
 		
 		this.capabilities["meter_power.rt2"] = {};
 		this.capabilities["meter_power.rt2"].get = this._onExportsCapabilitiesMeterPowerRT2Get.bind(this);
 				
 		this.capabilities.measure_power = {};
 		this.capabilities.measure_power.get = this._onExportsCapabilitiesMeasurePowerGet.bind(this);
+		
+		this.capabilities["measure_current.l1"] = {};
+		this.capabilities["measure_current.l1"].get = this._onExportsCapabilitiesMeasureCurrentL1Get.bind(this);
+		
+		this.capabilities["measure_current.l2"] = {};
+		this.capabilities["measure_current.l2"].get = this._onExportsCapabilitiesMeasureCurrentL2Get.bind(this);
+		
+		this.capabilities["measure_current.l3"] = {};
+		this.capabilities["measure_current.l3"].get = this._onExportsCapabilitiesMeasureCurrentL3Get.bind(this);
 		
 		this.settings = this._onSettingsChange.bind(this);
 	}
@@ -75,6 +84,15 @@ class DriverEnergyMeter extends IungoDriver {
 						break;
 						case 'meter_power.rt2':
 							Homey.manager('flow').triggerDevice('meter_power_rt2_changed', { power_used: value }, null, device_data, function(err, result) { if( err ) return Homey.error(err); });
+						break;
+						case 'measure_current.l1':
+							Homey.manager('flow').triggerDevice('measure_current_l1_changed', { current_value: value }, null, device_data, function(err, result) { if( err ) return Homey.error(err); });
+						break;
+						case 'measure_current.l2':
+							Homey.manager('flow').triggerDevice('measure_current_l2_changed', { current_value: value }, null, device_data, function(err, result) { if( err ) return Homey.error(err); });
+						break;
+						case 'measure_current.l3':
+							Homey.manager('flow').triggerDevice('measure_current_l3_changed', { current_value: value }, null, device_data, function(err, result) { if( err ) return Homey.error(err); });
 						break;
 					}
 				}
@@ -225,6 +243,36 @@ class DriverEnergyMeter extends IungoDriver {
 		if( device instanceof Error ) return callback( device );
 
 		callback( null, device.state["meter_power.rt2"] );
+	}
+	
+	// measure_current.l1
+	_onExportsCapabilitiesMeterCurrentL1Get( device_data, callback ) {
+		this.debug('_onExportsCapabilitiesMeasureCurrent.l1', device_data.id);
+
+		let device = this.getDevice( device_data );
+		if( device instanceof Error ) return callback( device );
+
+		callback( null, device.state["measure_current.l1"] );
+	}
+	
+	// measure_current.l2
+	_onExportsCapabilitiesMeterCurrentL2Get( device_data, callback ) {
+		this.debug('_onExportsCapabilitiesMeasureCurrent.l2', device_data.id);
+
+		let device = this.getDevice( device_data );
+		if( device instanceof Error ) return callback( device );
+
+		callback( null, device.state["measure_current.l2"] );
+	}
+	
+	// measure_current.l3
+	_onExportsCapabilitiesMeterCurrentL3Get( device_data, callback ) {
+		this.debug('_onExportsCapabilitiesMeasureCurrent.l3', device_data.id);
+
+		let device = this.getDevice( device_data );
+		if( device instanceof Error ) return callback( device );
+
+		callback( null, device.state["measure_current.l3"] );
 	}
 	
 	// measure_power
