@@ -563,8 +563,8 @@
 			"nl": "Zon"
 		},
 		"images": {
-			"large": "drivers/energy_solar/assets/images/large.png",
-			"small": "drivers/energy_solar/assets/images/small.png"
+			"large": "drivers/energy_solar/assets/images/large.jpg",
+			"small": "drivers/energy_solar/assets/images/small.jpg"
 		},
 		"class": "sensor",
 		"capabilities": [
