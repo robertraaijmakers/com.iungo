@@ -1,48 +1,28 @@
 "use strict";
 
-// function init() {
-	// var request = require('request');
-	// Homey.log("Iungo app ready!");
-	
-// }
-
+const Homey 		= require('homey');
 const events		= require('events');
 const IungoRouter	= require('./includes/iungoRouter.js');
 const IungoDiscover	= require('./includes/iungoDiscover.js').IungoDiscover;
 const findIungosInterval = 600000;
 
-class App extends events.EventEmitter {
+class App extends Homey.App {
 
-	constructor() {
-		super();
-
+	onInit() {		
 		this.setMaxListeners(0);
 		this._iungos = {};
-		this.init = this._onExportsInit.bind(this);
-	}
-
-	/*
-		Helper methods
-	*/
-	log() {
-		console.log.bind(this, '[log]' ).apply( this, arguments );
-	}
-
-	error() {
-		console.error.bind( this, '[error]' ).apply( this, arguments );
+		
+		this.findIungos();
+		setInterval( this.findIungos.bind(this), findIungosInterval );
 	}
 
 	/*
 		Iungo methods
 	*/
 	findIungos() {		
-		// Get IP settings from app settings page.
-		// I don't know how to do a proper discovery function otherwise that would be nice
-		// Then you can add multiple Iungos
-		//let host = Homey.manager('settings').get('iungo_host');
-		
 		var discovery = new IungoDiscover();
-		discovery.findDriver(((err, result) => {
+		discovery.findDriver(((err, result) =>
+		{
 			let host = result;
 			console.log(host);
 		
@@ -98,15 +78,6 @@ class App extends events.EventEmitter {
 		if( typeof iungoId !== 'string' ) return new Error('invalid_iungo');
 		return this._iungos[ iungoId.toLowerCase() ] || new Error('invalid_iungo');
 	}
-
-	/*
-		Export methods
-	*/
-	_onExportsInit() {
-		console.log(`${Homey.manifest.id} running...`);
-		this.findIungos();
-		setInterval( this.findIungos.bind(this), findIungosInterval );
-	}
 }
 
-module.exports = new App();
+module.exports = App;

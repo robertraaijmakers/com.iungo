@@ -1,5 +1,6 @@
 'use strict';
 
+const Homey = require('homey');
 const events	= require('events');
 const _			= require('underscore');
 const Iungo		= require('../includes/iungo.js').Iungo;
@@ -17,6 +18,12 @@ const energyMeterCapabilitiesMap = {
 	'L1I': 'measure_current.l1',
 	'L2I': 'measure_current.l2',
 	'L3I': 'measure_current.l3',
+	'L1Pimp': 'measure_power.l1i',
+	'L2Pimp': 'measure_power.l2i',
+	'L3Pimp': 'measure_power.l3i',
+	'L1Pexp': 'measure_power.l1e',
+	'L2Pexp': 'measure_power.l2e',
+	'L3Pexp': 'measure_power.l3e'
 }
 
 const energyMeterSettingsMap = {
@@ -151,13 +158,13 @@ class IungoRouter extends events.EventEmitter {
 		switch(action)
 		{
 			case 'name':
-				this.debug("Setting name for ", instance.uniqueId, value);
-				this._client.setDeviceName(instance.uniqueId, value, (err, result) => { });
+				this.debug("Setting name for ", instance.id, value);
+				this._client.setDeviceName(instance.id, value, (err, result) => { });
 				return Promise.resolve(true);
 			break;
 			case 'settings':
-				this.debug("Setting settings for ", instance.uniqueId, value);
-				this._client.setDeviceSettings(instance.uniqueId, value, (err, result) => { });
+				this.debug("Setting settings for ", instance.id, value);
+				this._client.setDeviceSettings(instance.id, value, (err, result) => { });
 				return Promise.resolve(true);
 			break;
 		}
@@ -195,7 +202,7 @@ class IungoRouter extends events.EventEmitter {
 		switch(action)
 		{
 			case 'onoff':
-				this._client.setDeviceOnOff(instance.uniqueId, value, (err, result) => { });
+				this._client.setDeviceOnOff(instance.id, value, (err, result) => { });
 				return Promise.resolve(true);
 			break;
 		}
@@ -237,23 +244,24 @@ class IungoRouter extends events.EventEmitter {
 					// Energy meter, fill all values
 					var meter = parseEnergyMeterValues(device.oid, device.name, device.driver, device.propsval);
 					this._energyMeters[meter.id] = meter;
-					//console.log(meter);
+					this.emit('refresh-'+meter.id);
 				}
 				else if(device.type.indexOf("water") !== -1)
 				{
 					// Water meter
 					var meter = parseWaterMeterValues(device.oid, device.name, device.driver, device.propsval);
 					this._waterMeters[meter.id] = meter;
+					this.emit('refresh-'+meter.id);
 				}
 				else if(device.type.indexOf("powerswitch") !== -1)
 				{
 					// Wall socket
 					var socket = parseSocketValues(device.oid, device.name, device.driver, device.propsval);
 					this._sockets[socket.id] = socket;
+					this.emit('refresh-'+socket.id);
 				}
 			}
 			
-			this.emit('refresh');
 			callback();
 		}).bind(this));
 	}
@@ -284,6 +292,7 @@ class IungoRouter extends events.EventEmitter {
 		if(typeof device === 'undefined' || device === null || device.present !== true)
 		{
 			console.log("Socket is invalid");
+			console.log(device);
 			return  new Error('invalid_socket');
 		}
 		
@@ -305,6 +314,9 @@ function parseEnergyMeterValues(oid, name, type, properties)
 		settings: {}
 	}
 	
+	var measurePowerImport = 0;
+	var measurePowerExport = 0;
+	
 	for(var obj in properties)
 	{
 		var property = properties[obj];
@@ -318,7 +330,22 @@ function parseEnergyMeterValues(oid, name, type, properties)
 		{
 			energyMeter['settings'][energyMeterSettingsMap[property.id]] = property.value;
 		}
+		
+		if(property.id == "L1Pimp" || property.id == "L2Pimp" || property.id == "L3Pimp" )
+		{
+			energyMeter[energyMeterCapabilitiesMap[property.id]] = property.value*1000;
+			measurePowerImport += property.value;
+		}
+		
+		if(property.id == "L1Pexp" || property.id == "L2Pexp" || property.id == "L3Pexp" )
+		{
+			energyMeter[energyMeterCapabilitiesMap[property.id]] = property.value*1000;
+			measurePowerExport += property.value;
+		}
 	}
+	
+	energyMeter["measure_power.import"] = measurePowerImport*1000;
+	energyMeter["measure_power.export"] = measurePowerExport*1000;
 
 	return energyMeter;
 }

@@ -11,7 +11,7 @@ function Iungo(username, password, uri) {
     this.sid = null;
     this.username = username;
     this.password = password;
-    this.options = { url: uri || 'http://192.168.178.47' };
+    this.options = { url: uri || 'http://10.0.0.1' };
 	this.sequence = 1;
 }
 
@@ -49,11 +49,10 @@ Iungo.prototype = {
 		
 		console.log(formData);
 		
-		request(opts, function (error, response, body) {
-				//console.log(error);
-				//console.log(response);
-				//console.log(body);
-               if (response === null || response === undefined) {
+		request(opts, function (error, response, body)
+		{
+               if (response === null || response === undefined)
+               {
                    callback('No response', []); 
                    return;
                }
@@ -67,8 +66,8 @@ Iungo.prototype = {
                      }
                   } catch (exception) {
 					 console.log(exception);
-                     Homey.log('JSON: ');
-					 Homey.log(body);
+                     console.log('JSON: ');
+					 console.log(body);
                      jsonObject = null;
                      callback('Invalid data', []); 
                   }
@@ -76,7 +75,7 @@ Iungo.prototype = {
                   if(typeof callback === 'function') {
                     callback('Error', []); 
                   }
-                  Homey.log('Error: '+error);
+                  console.log('Error: '+error);
                }
            });
     },
@@ -101,9 +100,6 @@ Iungo.prototype = {
 			prop: "name",
 			value: newName
 		};
-		
-		//console.log("Set device name");
-		//console.log(args);
 		
 		this.call("object_prop_set", args, callback);
 	},

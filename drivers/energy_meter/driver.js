@@ -1,170 +1,55 @@
 'use strict';
 
-const IungoDriver	= require('../../includes/iungoDriver.js');
-
+const Homey = require('homey');
 const defaultIcon 			= 'default';
 const iconsMap				= {
 	'default': 'default'
 }
 
-class DriverEnergyMeter extends IungoDriver {
+class DriverEnergyMeter extends Homey.Driver {
 
-	constructor() {
-		super();
+	onPair( socket ) {
+		console.log('onPair');
 
-		this._deviceType = 'energy_meter';
-		
-		this.capabilities = {};
-		
-		this.capabilities.meter_gas = {};
-		this.capabilities.meter_gas.get = this._onExportsCapabilitiesMeterGasGet.bind(this);
-		
-		this.capabilities["meter_power.t1"] = {};
-		this.capabilities["meter_power.t1"].get = this._onExportsCapabilitiesMeterPowerT1Get.bind(this);
-		
-		this.capabilities["meter_power.t2"] = {};
-		this.capabilities["meter_power.t2"].get = this._onExportsCapabilitiesMeterPowerT2Get.bind(this);
-		
-		this.capabilities["meter_power.rt1"] = {};
-		this.capabilities["meter_power.rt1"].get = this._onExportsCapabilitiesMeterPowerRT1Get.bind(this);
-		
-		this.capabilities["meter_power.rt2"] = {};
-		this.capabilities["meter_power.rt2"].get = this._onExportsCapabilitiesMeterPowerRT2Get.bind(this);
-				
-		this.capabilities.measure_power = {};
-		this.capabilities.measure_power.get = this._onExportsCapabilitiesMeasurePowerGet.bind(this);
-		
-		this.capabilities["measure_current.l1"] = {};
-		this.capabilities["measure_current.l1"].get = this._onExportsCapabilitiesMeasureCurrentL1Get.bind(this);
-		
-		this.capabilities["measure_current.l2"] = {};
-		this.capabilities["measure_current.l2"].get = this._onExportsCapabilitiesMeasureCurrentL2Get.bind(this);
-		
-		this.capabilities["measure_current.l3"] = {};
-		this.capabilities["measure_current.l3"].get = this._onExportsCapabilitiesMeasureCurrentL3Get.bind(this);
-		
-		this.settings = this._onSettingsChange.bind(this);
-	}
+		let state = {
+			connected	: true,
+			iungo		: undefined
+		};
 
-	_syncDevice( device_data ) {
-		this.debug('_syncDevice', device_data.id);
-		this.debug(device_data);
+		socket
+			.on('select_iungo', ( data, callback ) => {
+				Homey.app.findIungos();
+				
+				let result = [];
+				let iungoes = Homey.app.getIungoes();
+				console.log(iungoes);
+				for( let iungoId in iungoes) {
+					state.iungo = iungoes[iungoId];
 
-		let device = this.getDevice( device_data );
-		if( device instanceof Error )
-			return module.exports.setUnavailable( device_data, __('unreachable') );
-		
-		var deviceInstance = this.getDeviceInstance( device_data );
-		if( deviceInstance instanceof Error )
-			return module.exports.setUnavailable( device_data, __('unreachable') );
-		
-		module.exports.setAvailable( device_data );
-
-		// Sync values to internal state
-		for( let capabilityId in device.state )
-		{
-			let value = deviceInstance[ capabilityId ];
-			if( typeof value !== 'undefined' ) {
-				
-				let oldValue = device.state[capabilityId];								
-				device.state[ capabilityId ] = value;	
-				
-				if(oldValue !== null && oldValue !== value)
-				{					
-					switch(capabilityId)
-					{
-						case 'meter_power.t1':
-							Homey.manager('flow').triggerDevice('meter_power_t1_changed', { power_used: value }, null, device_data, function(err, result) { if( err ) return Homey.error(err); });
-						break;
-						case 'meter_power.t2':
-							Homey.manager('flow').triggerDevice('meter_power_t2_changed', { power_used: value }, null, device_data, function(err, result) { if( err ) return Homey.error(err); });
-						break;
-						case 'meter_power.rt1':
-							Homey.manager('flow').triggerDevice('meter_power_rt1_changed', { power_used: value }, null, device_data, function(err, result) { if( err ) return Homey.error(err); });
-						break;
-						case 'meter_power.rt2':
-							Homey.manager('flow').triggerDevice('meter_power_rt2_changed', { power_used: value }, null, device_data, function(err, result) { if( err ) return Homey.error(err); });
-						break;
-						case 'measure_current.l1':
-							Homey.manager('flow').triggerDevice('measure_current_l1_changed', { current_value: value }, null, device_data, function(err, result) { if( err ) return Homey.error(err); });
-						break;
-						case 'measure_current.l2':
-							Homey.manager('flow').triggerDevice('measure_current_l2_changed', { current_value: value }, null, device_data, function(err, result) { if( err ) return Homey.error(err); });
-						break;
-						case 'measure_current.l3':
-							Homey.manager('flow').triggerDevice('measure_current_l3_changed', { current_value: value }, null, device_data, function(err, result) { if( err ) return Homey.error(err); });
-						break;
-					}
-				}
-				
-				if(oldValue !== value)
-				{
-					module.exports.realtime( device_data, capabilityId, value );
-				}
-			}
-		}
-		
-		// Sync settings to internal state
-		module.exports.getSettings(device_data, function(err, settings)
-		{
-			console.log(deviceInstance)
-			console.log(settings);
-			
-			if(settings.length === 0) {
-				// No settings yet available. Apply all settings.
-				module.exports.setSettings( device_data, deviceInstance.settings, function( err, settings )
-				{
-					console.log(err);
-					console.log(settings);
-				});
-			}
-			else
-			{
-				// Check if there are differences, and update all values (performance wise cheaper, only one call).
-				let changed = false;
-				for( let settingId in settings )
-				{
-					var oldSetting = settings[settingId];
-					var newSetting = deviceInstance.settings[settingId];
-					if(oldSetting !== newSetting)
-					{
-						changed = true;
-					}
-				}
-				
-				if(changed)
-				{
-					module.exports.setSettings( device_data, deviceInstance.settings, function( err, settings )
-					{
-						console.log(err);
-						console.log(settings);
+					result.push({
+						id		: iungoId,
+						name	: state.iungo.name || state.iungo.address,
+						icon	: state.iungo.icon
 					});
 				}
-			}
-		});
+
+				callback( null, result );
+			})
+			.on('list_devices', ( data, callback ) => {
+				if( this.onPairListDevices ) {
+					this.onPairListDevices( state, data, callback );
+				} else {
+					callback( new Error('missing onPairListDevices') );
+				}
+			})
+			.on('disconnect', () => {
+				state.connected = false;
+			})
 	}
 
-	_onBeforeSave( device_data ) {
-		this.debug('_onBeforeSave', device_data.id);
-		
-		let device = this.getDevice( device_data );
-		if( device instanceof Error ) return this.error( device );
-
-		let deviceInstance = this.getDeviceInstance( device_data );
-		if( deviceInstance instanceof Error ) return this.error( deviceInstance );
-
-		for( let capabilityId in device.state )
-		{
-			// Skip null values
-			let value = device.state[ capabilityId ];
-			if( value === null ) continue;
-
-			deviceInstance[ capabilityId ] = value;
-		}
-	}
-
-	_onExportsPairListDevices( state, data, callback ) {
-		this.debug('_onExportsPairListDevices', state);
+    onPairListDevices( state, data, callback )
+    {
+	    console.log('onPairListDevices', state);
 
 		if( !state.iungo )
 			return callback( 'invalid_iungo' );
@@ -176,12 +61,89 @@ class DriverEnergyMeter extends IungoDriver {
 		
 		for( let power_meter in state.iungo._energyMeters )
 		{
-			let deviceData = this.getDeviceData( state.iungo, power_meter );
+			// Select capabilities dynamically based on availability & value
+			let capabilities = [ "measure_power", "meter_power.t1" ];
 			
+			if(typeof state.iungo._energyMeters[power_meter]['meter_power.t2'] !== 'undefined' && state.iungo._energyMeters[power_meter]['meter_power.t2'] > 0)
+			{
+				capabilities.push('meter_power.t2');
+			}
+			
+			capabilities.push("meter_gas");
+			
+			var exportValue = false;
+			if(typeof state.iungo._energyMeters[power_meter]['meter_power.rt1'] !== 'undefined' && state.iungo._energyMeters[power_meter]['meter_power.rt1'] > 0)
+			{
+				capabilities.push('meter_power.rt1');
+				exportValue = true;
+			}
+			
+			if(typeof state.iungo._energyMeters[power_meter]['meter_power.rt2'] !== 'undefined' && state.iungo._energyMeters[power_meter]['meter_power.rt2'] > 0)
+			{
+				capabilities.push('meter_power.rt2');
+				exportValue = true;
+			}
+			
+			// We don't need the export capabilities if we don't export power.
+			// We also don't need the import capability because the import total is always equal to the current power usage.
+			if(exportValue)
+			{
+				capabilities.push("measure_power.import");
+				capabilities.push("measure_power.export");
+			}
+			
+			// We only need l1 import if l2 import is also defined. Otherwise l1 import will contain exactly the same values as measure power capability.
+			// Or if we export energy. Then l1 import will be different then measure power.
+			if(typeof state.iungo._energyMeters[power_meter]['measure_power.l1i'] !== 'undefined' 
+				&& (typeof state.iungo._energyMeters[power_meter]['measure_power.l2i'] !== 'undefined' || exportValue))
+			{
+				capabilities.push('measure_power.l1i');
+			}
+			
+			if(typeof state.iungo._energyMeters[power_meter]['measure_power.l2i'] !== 'undefined')
+			{
+				capabilities.push('measure_power.l2i');
+			}
+			
+			if(typeof state.iungo._energyMeters[power_meter]['measure_power.l3i'] !== 'undefined')
+			{
+				capabilities.push('measure_power.l3i');
+			}
+			
+			if(typeof state.iungo._energyMeters[power_meter]['measure_power.l1e'] !== 'undefined' && state.iungo._energyMeters[power_meter]['measure_power.l1e'] > 0 && exportValue)
+			{
+				capabilities.push('measure_power.l1e');
+			}
+			
+			if(typeof state.iungo._energyMeters[power_meter]['measure_power.l2e'] !== 'undefined' && state.iungo._energyMeters[power_meter]['measure_power.l2e'] > 0 && exportValue)
+			{
+				capabilities.push('measure_power.l2e');
+			}
+			
+			if(typeof state.iungo._energyMeters[power_meter]['measure_power.l3e'] !== 'undefined' && state.iungo._energyMeters[power_meter]['measure_power.l3e'] > 0 && exportValue)
+			{
+				capabilities.push('measure_power.l3e');
+			}			
+			
+			if(typeof state.iungo._energyMeters[power_meter]['measure_current.l1'] !== 'undefined' && state.iungo._energyMeters[power_meter]['measure_current.l1'] > 0)
+			{
+				capabilities.push('measure_current.l1');
+			}
+			
+			if(typeof state.iungo._energyMeters[power_meter]['measure_current.l2'] !== 'undefined' && state.iungo._energyMeters[power_meter]['measure_current.l2'] > 0)
+			{
+				capabilities.push('measure_current.l2');
+			}
+			
+			if(typeof state.iungo._energyMeters[power_meter]['measure_current.l3'] !== 'undefined' && state.iungo._energyMeters[power_meter]['measure_current.l3'] > 0)
+			{
+				capabilities.push('measure_current.l3');
+			}
+						
 			let deviceObj = {
 				name			: state.iungo._energyMeters[power_meter].name,
-				data 			: deviceData,
-				capabilities	: [ "measure_power", "meter_power.t1", "meter_power.t2", "meter_gas", "meter_power.rt1", "meter_power.rt2" ]
+				data 			: { iungo_id: state.iungo.id, id: power_meter  } ,
+				capabilities	: capabilities
 			};
 
 			if( typeof iconsMap[ state.iungo._energyMeters[power_meter].modelId ] === 'string' ) {
@@ -193,116 +155,7 @@ class DriverEnergyMeter extends IungoDriver {
 		}
 
 		callback( null, result );
-	}
-
-	// meter_gas
-	_onExportsCapabilitiesMeterGasGet( device_data, callback ) {
-		this.debug('_onExportsCapabilitiesMeterGasGet', device_data.id);
-
-		let device = this.getDevice( device_data );
-		if( device instanceof Error ) return callback( device );
-
-		callback( null, device.state.meter_gas );
-	}
-	
-	// meter_power.t1
-	_onExportsCapabilitiesMeterPowerT1Get( device_data, callback ) {
-		this.debug('_onExportsCapabilitiesMeterPower.t1', device_data.id);
-
-		let device = this.getDevice( device_data );
-		if( device instanceof Error ) return callback( device );
-
-		callback( null, device.state["meter_power.t1"] );
-	}
-	
-	// meter_power.t2
-	_onExportsCapabilitiesMeterPowerT2Get( device_data, callback ) {
-		this.debug('_onExportsCapabilitiesMeterPower.t2', device_data.id);
-
-		let device = this.getDevice( device_data );
-		if( device instanceof Error ) return callback( device );
-
-		callback( null, device.state["meter_power.t2"] );
-	}
-	
-	// meter_power.rt1
-	_onExportsCapabilitiesMeterPowerRT1Get( device_data, callback ) {
-		this.debug('_onExportsCapabilitiesMeterPower.rt1', device_data.id);
-
-		let device = this.getDevice( device_data );
-		if( device instanceof Error ) return callback( device );
-
-		callback( null, device.state["meter_power.rt1"] );
-	}
-	
-	// meter_power.rt2
-	_onExportsCapabilitiesMeterPowerRT2Get( device_data, callback ) {
-		this.debug('_onExportsCapabilitiesMeterPower.rt2', device_data.id);
-
-		let device = this.getDevice( device_data );
-		if( device instanceof Error ) return callback( device );
-
-		callback( null, device.state["meter_power.rt2"] );
-	}
-	
-	// measure_current.l1
-	_onExportsCapabilitiesMeterCurrentL1Get( device_data, callback ) {
-		this.debug('_onExportsCapabilitiesMeasureCurrent.l1', device_data.id);
-
-		let device = this.getDevice( device_data );
-		if( device instanceof Error ) return callback( device );
-
-		callback( null, device.state["measure_current.l1"] );
-	}
-	
-	// measure_current.l2
-	_onExportsCapabilitiesMeterCurrentL2Get( device_data, callback ) {
-		this.debug('_onExportsCapabilitiesMeasureCurrent.l2', device_data.id);
-
-		let device = this.getDevice( device_data );
-		if( device instanceof Error ) return callback( device );
-
-		callback( null, device.state["measure_current.l2"] );
-	}
-	
-	// measure_current.l3
-	_onExportsCapabilitiesMeterCurrentL3Get( device_data, callback ) {
-		this.debug('_onExportsCapabilitiesMeasureCurrent.l3', device_data.id);
-
-		let device = this.getDevice( device_data );
-		if( device instanceof Error ) return callback( device );
-
-		callback( null, device.state["measure_current.l3"] );
-	}
-	
-	// measure_power
-	_onExportsCapabilitiesMeasurePowerGet( device_data, callback ) {
-		this.debug('_onExportsCapabilitiesMeasurePower', device_data.id);
-
-		let device = this.getDevice( device_data );
-		if( device instanceof Error ) return callback( device );
-
-		callback( null, device.state.measure_power );
-	}
-	
-	// Settings functions
-	_onSettingsChange ( device_data, newSettingsObj, oldSettingsObj, changedKeysArr, callback )
-	{
-		let device = this.getDevice( device_data );
-		if( device instanceof Error ) return callback( "No device found to save settings to" );
-		
-		Homey.log ('Changed settings: ' + JSON.stringify(device_data) + ' / ' + JSON.stringify(newSettingsObj) + ' / old = ' + JSON.stringify(oldSettingsObj));
-		try {
-			changedKeysArr.forEach(function (key) {
-				//devices[device_data.id].settings[key] = newSettingsObj[key];
-				device.save( callback, "settings", { "key": key, "value": newSettingsObj[key] });
-			});
-			
-			callback(null, true);
-		} catch (error) {
-			callback(error); 
-		}
-	}
+    }
 }
 
-module.exports = new DriverEnergyMeter();
+module.exports = DriverEnergyMeter;

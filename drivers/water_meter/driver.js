@@ -1,119 +1,55 @@
 'use strict';
 
-const IungoDriver	= require('../../includes/iungoDriver.js');
-
+const Homey = require('homey');
 const defaultIcon 			= 'default';
 const iconsMap				= {
 	'default': 'default'
 }
 
-class DriverWaterMeter extends IungoDriver {
+class DriverWaterMeter extends Homey.Driver {
 
-	constructor() {
-		super();
+    onPair( socket ) {
+		console.log('onPair');
 
-		this._deviceType = 'water_meter';
-		
-		this.capabilities = {};
-		
-		this.capabilities.meter_water = {};
-		this.capabilities.meter_water.get = this._onExportsCapabilitiesMeterWaterGet.bind(this);
-		
-		this.capabilities.measure_water = {};
-		this.capabilities.measure_water.get = this._onExportsCapabilitiesMeasureWaterGet.bind(this);
-		
-		this.settings = this._onSettingsChange.bind(this);
-	}
+		let state = {
+			connected	: true,
+			iungo		: undefined
+		};
 
-	_syncDevice( device_data ) {
-		this.debug('_syncDevice', device_data.id);
-
-		let device = this.getDevice( device_data );
-		console.log("device");
-		console.log(device);
-		if( device instanceof Error )
-			return module.exports.setUnavailable( device_data, __('unreachable') );
-		
-		let deviceInstance = this.getDeviceInstance( device_data );
-		console.log("instance");
-		console.log(deviceInstance);
-		if( deviceInstance instanceof Error )
-			return module.exports.setUnavailable( device_data, __('unreachable') );
-		
-		console.log("available");
-		module.exports.setAvailable( device_data );
-
-		// Sync values to internal state
-		for( let capabilityId in device.state )
-		{
-			let value = deviceInstance[ capabilityId ];
-			if( typeof value !== 'undefined' ) {
-				device.state[ capabilityId ] = value;
-				module.exports.realtime( device_data, capabilityId, device.state[ capabilityId ] );
-			}
-		}
-		
-		// Sync settings to internal state
-		module.exports.getSettings(device_data, function(err, settings)
-		{
-			console.log(deviceInstance)
-			console.log(settings);
-			
-			if(settings.length === 0) {
-				// No settings yet available. Apply all settings.
-				module.exports.setSettings( device_data, deviceInstance.settings, function( err, settings )
-				{
-					console.log(err);
-					console.log(settings);
-				});
-			}
-			else
-			{
-				// Check if there are differences, and update all values (performance wise cheaper, only one call).
-				let changed = false;
-				for( let settingId in settings )
-				{
-					var oldSetting = settings[settingId];
-					var newSetting = deviceInstance.settings[settingId];
-					if(oldSetting !== newSetting)
-					{
-						changed = true;
-					}
-				}
+		socket
+			.on('select_iungo', ( data, callback ) => {
+				Homey.app.findIungos();
 				
-				if(changed)
-				{
-					module.exports.setSettings( device_data, deviceInstance.settings, function( err, settings )
-					{
-						console.log(err);
-						console.log(settings);
+				let result = [];
+				let iungoes = Homey.app.getIungoes();
+				console.log(iungoes);
+				for( let iungoId in iungoes) {
+					state.iungo = iungoes[iungoId];
+
+					result.push({
+						id		: iungoId,
+						name	: state.iungo.name || state.iungo.address,
+						icon	: state.iungo.icon
 					});
 				}
-			}
-		});
+
+				callback( null, result );
+			})
+			.on('list_devices', ( data, callback ) => {
+				if( this.onPairListDevices ) {
+					this.onPairListDevices( state, data, callback );
+				} else {
+					callback( new Error('missing onPairListDevices') );
+				}
+			})
+			.on('disconnect', () => {
+				state.connected = false;
+			})
 	}
 
-	_onBeforeSave( device_data ) {
-		this.debug('_onBeforeSave', device_data.id);
-		
-		let device = this.getDevice( device_data );
-		if( device instanceof Error ) return this.error( device );
-
-		let deviceInstance = this.getDeviceInstance( device_data );
-		if( deviceInstance instanceof Error ) return this.error( deviceInstance );
-
-		for( let capabilityId in device.state )
-		{
-			// Skip null values
-			let value = device.state[ capabilityId ];
-			if( value === null ) continue;
-
-			deviceInstance[ capabilityId ] = value;
-		}
-	}
-
-	_onExportsPairListDevices( state, data, callback ) {
-		this.debug('_onExportsPairListDevices', state);
+    onPairListDevices( state, data, callback )
+    {
+	    console.log('onPairListDevices', state);
 
 		if( !state.iungo )
 			return callback( 'invalid_iungo' );
@@ -125,11 +61,9 @@ class DriverWaterMeter extends IungoDriver {
 		
 		for( let water_meter in state.iungo._waterMeters )
 		{
-			let deviceData = this.getDeviceData( state.iungo, water_meter );
-			
 			let deviceObj = {
 				name			: state.iungo._waterMeters[water_meter].name,
-				data 			: deviceData,
+				data 			: { iungo_id: state.iungo.id, id: socket  },
 				capabilities	: [ "measure_water", "meter_water" ]
 			};
 
@@ -142,46 +76,7 @@ class DriverWaterMeter extends IungoDriver {
 		}
 
 		callback( null, result );
-	}
-
-	// water_meter
-	_onExportsCapabilitiesMeterWaterGet( device_data, callback ) {
-		this.debug('_onExportsCapabilitiesMeterWaterGet', device_data.id);
-
-		let device = this.getDevice( device_data );
-		if( device instanceof Error ) return callback( device );
-
-		callback( null, device.state.meter_water );
-	}
-	
-	// measure_water
-	_onExportsCapabilitiesMeasureWaterGet( device_data, callback ) {
-		this.debug('_onExportsCapabilitiesMeasureWater', device_data.id);
-
-		let device = this.getDevice( device_data );
-		if( device instanceof Error ) return callback( device );
-
-		callback( null, device.state.measure_water );
-	}
-	
-	// Settings functions
-	_onSettingsChange ( device_data, newSettingsObj, oldSettingsObj, changedKeysArr, callback )
-	{
-		let device = this.getDevice( device_data );
-		if( device instanceof Error ) return callback( "No device found to save settings to" );
-		
-		Homey.log ('Changed settings: ' + JSON.stringify(device_data) + ' / ' + JSON.stringify(newSettingsObj) + ' / old = ' + JSON.stringify(oldSettingsObj));
-		try {
-			changedKeysArr.forEach(function (key) {
-				//devices[device_data.id].settings[key] = newSettingsObj[key];
-				device.save( callback, "settings", { "key": key, "value": newSettingsObj[key] });
-			});
-			
-			callback(null, true);
-		} catch (error) {
-			callback(error); 
-		}
-	}
+    }
 }
 
-module.exports = new DriverWaterMeter();
+module.exports = DriverWaterMeter;
