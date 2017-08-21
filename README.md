@@ -19,7 +19,9 @@ v0.3.0:
 	* Total power import (shown when redelivery, or more then one fase is available)
 	* Total power export (if in use)
 * Made sure that capabilities are only shown if they are used (e.g. redelivery readings won't show if you don't have redelivery power)
+* Added solar meter
 * Completely rewrote the app to use Homey SDK Version 2 (so it's future proof :)), needs Homey version 1.5 or higher
+
 
 v0.2.8:
 * Added redelivery (solar panels) capabilities to smart meter (**repair of device needed**)

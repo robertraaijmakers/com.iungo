@@ -26,8 +26,7 @@ class DeviceWaterMeter extends Homey.Device {
 		}
 		else
 		{
-			let deviceInstance = iungo.getEnergyMeter(deviceData.id);
-		
+			let deviceInstance = iungo.getWaterMeter(deviceData.id);
 			iungo.on('refresh-' + deviceData.id, this.syncDevice.bind(this) );
 			this.syncDevice( );
 		}

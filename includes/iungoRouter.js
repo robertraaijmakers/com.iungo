@@ -39,6 +39,10 @@ const waterMeterSettingsMap = {
 	'offset': 'offset'
 }
 
+const solarMeterSettingsMap = {
+	'offset': 'offset'
+}
+
 class IungoRouter extends events.EventEmitter {
 
 	constructor( id, address ) {
@@ -59,6 +63,7 @@ class IungoRouter extends events.EventEmitter {
 		this._energyMeters	= {};
 		this._waterMeters 	= {};
 		this._sockets		= {};
+		this._solarMeters	= {};
 		this._client 		= new Iungo("", "", address);
 	}
 
@@ -177,6 +182,9 @@ class IungoRouter extends events.EventEmitter {
 
 		if ( type === 'socket' )
 			return this.saveSocket ( instance, action, value );
+			
+		if ( type === 'solar_meter' )
+			return this.saveSolarMeter ( instance, action, value );
 
 		return new Error('invalid_type');
 	}
@@ -191,6 +199,13 @@ class IungoRouter extends events.EventEmitter {
 	saveWater ( settings, action, value )
 	{
 		this.debug('savePower');
+		console.log( settings );
+		return Promise.resolve(false);
+	}
+	
+	saveSolarMeter ( settings, action, value )
+	{
+		this.debug('saveSolarMeter');
 		console.log( settings );
 		return Promise.resolve(false);
 	}
@@ -260,6 +275,13 @@ class IungoRouter extends events.EventEmitter {
 					this._sockets[socket.id] = socket;
 					this.emit('refresh-'+socket.id);
 				}
+				else if(device.type.indexOf("solar") !== -1)
+				{
+					// Wall socket
+					var meter = parseSolarMeterValues(device.oid, device.name, device.driver, device.propsval);
+					this._solarMeters[meter.id] = meter;
+					this.emit('refresh-'+meter.id);
+				}
 			}
 			
 			callback();
@@ -294,6 +316,16 @@ class IungoRouter extends events.EventEmitter {
 			console.log("Socket is invalid");
 			console.log(device);
 			return  new Error('invalid_socket');
+		}
+		
+		return device;
+	}
+	
+	getSolarMeter( meterId ) {
+		let device = _.findWhere( this._solarMeters, { uniqueId: meterId });
+		if(typeof device === 'undefined' || device === null || device.present !== true)
+		{
+			return  new Error('invalid_solar_meter');
 		}
 		
 		return device;
@@ -429,4 +461,53 @@ function parseSocketValues(oid, name, type, properties)
 	}
 
 	return socket;
+}
+
+function parseSolarMeterValues(oid, name, type, properties)
+{
+	// Register device variables
+	let solarMeter = 
+	{
+		id: oid,
+		uniqueId: oid,
+		name: name,
+		modelId: "solar",
+		present: true,
+		settings: {}
+	}
+		
+	var offset = null;
+	var pulstotal = null;
+	var ppkwh = null;
+	
+	for(var obj in properties)
+	{
+		var property = properties[obj];
+		//console.log(property);
+		//console.log(property.id);
+		
+		switch(property.id)
+		{
+			case "solar":
+				solarMeter["measure_power"] = property.value;
+			break;
+			case "offset":
+				offset = property.value;
+				solarMeter["settings"]["offset"] = property.value;
+			break;
+			case "pulstotal":
+				pulstotal = property.value;
+			break;
+			case "ppkwh":
+				ppkwh = property.value;
+			break;
+		}
+	}
+	
+	if(offset !== null && pulstotal !== null && ppkwh !== null)
+	{
+		solarMeter["meter_power"] = offset + (pulstotal / ppkwh);
+	}
+
+	return solarMeter;
 }

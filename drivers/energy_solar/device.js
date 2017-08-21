@@ -2,18 +2,15 @@
 
 const Homey = require('homey');
 
-const _deviceType			= "socket";
+const _deviceType			= "solar_meter";
 
-class DeviceSocket extends Homey.Device {
+class DeviceSolarMeter extends Homey.Device {
 
     // This method is called when the Device is inited
     onInit() {
         this.log('device init');
         this.log('name:', this.getName());
         this.log('class:', this.getClass());
-        
-        // Register a capability listener        
-		this.registerCapabilityListener("onoff", this.onCapabilitiesOnOffSet.bind(this));
 				
 		// Wait for the iungo to be available (and start recieving update events)
 		let deviceData = this.getData();
@@ -29,7 +26,7 @@ class DeviceSocket extends Homey.Device {
 		}
 		else
 		{
-			let deviceInstance = iungo.getSocket(deviceData.id);
+			let deviceInstance = iungo.getSolarMeter(deviceData.id);		
 			iungo.on('refresh-' + deviceData.id, this.syncDevice.bind(this) );
 			this.syncDevice( );
 		}
@@ -55,7 +52,7 @@ class DeviceSocket extends Homey.Device {
 	    let deviceState = this.getState();
 	    
 	    // New device state / data
-		var deviceInstance = iungo.getSocket( deviceData.id );
+		var deviceInstance = iungo.getSolarMeter( deviceData.id );
 		if( deviceInstance instanceof Error )
 		{
 			return this.setUnavailable( Homey.__('unreachable') );
@@ -117,7 +114,7 @@ class DeviceSocket extends Homey.Device {
         // Sync (new) device name with Iungo
         let deviceData = this.getData();
         let iungo = this.getIungo( deviceData );
-        return iungo.save(_deviceType, deviceData, 'name', this.getName());        
+        iungo.save(_deviceType, deviceData, 'name', this.getName());        
     }
     
     onRenamed(newName)
@@ -125,7 +122,7 @@ class DeviceSocket extends Homey.Device {
         // Sync (new) device name with Iungo
         let deviceData = this.getData();
         let iungo = this.getIungo( deviceData );
-        return iungo.save(_deviceType, deviceData, 'name', newName); 	    
+        iungo.save(_deviceType, deviceData, 'name', newName); 	    
     }
 
     // This method is called when the Device is deleted
@@ -140,15 +137,6 @@ class DeviceSocket extends Homey.Device {
 			iungo.removeListener('refresh-' + deviceData.id, this.syncDevice.bind(this));
 		}
     }
-	
-	onCapabilitiesOnOffSet( value, opts, callback ) {
-		this.log('onCapabilitiesOnOffSet', value, opts);
-		
-		// Sync (new) device name with Iungo
-        let deviceData = this.getData();
-        let iungo = this.getIungo( deviceData );
-        return iungo.save( _deviceType, deviceData, 'onoff', value);
-	}
 	
 	// Fired when the settings of this device are changed by the user.
 	onSettings ( oldSettingsObj, newSettingsObj, changedKeysArr, callback )
@@ -174,4 +162,4 @@ class DeviceSocket extends Homey.Device {
 	}
 }
 
-module.exports = DeviceSocket;
+module.exports = DeviceSolarMeter;
