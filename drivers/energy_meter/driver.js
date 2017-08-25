@@ -110,32 +110,32 @@ class DriverEnergyMeter extends Homey.Driver {
 				capabilities.push('measure_power.l3i');
 			}
 			
-			if(typeof state.iungo._energyMeters[power_meter]['measure_power.l1e'] !== 'undefined' && state.iungo._energyMeters[power_meter]['measure_power.l1e'] > 0 && exportValue)
+			if(typeof state.iungo._energyMeters[power_meter]['measure_power.l1e'] !== 'undefined' && exportValue)
 			{
 				capabilities.push('measure_power.l1e');
 			}
 			
-			if(typeof state.iungo._energyMeters[power_meter]['measure_power.l2e'] !== 'undefined' && state.iungo._energyMeters[power_meter]['measure_power.l2e'] > 0 && exportValue)
+			if(typeof state.iungo._energyMeters[power_meter]['measure_power.l2e'] !== 'undefined' && exportValue)
 			{
 				capabilities.push('measure_power.l2e');
 			}
 			
-			if(typeof state.iungo._energyMeters[power_meter]['measure_power.l3e'] !== 'undefined' && state.iungo._energyMeters[power_meter]['measure_power.l3e'] > 0 && exportValue)
+			if(typeof state.iungo._energyMeters[power_meter]['measure_power.l3e'] !== 'undefined' && exportValue)
 			{
 				capabilities.push('measure_power.l3e');
 			}			
 			
-			if(typeof state.iungo._energyMeters[power_meter]['measure_current.l1'] !== 'undefined' && state.iungo._energyMeters[power_meter]['measure_current.l1'] > 0)
+			if(typeof state.iungo._energyMeters[power_meter]['measure_current.l1'] !== 'undefined')
 			{
 				capabilities.push('measure_current.l1');
 			}
 			
-			if(typeof state.iungo._energyMeters[power_meter]['measure_current.l2'] !== 'undefined' && state.iungo._energyMeters[power_meter]['measure_current.l2'] > 0)
+			if(typeof state.iungo._energyMeters[power_meter]['measure_current.l2'] !== 'undefined')
 			{
 				capabilities.push('measure_current.l2');
 			}
 			
-			if(typeof state.iungo._energyMeters[power_meter]['measure_current.l3'] !== 'undefined' && state.iungo._energyMeters[power_meter]['measure_current.l3'] > 0)
+			if(typeof state.iungo._energyMeters[power_meter]['measure_current.l3'] !== 'undefined')
 			{
 				capabilities.push('measure_current.l3');
 			}
