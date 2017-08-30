@@ -5,7 +5,7 @@
 		"en": "Iungo",
 		"nl": "Iungo"
 	},
-	"version": "0.3.0",
+	"version": "0.3.2",
 	"compatibility": ">=1.5",
 	"description": {
 		"en": "Control Iungo using Homey",
