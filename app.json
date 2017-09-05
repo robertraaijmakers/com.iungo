@@ -5,7 +5,7 @@
 		"en": "Iungo",
 		"nl": "Iungo"
 	},
-	"version": "0.3.2",
+	"version": "0.3.3",
 	"compatibility": ">=1.5",
 	"description": {
 		"en": "Control Iungo using Homey",
@@ -293,7 +293,7 @@
 			"measure_power.import": {
 				"title": {
 					"en": "Power Import",
-					"nl": "Vrmogen Import"
+					"nl": "Vermogen Import"
 				}
 			},
 			"measure_power.export": {
