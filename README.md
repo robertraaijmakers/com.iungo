@@ -11,6 +11,10 @@ If you have any suggestions or bugs, please post them on GitHub: https://github.
 
 If you have any questions regarding flows, usage or other questions about the app. Please post them in the official app topic: https://forum.athom.com/discussion/3217/app-iungo
 
+v0.3.4:
+* Added fix for homes without gas meter
+* Added fix to support modbus energy meters as seperate energy meters
+
 v0.3.3:
 * Fixt synchronisation problem with redelivery values
 * Added power fase readings (**repair of device needed**). This will show:
