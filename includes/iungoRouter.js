@@ -342,7 +342,7 @@ function parseEnergyMeterValues(oid, name, type, properties)
 		id: oid,
 		uniqueId: oid,
 		name: name,
-		modelId: type.replace("energy-",""),
+		modelId: type.replace("energy-","").replace("energymeter-",""),
 		settings: {}
 	}
 	
