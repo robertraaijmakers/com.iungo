@@ -69,7 +69,12 @@ class DriverEnergyMeter extends Homey.Driver {
 				capabilities.push('meter_power.t2');
 			}
 			
-			capabilities.push("meter_gas");
+			// Only add gas to capabilities when gas is connected
+			// Not all homes have gas connection these days and also some modbus energymeter drivers don't measure gas #10
+			if(typeof state.iungo._energyMeters[power_meter]['meter_gas'] !== 'undefined' && state.iungo._energyMeters[power_meter]['meter_gas'] > 0)
+			{
+				capabilities.push("meter_gas");
+			}
 			
 			var exportValue = false;
 			if(typeof state.iungo._energyMeters[power_meter]['meter_power.rt1'] !== 'undefined' && state.iungo._energyMeters[power_meter]['meter_power.rt1'] > 0)
