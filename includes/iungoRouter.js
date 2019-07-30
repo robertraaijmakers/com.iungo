@@ -290,9 +290,14 @@ class IungoRouter extends events.EventEmitter {
 	
 	getEnergyMeter( meterId ) {
 		let device = _.findWhere( this._energyMeters, { uniqueId: meterId });
-		if(typeof device === 'undefined' || device === null || device.present !== true)
+		if(typeof device === 'undefined' || device === null)
 		{
-			return  new Error('invalid_energy_meter');
+			return new Error('invalid_energy_meter');
+		}
+		
+		if(typeof device.present !== 'undefined' && device.present !== true)
+		{
+			return new Error('invalid_energy_meter');
 		}
 		
 		return device;
@@ -342,7 +347,7 @@ function parseEnergyMeterValues(oid, name, type, properties)
 		id: oid,
 		uniqueId: oid,
 		name: name,
-		modelId: type.replace("energy-",""),
+		modelId: type.replace("energy-","").replace("energymeter-",""),
 		settings: {}
 	}
 	
