@@ -9,7 +9,9 @@ This app let's you connect your Iungo to Homey. You can add your Iungo smart met
 
 If you have any suggestions or bugs, please post them on GitHub: https://github.com/robertraaijmakers/com.iungo/
 
-If you have any questions regarding flows, usage or other questions about the app. Please post them in the official app topic: https://forum.athom.com/discussion/3217/app-iungo
+
+v0.4.0:
+* Added support for Homey energy!! :)
 
 v0.3.4:
 * Added fix for homes without gas meter

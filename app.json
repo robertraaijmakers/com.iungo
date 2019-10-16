@@ -5,8 +5,8 @@
 		"en": "Iungo",
 		"nl": "Iungo"
 	},
-	"version": "0.3.5",
-	"compatibility": ">=1.5",
+	"version": "0.4.0",
+	"compatibility": ">=3.0",
 	"description": {
 		"en": "Control Iungo using Homey",
 		"nl": "Bedien Iungo met je Homey"
@@ -339,6 +339,9 @@
 				}
 			}
 		},
+		"energy": {
+			"cumulative": true
+		},
 		"pair": [
 			{
 				"id": "select_iungo",
@@ -566,7 +569,7 @@
 			"large": "drivers/energy_solar/assets/images/large.jpg",
 			"small": "drivers/energy_solar/assets/images/small.jpg"
 		},
-		"class": "sensor",
+		"class": "solarpanel",
 		"capabilities": [
 			"measure_power",
 			"meter_power"
