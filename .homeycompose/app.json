@@ -1,0 +1,46 @@
+{
+  "id": "com.iungo",
+  "sdk": 2,
+  "name": {
+    "en": "Iungo",
+    "nl": "Iungo"
+  },
+  "version": "0.4.1",
+  "compatibility": ">=3.0",
+  "description": {
+    "en": "Control Iungo and Iungo connected devices using Homey",
+    "nl": "Bedien Iungo en diverse gekoppelde apparaten met Homey"
+  },
+  "category": [
+    "energy",
+    "appliances",
+    "tools"
+  ],
+  "images": {
+    "large": "assets/images/large.png",
+    "small": "assets/images/small.png"
+  },
+  "author": {
+    "name": "Robert Raaijmakers",
+    "email": "dutchfighter@live.nl"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Robert Raaijmakers",
+        "email": "dutchfighter@live.nl"
+      }
+    ]
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "RobertRaaijmakers"
+      }
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/robertraaijmakers/com.iungo/issues"
+  },
+  "source": "https://github.com/robertraaijmakers/com.iungo"
+}
