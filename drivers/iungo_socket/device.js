@@ -1,10 +1,9 @@
 'use strict';
 
 const Homey = require('homey');
-
 const _deviceType			= "socket";
 
-class DeviceSocket extends Homey.Device {
+module.exports = class DeviceSocket extends Homey.Device {
 
     // This method is called when the Device is inited
     onInit() {
@@ -48,7 +47,7 @@ class DeviceSocket extends Homey.Device {
 	    let iungo = this.getIungo( deviceData );
 		if( iungo instanceof Error )
 		{
-			return this.setUnavailable( Homey.__('unreachable') );
+			return this.setUnavailable( this.homey.__('unreachable') );
 		}
 	    
 	    // Current device state
@@ -58,7 +57,7 @@ class DeviceSocket extends Homey.Device {
 		var deviceInstance = iungo.getSocket( deviceData.id );
 		if( deviceInstance instanceof Error )
 		{
-			return this.setUnavailable( Homey.__('unreachable') );
+			return this.setUnavailable( this.homey.__('unreachable') );
 		}
 	   
 		this.setAvailable( );
@@ -151,7 +150,7 @@ class DeviceSocket extends Homey.Device {
 	}
 	
 	// Fired when the settings of this device are changed by the user.
-	onSettings ( oldSettingsObj, newSettingsObj, changedKeysArr, callback )
+	onSettings ( oldSettingsObj, newSettingsObj, changedKeysArr )
 	{
 		let device_data = this.getData();
 		
@@ -167,11 +166,9 @@ class DeviceSocket extends Homey.Device {
 					})
 			});
 			
-			callback(null, true);
+			return Promise.resolve(true);
 		} catch (error) {
-			callback(error, null);
+			return Promise.reject(error);
 		}
 	}
 }
-
-module.exports = DeviceSocket;

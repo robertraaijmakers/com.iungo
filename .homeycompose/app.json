@@ -1,12 +1,12 @@
 {
   "id": "com.iungo",
-  "sdk": 2,
+  "sdk": 3,
   "name": {
     "en": "Iungo",
     "nl": "Iungo"
   },
-  "version": "0.4.1",
-  "compatibility": ">=3.0",
+  "version": "1.0.0",
+  "compatibility": ">=5.0",
   "description": {
     "en": "Control Iungo and Iungo connected devices using Homey",
     "nl": "Bedien Iungo en diverse gekoppelde apparaten met Homey"

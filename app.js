@@ -8,12 +8,12 @@ const findIungosInterval = 600000;
 
 class App extends Homey.App {
 
-	onInit() {		
+	async onInit() {		
 		this.setMaxListeners(0);
 		this._iungos = {};
 		
 		this.findIungos();
-		setInterval( this.findIungos.bind(this), findIungosInterval );
+		this.homey.setInterval( this.findIungos.bind(this), findIungosInterval );
 	}
 
 	/*

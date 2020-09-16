@@ -4,7 +4,7 @@ const Homey = require('homey');
 
 const _deviceType			= "solar_meter";
 
-class DeviceSolarMeter extends Homey.Device {
+module.exports = class DeviceSolarMeter extends Homey.Device {
 
     // This method is called when the Device is inited
     onInit() {
@@ -45,7 +45,7 @@ class DeviceSolarMeter extends Homey.Device {
 	    let iungo = this.getIungo( deviceData );
 		if( iungo instanceof Error )
 		{
-			return this.setUnavailable( Homey.__('unreachable') );
+			return this.setUnavailable( this.homey.__('unreachable') );
 		}
 	    
 	    // Current device state
@@ -55,7 +55,7 @@ class DeviceSolarMeter extends Homey.Device {
 		var deviceInstance = iungo.getSolarMeter( deviceData.id );
 		if( deviceInstance instanceof Error )
 		{
-			return this.setUnavailable( Homey.__('unreachable') );
+			return this.setUnavailable( this.homey.__('unreachable') );
 		}
 	   
 		this.setAvailable( );
@@ -139,7 +139,7 @@ class DeviceSolarMeter extends Homey.Device {
     }
 	
 	// Fired when the settings of this device are changed by the user.
-	onSettings ( oldSettingsObj, newSettingsObj, changedKeysArr, callback )
+	onSettings ( oldSettingsObj, newSettingsObj, changedKeysArr )
 	{
 		let device_data = this.getData();
 		
@@ -155,11 +155,9 @@ class DeviceSolarMeter extends Homey.Device {
 					})
 			});
 			
-			callback(null, true);
+			Promise.resolve(true);
 		} catch (error) {
-			callback(error, null);
+			Promise.reject(error);
 		}
 	}
 }
-
-module.exports = DeviceSolarMeter;
