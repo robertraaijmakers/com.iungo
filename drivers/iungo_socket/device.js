@@ -20,7 +20,7 @@ module.exports = class DeviceSocket extends Homey.Device {
 		
 		if(iungo instanceof Error )
 		{
-			Homey.app.once('iungo_available', ( iungo ) => {
+			this.homey.app.once('iungo_available', ( iungo ) => {
 				this.log("iungo_available");
 				iungo.on('refresh-' + deviceData.id , this.syncDevice.bind(this) );
 				this.syncDevice( );
@@ -35,12 +35,12 @@ module.exports = class DeviceSocket extends Homey.Device {
     }
     
     getIungo( device_data ) {
-		if(typeof Homey === 'undefined' || typeof Homey.app === 'undefined')
+		if(typeof this.homey === 'undefined' || typeof this.homey.app === 'undefined')
 		{
 			return new Error("App not yet available.");
 		}
 		
-		return Homey.app.getIungo( device_data.iungo_id );
+		return this.homey.app.getIungo( device_data.iungo_id );
 	}
     
     // sync device data and settings

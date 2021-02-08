@@ -21,10 +21,10 @@ module.exports = class DriverSockets extends Homey.Driver {
 
 		session
 			.setHandler('select_iungo', ( data ) => {
-				Homey.app.findIungos();
+				this.homey.app.findIungos();
 				
 				let result = [];
-				let iungoes = Homey.app.getIungoes();
+				let iungoes = this.homey.app.getIungoes();
 				console.log(iungoes);
 				for( let iungoId in iungoes) {
 					state.iungo = iungoes[iungoId];
