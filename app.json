@@ -1,638 +1,717 @@
 {
-	"id": "com.iungo",
-	"sdk": 2,
-	"name": {
-		"en": "Iungo",
-		"nl": "Iungo"
-	},
-	"version": "0.4.1",
-	"compatibility": ">=3.0",
-	"description": {
-		"en": "Control Iungo and Iungo connected devices using Homey",
-		"nl": "Bedien Iungo en diverse gekoppelde apparaten met Homey"
-	},
-	"category": ["energy", "appliances", "tools"],
-	"images": {
-		"large": "assets/images/large.png",
-		"small": "assets/images/small.png"
-	},
-	"author": {
-		"name": "Robert Raaijmakers",
-		"email": "dutchfighter@live.nl"
-	},
-	"contributors": {
-		"developers": [{
-			"name": "Robert Raaijmakers",
-			"email": "dutchfighter@live.nl"
-		}]
-	},
-	  "contributing": {
-	    "donate": {
-	      "paypal": {
-		"username": "RobertRaaijmakers"
-	      }
-	    }
-	  },
-	  "bugs": {
-	    "url": "https://github.com/robertraaijmakers/com.iungo/issues"
-	  },
-	  "source": "https://github.com/robertraaijmakers/com.iungo",
-	"flow": {
-		"triggers": [
-		{
-			"id": "meter_power_t1_changed",
-			"title": {
-				"en": "Power meter T1 changed",
-				"nl": "Verbruik T1 veranderd"
-			},
-			"args": [{
-				"name": "device",
-				"type": "device",
-				"filter": "driver_id=energy_meter"
-			}],
-			"tokens": [{
-				"name": "power_used",
-				"type": "number",
-				"title": {
-					"en": "kWh",
-					"nl": "kWh"
-				}
-			}]
-		},
-		{
-			"id": "meter_power_t2_changed",
-			"title": {
-				"en": "Power meter T2 changed",
-				"nl": "Verbruik T2 veranderd"
-			},
-			"args": [{
-				"name": "device",
-				"type": "device",
-				"filter": "driver_id=energy_meter"
-			}],
-			"tokens": [{
-				"name": "power_used",
-				"type": "number",
-				"title": {
-					"en": "kWh",
-					"nl": "kWh"
-				}
-			}]
-		},
-		{
-			"id": "meter_power_rt1_changed",
-			"title": {
-				"en": "Power meter -T1 changed",
-				"nl": "Verbruik teruglevering 1 veranderd"
-			},
-			"args": [{
-				"name": "device",
-				"type": "device",
-				"filter": "driver_id=energy_meter"
-			}],
-			"tokens": [{
-				"name": "power_used",
-				"type": "number",
-				"title": {
-					"en": "kWh",
-					"nl": "kWh"
-				}
-			}]
-		},
-		{
-			"id": "meter_power_rt2_changed",
-			"title": {
-				"en": "Power meter -T2 changed",
-				"nl": "Verbruik teruglevering 2 veranderd"
-			},
-			"args": [{
-				"name": "device",
-				"type": "device",
-				"filter": "driver_id=energy_meter"
-			}],
-			"tokens": [{
-				"name": "power_used",
-				"type": "number",
-				"title": {
-					"en": "kWh",
-					"nl": "kWh"
-				}
-			}]
-		},
-		{
-			"id": "measure_current_l1_changed",
-			"title": {
-				"en": "Current L1 changed",
-				"nl": "Vermogen L1 veranderd"
-			},
-			"args": [{
-				"name": "device",
-				"type": "device",
-				"filter": "driver_id=energy_meter"
-			}],
-			"tokens": [{
-				"name": "current_value",
-				"type": "number",
-				"title": {
-					"en": "Ampere",
-					"nl": "Ampère"
-				}
-			}]
-		},
-		{
-			"id": "measure_current_l2_changed",
-			"title": {
-				"en": "Current L2 changed",
-				"nl": "Vermogen L2 veranderd"
-			},
-			"args": [{
-				"name": "device",
-				"type": "device",
-				"filter": "driver_id=energy_meter"
-			}],
-			"tokens": [{
-				"name": "current_value",
-				"type": "number",
-				"title": {
-					"en": "Ampere",
-					"nl": "Ampère"
-				}
-			}]
-		},
-		{
-			"id": "measure_current_l3_changed",
-			"title": {
-				"en": "Current L3 changed",
-				"nl": "Vermogen L3 veranderd"
-			},
-			"args": [{
-				"name": "device",
-				"type": "device",
-				"filter": "driver_id=energy_meter"
-			}],
-			"tokens": [{
-				"name": "current_value",
-				"type": "number",
-				"title": {
-					"en": "Ampere",
-					"nl": "Ampère"
-				}
-			}]
-		},
-		{
-			"id": "measure_power_import_changed",
-			"title": {
-				"en": "Power import changed",
-				"nl": "Geïmporteerd verbruik veranderd"
-			},
-			"args": [{
-				"name": "device",
-				"type": "device",
-				"filter": "driver_id=energy_meter"
-			}],
-			"tokens": [{
-				"name": "power_used",
-				"type": "number",
-				"title": {
-					"en": "W",
-					"nl": "W"
-				}
-			}]
-		},
-		{
-			"id": "measure_power_export_changed",
-			"title": {
-				"en": "Power export changed",
-				"nl": "Opgeleverde stroom veranderd"
-			},
-			"args": [{
-				"name": "device",
-				"type": "device",
-				"filter": "driver_id=energy_meter"
-			}],
-			"tokens": [{
-				"name": "power_used",
-				"type": "number",
-				"title": {
-					"en": "W",
-					"nl": "W"
-				}
-			}]
-		}],
-		"conditions": [],
-		"actions": []
-	},
-	"drivers": [{
-		"id": "energy_meter",
-		"name": {
-			"en": "Energy Controller",
-			"nl": "Energie Controller"
-		},
-		"images": {
-			"large": "drivers/energy_meter/assets/images/large.jpg",
-			"small": "drivers/energy_meter/assets/images/small.jpg"
-		},
-		"class": "sensor",
-		"capabilities": ["measure_power", "meter_power.sum", "meter_gas", "meter_gas.sum", "meter_power.t1", "meter_power.t2", "meter_power.rt1", "meter_power.rt2", "measure_power.import", "measure_power.export", "measure_current.l1", "measure_current.l2", "measure_current.l3", "measure_power.l1i", "measure_power.l2i", "measure_power.l3i", "measure_power.l1e", "measure_power.l2e", "measure_power.l3e" ],
-		"capabilitiesOptions": {
-			"measure_power": {
-				"title": {
-					"en": "Power",
-					"nl": "Verbruik"
-				}
-			},
-			"meter_power.sum": {
-				"title": {
-					"en": "Power Total",
-					"nl": "Totaal verbruik"
-				}
-			},
-			"meter_power.t1": {
-				"title": {
-					"en": "Power T1",
-					"nl": "Telwerk 1"
-				}
-			},
-			"meter_power.t2": {
-				"title": {
-					"en": "Power T2",
-					"nl": "Telwerk 2"
-				}
-			},
-			"meter_power.rt1": {
-				"title": {
-					"en": "Power -T1",
-					"nl": "Teruglevering 1"
-				}
-			},
-			"meter_power.rt2": {
-				"title": {
-					"en": "Power -T2",
-					"nl": "Teruglevering 2"
-				}
-			},
-			"meter_gas": {
-				"title": {
-					"en": "Gas",
-					"nl": "Gas"
-				}
-			},
-			"meter_gas.sum": {
-				"title": {
-					"en": "Power Total",
-					"nl": "Totaal verbruik"
-				}
-			},
-			"measure_current.l1": {
-				"title": {
-					"en": "Current L1",
-					"nl": "Stroomsterkte L1"
-				}
-			},
-			"measure_current.l2": {
-				"title": {
-					"en": "Current L2",
-					"nl": "Stroomsterkte L2"
-				}
-			},
-			"measure_current.l3": {
-				"title": {
-					"en": "Current L2",
-					"nl": "Stroomsterkte L3"
-				}
-			},
-			"measure_power.import": {
-				"title": {
-					"en": "Power Import",
-					"nl": "Vermogen Import"
-				}
-			},
-			"measure_power.export": {
-				"title": {
-					"en": "Power Export",
-					"nl": "Vermogen Export"
-				}
-			},
-			"measure_power.l1i": {
-				"title": {
-					"en": "Import 1",
-					"nl": "Import 1"
-				}
-			},
-			"measure_power.l2i": {
-				"title": {
-					"en": "Import 2",
-					"nl": "Import 2"
-				}
-			},
-			"measure_power.l3i": {
-				"title": {
-					"en": "Import 3",
-					"nl": "Import 3"
-				}
-			},
-			"measure_power.l1e": {
-				"title": {
-					"en": "Export 1",
-					"nl": "Export 1"
-				}
-			},
-			"measure_power.l2e": {
-				"title": {
-					"en": "Export 2",
-					"nl": "Export 2"
-				}
-			},
-			"measure_power.l3e": {
-				"title": {
-					"en": "Export 3",
-					"nl": "Export 3"
-				}
-			}
-		},
-		"energy": {
-			"cumulative": true
-		},
-		"pair": [
-			{
-				"id": "select_iungo",
-				"navigation": {
-					"next": "list_devices"
-				}
-			},
-			{
-				"id": "list_devices",
-				"template": "list_devices",
-				"navigation": {
-					"next": "add_devices"
-				}
-			},
-			{
-				"id": "add_devices",
-				"template": "add_devices"
-			}
-		],
-		"settings": [{
-			"type": "group",
-			"label": {
-				"en": "Tariff settings",
-				"nl": "Tarief instellingen"
-			},
-			"children": [{
-				"id": "Cost-T1",
-				"type": "number",
-				"label": {
-					"en": "T1",
-					"nl": "Telwerk 1"
-				},
-				"value": 0,
-				"attr": {
-					"min": 0.0000,
-					"max": 5.0000,
-					"step": 0.00001
-				}
-			},
-			{
-				"id": "Cost-T2",
-				"type": "number",
-				"label": {
-					"en": "T2",
-					"nl": "Telwerk 2"
-				},
-				"value": 0,
-				"attr": {
-					"min": 0.0000,
-					"max": 5.0000,
-					"step": 0.00001
-				}
-			},
-			{
-				"id": "Cost-nT1",
-				"type": "number",
-				"label": {
-					"en": "Redelivery T1",
-					"nl": "Teruglevering 1"
-				},
-				"value": 0,
-				"attr": {
-					"min": 0.0000,
-					"max": 5.0000,
-					"step": 0.00001
-				}
-			},
-			{
-				"id": "Cost-nT2",
-				"type": "number",
-				"label": {
-					"en": "Redelivery T2",
-					"nl": "Teruglevering 2"
-				},
-				"value": 0,
-				"attr": {
-					"min": 0.0000,
-					"max": 5.0000,
-					"step": 0.00001
-				}
-			},
-			{
-				"id": "Cost-gas",
-				"type": "number",
-				"label": {
-					"en": "Gas",
-					"nl": "Gas"
-				},
-				"value": 0,
-				"attr": {
-					"min": 0.0000,
-					"max": 5.0000,
-					"step": 0.00001
-				}
-			}]
-		},
-		{
-			"type": "group",
-			"label": {
-				"en": "Gas meter settings",
-				"nl": "Instellingen gasmeter"
-			},
-			"children": [{
-				"id": "Gas-interval",
-				"type": "number",
-				"label": {
-					"en": "Gas interval",
-					"nl": "Gas interval"
-				},
-				"value": 3600,
-				"attr":
-				{
-					"min": 1,
-					"max": 86400,
-					"step": 60
-				}
-			}]
-		}]
-	}, {
-		"id": "water_meter",
-		"name": {
-			"en": "Water Meter",
-			"nl": "Watermeter"
-		},
-		"images": {
-			"large": "drivers/water_meter/assets/images/large.png",
-			"small": "drivers/water_meter/assets/images/small.png"
-		},
-		"class": "sensor",
-		"capabilities": [
-			"measure_water",
-			"meter_water"
-		],
-		"capabilitiesOptions": {
-			"measure_water": {
-				"title": {
-					"en": "Verbruik",
-					"nl": "Verbruik"
-				}
-			},
-			"meter_water": {
-				"title": {
-					"en": "Water",
-					"nl": "Water"
-				}
-			}
-		},
-		"pair": [
-			{
-				"id": "select_iungo",
-				"navigation": {
-					"next": "list_devices"
-				}
-			},
-			{
-				"id": "list_devices",
-				"template": "list_devices",
-				"navigation": {
-					"next": "add_devices"
-				}
-			},
-			{
-				"id": "add_devices",
-				"template": "add_devices"
-			}
-		],
-		"settings": [{
-			"type": "group",
-			"label": {
-				"en": "Water meter settings",
-				"nl": "Instellingen watermeter"
-			},
-			"children": [{
-				"id": "offset",
-				"type": "number",
-				"label": {
-					"en": "Offset",
-					"nl": "Beginstand"
-				},
-				"value": 0
-			}]
-		}]
-	}, {
-		"id": "iungo_socket",
-		"name": {
-			"en": "Socket",
-			"nl": "Schakelaar"
-		},
-		"images": {
-			"large": "drivers/iungo_socket/assets/images/large.jpg",
-			"small": "drivers/iungo_socket/assets/images/small.jpg"
-		},
-		"class": "socket",
-		"capabilities": [
-			"measure_power",
-			"onoff"
-		],
-		"pair": [
-			{
-				"id": "select_iungo",
-				"navigation": {
-					"next": "list_devices"
-				}
-			},
-			{
-				"id": "list_devices",
-				"template": "list_devices",
-				"navigation": {
-					"next": "add_devices"
-				}
-			},
-			{
-				"id": "add_devices",
-				"template": "add_devices"
-			}
-		]
-	},
-	{
-		"id": "energy_solar",
-		"name": {
-			"en": "Solar Meter",
-			"nl": "Zon"
-		},
-		"images": {
-			"large": "drivers/energy_solar/assets/images/large.jpg",
-			"small": "drivers/energy_solar/assets/images/small.jpg"
-		},
-		"class": "solarpanel",
-		"capabilities": [
-			"measure_power",
-			"meter_power"
-		],
-		"capabilitiesOptions": {
-			"measure_power": {
-				"title": {
-					"en": "Power",
-					"nl": "Opbrengst"
-				}
-			},
-			"meter_power": {
-				"title": {
-					"en": "Power Total",
-					"nl": "Totaal opbrengst"
-				}
-			}
-		},
-		"pair": [
-			{
-				"id": "select_iungo",
-				"navigation": {
-					"next": "list_devices"
-				}
-			},
-			{
-				"id": "list_devices",
-				"template": "list_devices",
-				"navigation": {
-					"next": "add_devices"
-				}
-			},
-			{
-				"id": "add_devices",
-				"template": "add_devices"
-			}
-		],
-		"settings": [{
-			"type": "group",
-			"label": {
-				"en": "Solar meter settings",
-				"nl": "Instellingen zonmeter"
-			},
-			"children": [{
-				"id": "offset",
-				"type": "number",
-				"label": {
-					"en": "Offset",
-					"nl": "Beginstand"
-				},
-				"value": 0
-			}]
-		}]
-	}]
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
+  "id": "com.iungo",
+  "sdk": 3,
+  "name": {
+    "en": "Iungo",
+    "nl": "Iungo"
+  },
+  "version": "1.0.0",
+  "compatibility": ">=5.0",
+  "description": {
+    "en": "Control Iungo and Iungo connected devices using Homey",
+    "nl": "Bedien Iungo en diverse gekoppelde apparaten met Homey"
+  },
+  "category": [
+    "energy",
+    "appliances",
+    "tools"
+  ],
+  "images": {
+    "large": "assets/images/large.png",
+    "small": "assets/images/small.png"
+  },
+  "author": {
+    "name": "Robert Raaijmakers",
+    "email": "dutchfighter@live.nl"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Robert Raaijmakers",
+        "email": "dutchfighter@live.nl"
+      }
+    ]
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "RobertRaaijmakers"
+      }
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/robertraaijmakers/com.iungo/issues"
+  },
+  "source": "https://github.com/robertraaijmakers/com.iungo",
+  "flow": {
+    "triggers": [
+      {
+        "id": "meter_power_t1_changed",
+        "title": {
+          "en": "Power meter T1 changed",
+          "nl": "Verbruik T1 veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "power_used",
+            "type": "number",
+            "title": {
+              "en": "kWh",
+              "nl": "kWh"
+            }
+          }
+        ]
+      },
+      {
+        "id": "meter_power_t2_changed",
+        "title": {
+          "en": "Power meter T2 changed",
+          "nl": "Verbruik T2 veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "power_used",
+            "type": "number",
+            "title": {
+              "en": "kWh",
+              "nl": "kWh"
+            }
+          }
+        ]
+      },
+      {
+        "id": "meter_power_rt1_changed",
+        "title": {
+          "en": "Power meter -T1 changed",
+          "nl": "Verbruik teruglevering 1 veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "power_used",
+            "type": "number",
+            "title": {
+              "en": "kWh",
+              "nl": "kWh"
+            }
+          }
+        ]
+      },
+      {
+        "id": "meter_power_rt2_changed",
+        "title": {
+          "en": "Power meter -T2 changed",
+          "nl": "Verbruik teruglevering 2 veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "power_used",
+            "type": "number",
+            "title": {
+              "en": "kWh",
+              "nl": "kWh"
+            }
+          }
+        ]
+      },
+      {
+        "id": "measure_current_l1_changed",
+        "title": {
+          "en": "Current L1 changed",
+          "nl": "Vermogen L1 veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "current_value",
+            "type": "number",
+            "title": {
+              "en": "Ampere",
+              "nl": "Ampère"
+            }
+          }
+        ]
+      },
+      {
+        "id": "measure_current_l2_changed",
+        "title": {
+          "en": "Current L2 changed",
+          "nl": "Vermogen L2 veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "current_value",
+            "type": "number",
+            "title": {
+              "en": "Ampere",
+              "nl": "Ampère"
+            }
+          }
+        ]
+      },
+      {
+        "id": "measure_current_l3_changed",
+        "title": {
+          "en": "Current L3 changed",
+          "nl": "Vermogen L3 veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "current_value",
+            "type": "number",
+            "title": {
+              "en": "Ampere",
+              "nl": "Ampère"
+            }
+          }
+        ]
+      },
+      {
+        "id": "measure_power_import_changed",
+        "title": {
+          "en": "Power import changed",
+          "nl": "Geïmporteerd verbruik veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "power_used",
+            "type": "number",
+            "title": {
+              "en": "W",
+              "nl": "W"
+            }
+          }
+        ]
+      },
+      {
+        "id": "measure_power_export_changed",
+        "title": {
+          "en": "Power export changed",
+          "nl": "Opgeleverde stroom veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ],
+        "tokens": [
+          {
+            "name": "power_used",
+            "type": "number",
+            "title": {
+              "en": "W",
+              "nl": "W"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "drivers": [
+    {
+      "name": {
+        "en": "Energy Controller",
+        "nl": "Energie Controller"
+      },
+      "images": {
+        "large": "drivers/energy_meter/assets/images/large.jpg",
+        "small": "drivers/energy_meter/assets/images/small.jpg"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_power",
+        "meter_power.sum",
+        "meter_gas",
+        "meter_gas.sum",
+        "meter_power.t1",
+        "meter_power.t2",
+        "meter_power.rt1",
+        "meter_power.rt2",
+        "measure_power.import",
+        "measure_power.export",
+        "measure_current.l1",
+        "measure_current.l2",
+        "measure_current.l3",
+        "measure_power.l1i",
+        "measure_power.l2i",
+        "measure_power.l3i",
+        "measure_power.l1e",
+        "measure_power.l2e",
+        "measure_power.l3e"
+      ],
+      "capabilitiesOptions": {
+        "measure_power": {
+          "title": {
+            "en": "Power",
+            "nl": "Verbruik"
+          }
+        },
+        "meter_power.sum": {
+          "title": {
+            "en": "Power Total",
+            "nl": "Totaal verbruik"
+          }
+        },
+        "meter_power.t1": {
+          "title": {
+            "en": "Power T1",
+            "nl": "Telwerk 1"
+          }
+        },
+        "meter_power.t2": {
+          "title": {
+            "en": "Power T2",
+            "nl": "Telwerk 2"
+          }
+        },
+        "meter_power.rt1": {
+          "title": {
+            "en": "Power -T1",
+            "nl": "Teruglevering 1"
+          }
+        },
+        "meter_power.rt2": {
+          "title": {
+            "en": "Power -T2",
+            "nl": "Teruglevering 2"
+          }
+        },
+        "meter_gas": {
+          "title": {
+            "en": "Gas",
+            "nl": "Gas"
+          }
+        },
+        "meter_gas.sum": {
+          "title": {
+            "en": "Power Total",
+            "nl": "Totaal verbruik"
+          }
+        },
+        "measure_current.l1": {
+          "title": {
+            "en": "Current L1",
+            "nl": "Stroomsterkte L1"
+          }
+        },
+        "measure_current.l2": {
+          "title": {
+            "en": "Current L2",
+            "nl": "Stroomsterkte L2"
+          }
+        },
+        "measure_current.l3": {
+          "title": {
+            "en": "Current L2",
+            "nl": "Stroomsterkte L3"
+          }
+        },
+        "measure_power.import": {
+          "title": {
+            "en": "Power Import",
+            "nl": "Vermogen Import"
+          }
+        },
+        "measure_power.export": {
+          "title": {
+            "en": "Power Export",
+            "nl": "Vermogen Export"
+          }
+        },
+        "measure_power.l1i": {
+          "title": {
+            "en": "Import 1",
+            "nl": "Import 1"
+          }
+        },
+        "measure_power.l2i": {
+          "title": {
+            "en": "Import 2",
+            "nl": "Import 2"
+          }
+        },
+        "measure_power.l3i": {
+          "title": {
+            "en": "Import 3",
+            "nl": "Import 3"
+          }
+        },
+        "measure_power.l1e": {
+          "title": {
+            "en": "Export 1",
+            "nl": "Export 1"
+          }
+        },
+        "measure_power.l2e": {
+          "title": {
+            "en": "Export 2",
+            "nl": "Export 2"
+          }
+        },
+        "measure_power.l3e": {
+          "title": {
+            "en": "Export 3",
+            "nl": "Export 3"
+          }
+        }
+      },
+      "energy": {
+        "cumulative": true
+      },
+      "pair": [
+        {
+          "id": "select_iungo",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Tariff settings",
+            "nl": "Tarief instellingen"
+          },
+          "children": [
+            {
+              "id": "Cost-T1",
+              "type": "number",
+              "label": {
+                "en": "T1",
+                "nl": "Telwerk 1"
+              },
+              "value": 0,
+              "attr": {
+                "min": 0,
+                "max": 5,
+                "step": 0.00001
+              }
+            },
+            {
+              "id": "Cost-T2",
+              "type": "number",
+              "label": {
+                "en": "T2",
+                "nl": "Telwerk 2"
+              },
+              "value": 0,
+              "attr": {
+                "min": 0,
+                "max": 5,
+                "step": 0.00001
+              }
+            },
+            {
+              "id": "Cost-nT1",
+              "type": "number",
+              "label": {
+                "en": "Redelivery T1",
+                "nl": "Teruglevering 1"
+              },
+              "value": 0,
+              "attr": {
+                "min": 0,
+                "max": 5,
+                "step": 0.00001
+              }
+            },
+            {
+              "id": "Cost-nT2",
+              "type": "number",
+              "label": {
+                "en": "Redelivery T2",
+                "nl": "Teruglevering 2"
+              },
+              "value": 0,
+              "attr": {
+                "min": 0,
+                "max": 5,
+                "step": 0.00001
+              }
+            },
+            {
+              "id": "Cost-gas",
+              "type": "number",
+              "label": {
+                "en": "Gas",
+                "nl": "Gas"
+              },
+              "value": 0,
+              "attr": {
+                "min": 0,
+                "max": 5,
+                "step": 0.00001
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Gas meter settings",
+            "nl": "Instellingen gasmeter"
+          },
+          "children": [
+            {
+              "id": "Gas-interval",
+              "type": "number",
+              "label": {
+                "en": "Gas interval",
+                "nl": "Gas interval"
+              },
+              "value": 3600,
+              "attr": {
+                "min": 1,
+                "max": 86400,
+                "step": 60
+              }
+            }
+          ]
+        }
+      ],
+      "id": "energy_meter"
+    },
+    {
+      "name": {
+        "en": "Solar Meter",
+        "nl": "Zon"
+      },
+      "images": {
+        "large": "drivers/energy_solar/assets/images/large.jpg",
+        "small": "drivers/energy_solar/assets/images/small.jpg"
+      },
+      "class": "solarpanel",
+      "capabilities": [
+        "measure_power",
+        "meter_power"
+      ],
+      "capabilitiesOptions": {
+        "measure_power": {
+          "title": {
+            "en": "Power",
+            "nl": "Opbrengst"
+          }
+        },
+        "meter_power": {
+          "title": {
+            "en": "Power Total",
+            "nl": "Totaal opbrengst"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "select_iungo",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Solar meter settings",
+            "nl": "Instellingen zonmeter"
+          },
+          "children": [
+            {
+              "id": "offset",
+              "type": "number",
+              "label": {
+                "en": "Offset",
+                "nl": "Beginstand"
+              },
+              "value": 0
+            }
+          ]
+        }
+      ],
+      "id": "energy_solar"
+    },
+    {
+      "name": {
+        "en": "Socket",
+        "nl": "Schakelaar"
+      },
+      "images": {
+        "large": "drivers/iungo_socket/assets/images/large.jpg",
+        "small": "drivers/iungo_socket/assets/images/small.jpg"
+      },
+      "class": "socket",
+      "capabilities": [
+        "measure_power",
+        "onoff"
+      ],
+      "pair": [
+        {
+          "id": "select_iungo",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "id": "iungo_socket"
+    },
+    {
+      "name": {
+        "en": "Water Meter",
+        "nl": "Watermeter"
+      },
+      "images": {
+        "large": "drivers/water_meter/assets/images/large.png",
+        "small": "drivers/water_meter/assets/images/small.png"
+      },
+      "class": "sensor",
+      "capabilities": [
+        "measure_water",
+        "meter_water"
+      ],
+      "capabilitiesOptions": {
+        "measure_water": {
+          "title": {
+            "en": "Verbruik",
+            "nl": "Verbruik"
+          }
+        },
+        "meter_water": {
+          "title": {
+            "en": "Water",
+            "nl": "Water"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "select_iungo",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Water meter settings",
+            "nl": "Instellingen watermeter"
+          },
+          "children": [
+            {
+              "id": "offset",
+              "type": "number",
+              "label": {
+                "en": "Offset",
+                "nl": "Beginstand"
+              },
+              "value": 0
+            }
+          ]
+        }
+      ],
+      "id": "water_meter"
+    }
+  ]
 }

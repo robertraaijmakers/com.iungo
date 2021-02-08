@@ -33,6 +33,11 @@ module.exports = class DeviceSolarMeter extends Homey.Device {
     }
     
     getIungo( device_data ) {
+		if(typeof Homey === 'undefined' || typeof Homey.app === 'undefined')
+		{
+			return new Error("App not yet available.");
+		}
+		
 		return Homey.app.getIungo( device_data.iungo_id );
 	}
     
