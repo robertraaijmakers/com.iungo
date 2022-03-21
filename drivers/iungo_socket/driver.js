@@ -9,7 +9,12 @@ const iconsMap				= {
 	'plugwiseplus': 'plugwise'
 }
 
-module.exports = class DriverSockets extends Homey.Driver {
+module.exports = class DriverSocket extends Homey.Driver {
+
+	async onInit()
+	{
+
+	}
 	
 	async onPair( session ) {
 		console.log('onPair');
@@ -81,5 +86,3 @@ module.exports = class DriverSockets extends Homey.Driver {
 		return result;
     }
 }
-
-module.exports = DriverSockets;

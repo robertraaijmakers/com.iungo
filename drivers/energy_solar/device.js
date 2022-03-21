@@ -7,7 +7,7 @@ const _deviceType			= "solar_meter";
 module.exports = class DeviceSolarMeter extends Homey.Device {
 
     // This method is called when the Device is inited
-    onInit() {
+    async onInit() {
         this.log('device init');
         this.log('name:', this.getName());
         this.log('class:', this.getClass());

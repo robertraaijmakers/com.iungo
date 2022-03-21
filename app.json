@@ -6,11 +6,11 @@
     "en": "Iungo",
     "nl": "Iungo"
   },
-  "version": "1.0.0",
-  "compatibility": ">=5.0",
+  "version": "1.0.1",
+  "compatibility": ">=5.0.0",
   "description": {
-    "en": "Control Iungo and Iungo connected devices using Homey",
-    "nl": "Bedien Iungo en diverse gekoppelde apparaten met Homey"
+    "en": "Your personal energy consumption manager",
+    "nl": "Realtime inzicht in energie- en gasverbruik"
   },
   "category": [
     "energy",

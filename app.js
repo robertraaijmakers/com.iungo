@@ -60,7 +60,7 @@ class App extends Homey.App {
 		console.log("Found iungo");
 		this.log(`Found iungo ${iungo.id} @ ${iungo.ip}`);
 
-		this._iungos[ iungo.id ] = new IungoRouter( iungo.id, iungo.ip );
+		this._iungos[ iungo.id ] = new IungoRouter( iungo.id, iungo.ip, this.homey );
 		this._iungos[ iungo.id ]
 			.on('log', this.log.bind( this, `[${iungo.id}]`) )
 			.on('error', this.error.bind( this, `[${iungo.id}]`) )

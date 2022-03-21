@@ -8,6 +8,10 @@ const iconsMap				= {
 
 module.exports = class DriverEnergyMeter extends Homey.Driver {
 
+	async onInit() {
+		
+	}
+
 	async onPair( session ) {
 		console.log('onPair');
 

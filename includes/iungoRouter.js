@@ -1,6 +1,5 @@
 'use strict';
 
-const Homey = require('homey');
 const events	= require('events');
 const _			= require('underscore');
 const Iungo		= require('../includes/iungo.js').Iungo;
@@ -45,12 +44,13 @@ const solarMeterSettingsMap = {
 
 class IungoRouter extends events.EventEmitter {
 
-	constructor( id, address ) {
+	constructor( id, address, homey ) {
 		super();
 
 		this.setMaxListeners(0);
 
 		this._debug 	= true;
+		this.homey		= homey;
 
 		// Get detailed device data (via UPNP??)
 		this.id 			= id.toLowerCase();
@@ -58,7 +58,7 @@ class IungoRouter extends events.EventEmitter {
 		this.name 			= "IungoBox";
 		this.modelId 		= "default";
 		this.modelName 		= undefined;
-		this.icon 			= `/app/${Homey.manifest.id}/assets/images/routers/${this.modelId}.svg`;
+		this.icon 			= `/app/${this.homey.app.manifest.id}/assets/images/routers/${this.modelId}.svg`;
 
 		this._energyMeters	= {};
 		this._waterMeters 	= {};
@@ -77,14 +77,14 @@ class IungoRouter extends events.EventEmitter {
 	}
 
 	log() {
-		if( Homey.app ) {
-			Homey.app.log.bind( Homey.app, `[${this.constructor.name}][${this.id}]` ).apply( Homey.app, arguments );
+		if( this.homey.app ) {
+			this.homey.app.log.bind( this.homey.app, `[${this.constructor.name}][${this.id}]` ).apply( this.homey.app, arguments );
 		}
 	}
 
 	error() {
-		if( Homey.app ) {
-			Homey.app.error.bind( Homey.app, `[${this.constructor.name}][${this.id}]` ).apply( Homey.app, arguments );
+		if( this.homey.app ) {
+			this.homey.app.error.bind( this.homey.app, `[${this.constructor.name}][${this.id}]` ).apply( this.homey.app, arguments );
 		}
 	}
 
@@ -137,7 +137,7 @@ class IungoRouter extends events.EventEmitter {
 	register( username, password, callback ) {
 		callback = callback || function(){}
 
-		Homey.manager('settings')
+		this.homey.manager('settings')
 			 .set(`iungo_settings_${this.id}`.toLowerCase(), { username: username, password: password });
 		
 		this.init(callback);
@@ -219,10 +219,8 @@ class IungoRouter extends events.EventEmitter {
 			case 'onoff':
 				this._client.setDeviceOnOff(instance.id, value, (err, result) => { });
 				return Promise.resolve(true);
-			break;
 		}
 		
-		//console.log( settings );
 		return Promise.resolve(false);		
 	}
 
@@ -241,7 +239,7 @@ class IungoRouter extends events.EventEmitter {
 
 		callback = callback || function(){}
 
-		// Refresh all devices and there information.
+		// Refresh all devices and their information.
 		this._client.getDevices((function(err, response)
 		{
 			if(response === null)
@@ -252,7 +250,6 @@ class IungoRouter extends events.EventEmitter {
 			for(var obj in response.objects)
 			{				
 				var device = response.objects[obj];
-				//console.log(device.type);
 				
 				if(device.type.indexOf("energy") !== -1)
 				{
@@ -283,7 +280,6 @@ class IungoRouter extends events.EventEmitter {
 					this.emit('refresh-'+meter.id);
 				}
 			}
-			
 			callback();
 		}).bind(this));
 	}
@@ -406,10 +402,7 @@ function parseWaterMeterValues(oid, name, type, properties)
 	
 	for(var obj in properties)
 	{
-		var property = properties[obj];
-		//console.log(property);
-		//console.log(property.id);
-		
+		var property = properties[obj];		
 		switch(property.id)
 		{
 			case "flow":
@@ -488,8 +481,6 @@ function parseSolarMeterValues(oid, name, type, properties)
 	for(var obj in properties)
 	{
 		var property = properties[obj];
-		//console.log(property);
-		//console.log(property.id);
 		
 		switch(property.id)
 		{

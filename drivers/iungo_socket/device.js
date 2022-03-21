@@ -1,12 +1,12 @@
 'use strict';
 
 const Homey = require('homey');
-const _deviceType			= "socket";
+const _deviceType = "socket";
 
 module.exports = class DeviceSocket extends Homey.Device {
 
     // This method is called when the Device is inited
-    onInit() {
+    async onInit() {
         this.log('device init');
         this.log('name:', this.getName());
         this.log('class:', this.getClass());

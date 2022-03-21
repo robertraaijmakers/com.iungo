@@ -7,11 +7,11 @@ const _deviceType			= "water_meter";
 module.exports = class DeviceWaterMeter extends Homey.Device {
 
     // This method is called when the Device is inited
-    onInit() {
+    async onInit() {
         this.log('device init');
         this.log('name:', this.getName());
         this.log('class:', this.getClass());
-				
+		
 		// Wait for the iungo to be available (and start recieving update events)
 		let deviceData = this.getData();
 		let iungo = this.getIungo(deviceData);

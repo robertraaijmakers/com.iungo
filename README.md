@@ -6,7 +6,7 @@ This app let's you connect your Iungo to Homey. You can add your Iungo smart met
 If you have any suggestions or bugs, please post them on GitHub: https://github.com/robertraaijmakers/com.iungo/
 
 v1.0.0:
-* Updated app to be compliant with new Homey App requirements in Homey v5.
+* Completely rebuild app to be compatible with Homey v5. You might need to reconnect your devices. Sorry!
 
 v0.4.0:
 * Added support for Homey energy!! :)
