@@ -247,3 +247,7 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+
+# Added by Homey CLI
+/.homeybuild/

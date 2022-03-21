@@ -6,8 +6,9 @@
     "en": "Iungo",
     "nl": "Iungo"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "compatibility": ">=5.0.0",
+  "brandColor": "#3995ae",
   "description": {
     "en": "Your personal energy consumption manager",
     "nl": "Realtime inzicht in energie- en gasverbruik"

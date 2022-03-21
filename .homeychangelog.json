@@ -19,5 +19,8 @@
   },
   "1.0.1": {
     "en": "* Completely rebuild app to be compatible with Homey v5. You might need to reconnect your devices. Sorry!"
+  },
+  "1.0.2": {
+    "en": "* Added fix for Homey supporting Node v16"
   }
 }

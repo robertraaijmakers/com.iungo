@@ -140,7 +140,9 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 				
 				if(oldValue !== value)
 				{
-					this.setCapabilityValue(capabilityId, value);
+					this.setCapabilityValue(capabilityId, value).catch(function(err) {
+						this.log('_invalidCapability', err);
+					});
 				}
 			}
 		}
@@ -168,7 +170,9 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 			
 			if(changed)
 			{
-				this.setSettings( deviceInstance.settings );
+				this.setSettings( deviceInstance.settings ).catch(function(err) {
+					this.log('_invalidSetting', err);
+				});
 			}
 		}
     }

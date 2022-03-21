@@ -78,7 +78,9 @@ module.exports = class DeviceSocket extends Homey.Device {
 
 				if(oldValue !== value)
 				{
-					this.setCapabilityValue(capabilityId, value);
+					this.setCapabilityValue(capabilityId, value).catch(function(err) {
+						this.log('_invalidCapability', err);
+					});
 				}
 			}
 		}
