@@ -13,7 +13,6 @@ Homey.emit('select_iungo', null, function( err, iungos ){
 
 	if( err ) return error( err );
 
-
 	if( iungos.length === 0 )
 		return error( 'pair.select_iungo.no_iungos' );
 

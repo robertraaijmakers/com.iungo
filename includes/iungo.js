@@ -29,12 +29,6 @@ Iungo.prototype = {
 		let apiMethod = api_method || "";
 		let apiArguments = api_arguments || {};
 		
-		let formData = {
-			seq: this.sequence,
-			method: apiMethod,
-			arguments: apiArguments
-		};
-		
 		var opts = {
 			url: this.options.url + '/iungo/api_request/',
 			method: 'POST',
@@ -46,8 +40,6 @@ Iungo.prototype = {
 				"arguments": apiArguments
 			}
 		};
-		
-		console.log(formData);
 		
 		request(opts, function (error, response, body)
 		{
