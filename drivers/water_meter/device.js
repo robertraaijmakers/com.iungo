@@ -1,7 +1,6 @@
 'use strict';
 
 const Homey = require('homey');
-
 const _deviceType			= "water_meter";
 
 module.exports = class DeviceWaterMeter extends Homey.Device {
@@ -76,9 +75,9 @@ module.exports = class DeviceWaterMeter extends Homey.Device {
 
 				if(oldValue !== value)
 				{
-					this.setCapabilityValue(capabilityId, value).catch(function(err) {
-						this.log('_invalidCapability', err);
-					});
+					this.setCapabilityValue(capabilityId, value)
+						.catch(this.error)
+						.then(this.log);
 				}
 			}
 		}
@@ -157,9 +156,8 @@ module.exports = class DeviceWaterMeter extends Homey.Device {
 			changedKeysArr.forEach(function (key)
 			{
 				iungo.save( _deviceType, device_data, 'settings', { "key": key, "value": newSettingsObj[key] } )
-					.catch(( err ) => {
-						this.log(err);
-					})
+					.catch(this.error)
+					.then(this.log);
 			});
 			
 			Promise.resolve(true);

@@ -76,9 +76,9 @@ module.exports = class DeviceSolarMeter extends Homey.Device {
 
 				if(oldValue !== value)
 				{
-					this.setCapabilityValue(capabilityId, value).catch(function(err) {
-						this.log('_invalidCapability', err);
-					});
+					this.setCapabilityValue(capabilityId, value)
+						.catch(this.error)
+						.then(this.log);
 				}
 			}
 		}

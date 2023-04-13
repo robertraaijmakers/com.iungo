@@ -1,7 +1,7 @@
 'use strict';
 
 const Homey = require('homey');
-const _deviceType			= "energy_meter";
+const _deviceType = "energy_meter";
 
 module.exports = class DeviceEnergyMeter extends Homey.Device {
 
@@ -99,7 +99,7 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 		for( let capabilityId in deviceState )
 		{
 			let value = deviceInstance[ capabilityId ];
-			if( typeof value !== 'undefined' ) {
+			if( typeof value !== 'undefined' && value !== null) {
 				
 				let oldValue = deviceState[capabilityId];								
 				deviceState[ capabilityId ] = value;	
@@ -140,9 +140,9 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 				
 				if(oldValue !== value)
 				{
-					this.setCapabilityValue(capabilityId, value).catch(function(err) {
-						this.log('_invalidCapability', err);
-					});
+					this.setCapabilityValue(capabilityId, value)
+						.catch(this.error)
+						.then(this.log);
 				}
 			}
 		}
@@ -170,9 +170,9 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 			
 			if(changed)
 			{
-				this.setSettings( deviceInstance.settings ).catch(function(err) {
-					this.log('_invalidSetting', err);
-				});
+				this.setSettings( deviceInstance.settings )
+				.catch(this.error)
+				.then(this.log);
 			}
 		}
     }
