@@ -68,11 +68,6 @@ module.exports = class DriverEnergyMeter extends Homey.Driver {
 			// Select capabilities dynamically based on availability & value
 			let capabilities = [ "measure_power", "meter_power.t1" ];
 			
-			if(typeof state.iungo._energyMeters[power_meter]['meter_power.t2'] !== 'undefined' && state.iungo._energyMeters[power_meter]['meter_power.t2'] > 0)
-			{
-				capabilities.push('meter_power.t2');
-			}
-			
 			// Only add gas to capabilities when gas is connected
 			// Not all homes have gas connection these days and also some modbus energymeter drivers don't measure gas #10
 			if(typeof state.iungo._energyMeters[power_meter]['meter_gas'] !== 'undefined' && state.iungo._energyMeters[power_meter]['meter_gas'] > 0)
@@ -87,7 +82,12 @@ module.exports = class DriverEnergyMeter extends Homey.Driver {
 				exportValue = true;
 			}
 			
-			if(typeof state.iungo._energyMeters[power_meter]['meter_power.rt2'] !== 'undefined' && state.iungo._energyMeters[power_meter]['meter_power.rt2'] > 0)
+			if(typeof state.iungo._energyMeters[power_meter]['meter_power.t2'] !== 'undefined' && (state.iungo._energyMeters[power_meter]['meter_power.t2'] > 0 || exportValue == true))
+			{
+				capabilities.push('meter_power.t2');
+			}
+			
+			if(typeof state.iungo._energyMeters[power_meter]['meter_power.rt2'] !== 'undefined' && (state.iungo._energyMeters[power_meter]['meter_power.rt2'] > 0 || exportValue == true))
 			{
 				capabilities.push('meter_power.rt2');
 				exportValue = true;
