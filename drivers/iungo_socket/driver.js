@@ -9,9 +9,14 @@ const iconsMap				= {
 	'plugwiseplus': 'plugwise'
 }
 
-class DriverSockets extends Homey.Driver {
+module.exports = class DriverSocket extends Homey.Driver {
 
-    onPair( socket ) {
+	async onInit()
+	{
+
+	}
+	
+	async onPair( session ) {
 		console.log('onPair');
 
 		let state = {
@@ -19,12 +24,12 @@ class DriverSockets extends Homey.Driver {
 			iungo		: undefined
 		};
 
-		socket
-			.on('select_iungo', ( data, callback ) => {
-				Homey.app.findIungos();
+		session
+			.setHandler('select_iungo', ( data ) => {
+				this.homey.app.findIungos();
 				
 				let result = [];
-				let iungoes = Homey.app.getIungoes();
+				let iungoes = this.homey.app.getIungoes();
 				console.log(iungoes);
 				for( let iungoId in iungoes) {
 					state.iungo = iungoes[iungoId];
@@ -36,29 +41,29 @@ class DriverSockets extends Homey.Driver {
 					});
 				}
 
-				callback( null, result );
+				return result;
 			})
-			.on('list_devices', ( data, callback ) => {
+			.setHandler('list_devices', ( data ) => {
 				if( this.onPairListDevices ) {
-					this.onPairListDevices( state, data, callback );
+					return this.onPairListDevices( state, data );
 				} else {
-					callback( new Error('missing onPairListDevices') );
+					return new Error('missing onPairListDevices');
 				}
 			})
-			.on('disconnect', () => {
+			.setHandler('disconnect', () => {
 				state.connected = false;
 			})
 	}
-
-    onPairListDevices( state, data, callback )
+	
+	async onPairListDevices( state, data )
     {
 	    console.log('onPairListDevices', state);
 
 		if( !state.iungo )
-			return callback( 'invalid_iungo' );
+			return 'invalid_iungo';
 
 		if( state.iungo instanceof Error )
-			return callback( state.iungo );
+			return state.iungo;
 		
 		let result = [];
 		
@@ -78,8 +83,6 @@ class DriverSockets extends Homey.Driver {
 			result.push( deviceObj );
 		}
 
-		callback( null, result );
+		return result;
     }
 }
-
-module.exports = DriverSockets;

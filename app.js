@@ -8,12 +8,12 @@ const findIungosInterval = 600000;
 
 class App extends Homey.App {
 
-	onInit() {		
+	async onInit() {		
 		this.setMaxListeners(0);
 		this._iungos = {};
 		
 		this.findIungos();
-		setInterval( this.findIungos.bind(this), findIungosInterval );
+		this.homey.setInterval( this.findIungos.bind(this), findIungosInterval );
 	}
 
 	/*
@@ -60,7 +60,7 @@ class App extends Homey.App {
 		console.log("Found iungo");
 		this.log(`Found iungo ${iungo.id} @ ${iungo.ip}`);
 
-		this._iungos[ iungo.id ] = new IungoRouter( iungo.id, iungo.ip );
+		this._iungos[ iungo.id ] = new IungoRouter( iungo.id, iungo.ip, this.homey );
 		this._iungos[ iungo.id ]
 			.on('log', this.log.bind( this, `[${iungo.id}]`) )
 			.on('error', this.error.bind( this, `[${iungo.id}]`) )

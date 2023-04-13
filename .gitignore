@@ -1,6 +1,7 @@
 *.DS_Store
 .AppleDouble
 .LSOverride
+node_modules/
 
 # Icon must end with two \r
 Icon
@@ -246,3 +247,7 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+
+
+# Added by Homey CLI
+/.homeybuild/

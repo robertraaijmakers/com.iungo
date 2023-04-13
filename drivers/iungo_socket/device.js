@@ -1,13 +1,12 @@
 'use strict';
 
 const Homey = require('homey');
+const _deviceType = "socket";
 
-const _deviceType			= "socket";
-
-class DeviceSocket extends Homey.Device {
+module.exports = class DeviceSocket extends Homey.Device {
 
     // This method is called when the Device is inited
-    onInit() {
+    async onInit() {
         this.log('device init');
         this.log('name:', this.getName());
         this.log('class:', this.getClass());
@@ -21,7 +20,7 @@ class DeviceSocket extends Homey.Device {
 		
 		if(iungo instanceof Error )
 		{
-			Homey.app.once('iungo_available', ( iungo ) => {
+			this.homey.app.once('iungo_available', ( iungo ) => {
 				this.log("iungo_available");
 				iungo.on('refresh-' + deviceData.id , this.syncDevice.bind(this) );
 				this.syncDevice( );
@@ -36,7 +35,12 @@ class DeviceSocket extends Homey.Device {
     }
     
     getIungo( device_data ) {
-		return Homey.app.getIungo( device_data.iungo_id );
+		if(typeof this.homey === 'undefined' || typeof this.homey.app === 'undefined')
+		{
+			return new Error("App not yet available.");
+		}
+		
+		return this.homey.app.getIungo( device_data.iungo_id );
 	}
     
     // sync device data and settings
@@ -48,7 +52,7 @@ class DeviceSocket extends Homey.Device {
 	    let iungo = this.getIungo( deviceData );
 		if( iungo instanceof Error )
 		{
-			return this.setUnavailable( Homey.__('unreachable') );
+			return this.setUnavailable( this.homey.__('unreachable') );
 		}
 	    
 	    // Current device state
@@ -58,7 +62,7 @@ class DeviceSocket extends Homey.Device {
 		var deviceInstance = iungo.getSocket( deviceData.id );
 		if( deviceInstance instanceof Error )
 		{
-			return this.setUnavailable( Homey.__('unreachable') );
+			return this.setUnavailable( this.homey.__('unreachable') );
 		}
 	   
 		this.setAvailable( );
@@ -74,7 +78,9 @@ class DeviceSocket extends Homey.Device {
 
 				if(oldValue !== value)
 				{
-					this.setCapabilityValue(capabilityId, value);
+					this.setCapabilityValue(capabilityId, value)
+						.catch(this.error)
+						.then(this.log);
 				}
 			}
 		}
@@ -151,7 +157,7 @@ class DeviceSocket extends Homey.Device {
 	}
 	
 	// Fired when the settings of this device are changed by the user.
-	onSettings ( oldSettingsObj, newSettingsObj, changedKeysArr, callback )
+	onSettings ( oldSettingsObj, newSettingsObj, changedKeysArr )
 	{
 		let device_data = this.getData();
 		
@@ -162,16 +168,13 @@ class DeviceSocket extends Homey.Device {
 			changedKeysArr.forEach(function (key)
 			{
 				iungo.save( _deviceType, device_data, 'settings', { "key": key, "value": newSettingsObj[key] } )
-					.catch(( err ) => {
-						this.log(err);
-					})
+					.catch(this.error)
+					.then(this.log)
 			});
 			
-			callback(null, true);
+			return Promise.resolve(true);
 		} catch (error) {
-			callback(error, null);
+			return Promise.reject(error);
 		}
 	}
 }
-
-module.exports = DeviceSocket;

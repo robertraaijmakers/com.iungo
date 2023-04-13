@@ -1,0 +1,34 @@
+{
+  "name": {
+    "en": "Socket",
+    "nl": "Schakelaar"
+  },
+  "images": {
+    "large": "drivers/iungo_socket/assets/images/large.jpg",
+    "small": "drivers/iungo_socket/assets/images/small.jpg"
+  },
+  "class": "socket",
+  "capabilities": [
+    "measure_power",
+    "onoff"
+  ],
+  "pair": [
+    {
+      "id": "select_iungo",
+      "navigation": {
+        "next": "list_devices"
+      }
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ]
+}

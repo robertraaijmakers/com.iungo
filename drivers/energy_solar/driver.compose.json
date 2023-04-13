@@ -1,0 +1,68 @@
+{
+  "name": {
+    "en": "Solar Meter",
+    "nl": "Zon"
+  },
+  "images": {
+    "large": "drivers/energy_solar/assets/images/large.jpg",
+    "small": "drivers/energy_solar/assets/images/small.jpg"
+  },
+  "class": "solarpanel",
+  "capabilities": [
+    "measure_power",
+    "meter_power"
+  ],
+  "capabilitiesOptions": {
+    "measure_power": {
+      "title": {
+        "en": "Power",
+        "nl": "Opbrengst"
+      }
+    },
+    "meter_power": {
+      "title": {
+        "en": "Power Total",
+        "nl": "Totaal opbrengst"
+      }
+    }
+  },
+  "pair": [
+    {
+      "id": "select_iungo",
+      "navigation": {
+        "next": "list_devices"
+      }
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Solar meter settings",
+        "nl": "Instellingen zonmeter"
+      },
+      "children": [
+        {
+          "id": "offset",
+          "type": "number",
+          "label": {
+            "en": "Offset",
+            "nl": "Beginstand"
+          },
+          "value": 0
+        }
+      ]
+    }
+  ]
+}

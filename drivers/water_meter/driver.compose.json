@@ -1,0 +1,68 @@
+{
+  "name": {
+    "en": "Water Meter",
+    "nl": "Watermeter"
+  },
+  "images": {
+    "large": "drivers/water_meter/assets/images/large.png",
+    "small": "drivers/water_meter/assets/images/small.png"
+  },
+  "class": "sensor",
+  "capabilities": [
+    "measure_water",
+    "meter_water"
+  ],
+  "capabilitiesOptions": {
+    "measure_water": {
+      "title": {
+        "en": "Verbruik",
+        "nl": "Verbruik"
+      }
+    },
+    "meter_water": {
+      "title": {
+        "en": "Water",
+        "nl": "Water"
+      }
+    }
+  },
+  "pair": [
+    {
+      "id": "select_iungo",
+      "navigation": {
+        "next": "list_devices"
+      }
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Water meter settings",
+        "nl": "Instellingen watermeter"
+      },
+      "children": [
+        {
+          "id": "offset",
+          "type": "number",
+          "label": {
+            "en": "Offset",
+            "nl": "Beginstand"
+          },
+          "value": 0
+        }
+      ]
+    }
+  ]
+}

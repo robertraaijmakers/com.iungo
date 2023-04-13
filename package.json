@@ -1,0 +1,29 @@
+{
+  "name": "com.iungo",
+  "version": "1.0.3",
+  "description": "Iungo app for Homey",
+  "main": "app.js",
+  "dependencies": {
+    "underscore": "^1.8.3",
+    "events": "^1.1.1",
+    "request": "^2.72.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "onInit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/robertraaijmakers/com.iungo.git"
+  },
+  "keywords": [
+    "Iungo",
+    "Homey"
+  ],
+  "author": "Robert Raaijmakers",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/robertraaijmakers/com.iungo/issues"
+  },
+  "homepage": "https://github.com/robertraaijmakers/com.iungo#readme"
+}

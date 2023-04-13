@@ -29,7 +29,7 @@ IungoDiscover.prototype = {
                   if(typeof callback === 'function') {
                     callback('Error', []); 
                   }
-                  Homey.log('Error: '+error);
+                  console.log('Error: '+error);
                }
            });
     },

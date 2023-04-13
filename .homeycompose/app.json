@@ -1,0 +1,47 @@
+{
+  "id": "com.iungo",
+  "sdk": 3,
+  "name": {
+    "en": "Iungo",
+    "nl": "Iungo"
+  },
+  "version": "1.0.3",
+  "compatibility": ">=5.0.0",
+  "brandColor": "#3995ae",
+  "description": {
+    "en": "Your personal energy consumption manager",
+    "nl": "Realtime inzicht in energie- en gasverbruik"
+  },
+  "category": [
+    "energy",
+    "appliances",
+    "tools"
+  ],
+  "images": {
+    "large": "assets/images/large.png",
+    "small": "assets/images/small.png"
+  },
+  "author": {
+    "name": "Robert Raaijmakers",
+    "email": "dutchfighter@live.nl"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Robert Raaijmakers",
+        "email": "dutchfighter@live.nl"
+      }
+    ]
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "RobertRaaijmakers"
+      }
+    }
+  },
+  "bugs": {
+    "url": "https://github.com/robertraaijmakers/com.iungo/issues"
+  },
+  "source": "https://github.com/robertraaijmakers/com.iungo"
+}

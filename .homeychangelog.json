@@ -1,0 +1,29 @@
+{
+  "0.2.3": {
+    "en": "*Initial version of Iungo app letting you read your P1 meter with Iungo Lite or the Iungo Energy Controller.\n* Letting you manage your Iungo compatible wall sockets (read power consumption and turn them on and off from within Homey)."
+  },
+  "0.2.7": {
+    "en": "* Fix for reading water meter values\n* Updated app store image according to Iungo standards"
+  },
+  "0.2.8": {
+    "en": "* Added redelivery (solar panels) capabilities to smart meter (**repair of device needed**)\n* Added some setting options to the smart meter (tariff, gas meter interval)\n* Fixt a defect that water meter offset value wasn't retrieved from Iungo"
+  },
+  "0.3.3": {
+    "en": "* Fixt synchronisation problem with redelivery values\n* Added power fase readings (**repair of device needed**). This will show:\n  * Import per fase (shown when redelivery, or more then one fase is available)\n  * Export per fase (if in use)\n  * Total power import (shown when redelivery, or more then one fase is available)\n  * Total power export (if in use)\n* Made sure that capabilities are only shown if they are used (e.g. redelivery readings won't show if you don't have redelivery power)\n* Added solar meter\n* Completely rewrote the app to use Homey SDK Version 2 (so it's future proof :)), needs Homey version 1.5 or higher"
+  },
+  "0.3.4": {
+    "en": "* Added fix for homes without gas meter\n* Added fix to support modbus energy meters as seperate energy meters"
+  },
+  "0.4.0": {
+    "en": "* Added support for Homey energy!! :)"
+  },
+  "1.0.1": {
+    "en": "* Completely rebuild app to be compatible with Homey v5. You might need to reconnect your devices. Sorry!"
+  },
+  "1.0.2": {
+    "en": "* Added fix for Homey supporting Node v16"
+  },
+  "1.0.3": {
+    "en": "* Added fix for better logging of errors when device capabilities are not set correctly."
+  }
+}

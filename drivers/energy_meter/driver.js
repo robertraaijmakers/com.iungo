@@ -6,9 +6,13 @@ const iconsMap				= {
 	'default': 'default'
 }
 
-class DriverEnergyMeter extends Homey.Driver {
+module.exports = class DriverEnergyMeter extends Homey.Driver {
 
-	onPair( socket ) {
+	async onInit() {
+		
+	}
+
+	async onPair( session ) {
 		console.log('onPair');
 
 		let state = {
@@ -16,12 +20,12 @@ class DriverEnergyMeter extends Homey.Driver {
 			iungo		: undefined
 		};
 
-		socket
-			.on('select_iungo', ( data, callback ) => {
-				Homey.app.findIungos();
+		session
+			.setHandler('select_iungo', ( data ) => {
+				this.homey.app.findIungos();
 				
 				let result = [];
-				let iungoes = Homey.app.getIungoes();
+				let iungoes = this.homey.app.getIungoes();
 				console.log(iungoes);
 				for( let iungoId in iungoes) {
 					state.iungo = iungoes[iungoId];
@@ -33,29 +37,29 @@ class DriverEnergyMeter extends Homey.Driver {
 					});
 				}
 
-				callback( null, result );
+				return result;
 			})
-			.on('list_devices', ( data, callback ) => {
+			.setHandler('list_devices', ( data ) => {
 				if( this.onPairListDevices ) {
-					this.onPairListDevices( state, data, callback );
+					return this.onPairListDevices( state, data );
 				} else {
-					callback( new Error('missing onPairListDevices') );
+					return new Error('missing onPairListDevices');
 				}
 			})
-			.on('disconnect', () => {
+			.setHandler('disconnect', () => {
 				state.connected = false;
 			})
 	}
 
-    onPairListDevices( state, data, callback )
+    async onPairListDevices( state, data )
     {
 	    console.log('onPairListDevices', state);
 
 		if( !state.iungo )
-			return callback( 'invalid_iungo' );
+			return 'invalid_iungo';
 
 		if( state.iungo instanceof Error )
-			return callback( state.iungo );
+			return state.iungo;
 		
 		let result = [];
 		
@@ -63,11 +67,6 @@ class DriverEnergyMeter extends Homey.Driver {
 		{
 			// Select capabilities dynamically based on availability & value
 			let capabilities = [ "measure_power", "meter_power.t1" ];
-			
-			if(typeof state.iungo._energyMeters[power_meter]['meter_power.t2'] !== 'undefined' && state.iungo._energyMeters[power_meter]['meter_power.t2'] > 0)
-			{
-				capabilities.push('meter_power.t2');
-			}
 			
 			// Only add gas to capabilities when gas is connected
 			// Not all homes have gas connection these days and also some modbus energymeter drivers don't measure gas #10
@@ -83,7 +82,12 @@ class DriverEnergyMeter extends Homey.Driver {
 				exportValue = true;
 			}
 			
-			if(typeof state.iungo._energyMeters[power_meter]['meter_power.rt2'] !== 'undefined' && state.iungo._energyMeters[power_meter]['meter_power.rt2'] > 0)
+			if(typeof state.iungo._energyMeters[power_meter]['meter_power.t2'] !== 'undefined' && (state.iungo._energyMeters[power_meter]['meter_power.t2'] > 0 || exportValue == true))
+			{
+				capabilities.push('meter_power.t2');
+			}
+			
+			if(typeof state.iungo._energyMeters[power_meter]['meter_power.rt2'] !== 'undefined' && (state.iungo._energyMeters[power_meter]['meter_power.rt2'] > 0 || exportValue == true))
 			{
 				capabilities.push('meter_power.rt2');
 				exportValue = true;
@@ -159,8 +163,6 @@ class DriverEnergyMeter extends Homey.Driver {
 			result.push( deviceObj );
 		}
 
-		callback( null, result );
+		return result;
     }
 }
-
-module.exports = DriverEnergyMeter;
