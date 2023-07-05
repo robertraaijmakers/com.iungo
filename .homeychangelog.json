@@ -1,6 +1,6 @@
 {
   "0.2.3": {
-    "en": "*Initial version of Iungo app letting you read your P1 meter with Iungo Lite or the Iungo Energy Controller.\n* Letting you manage your Iungo compatible wall sockets (read power consumption and turn them on and off from within Homey)."
+    "en": "* Initial version of Iungo app letting you read your P1 meter with Iungo Lite or the Iungo Energy Controller.\n* Letting you manage your Iungo compatible wall sockets (read power consumption and turn them on and off from within Homey)."
   },
   "0.2.7": {
     "en": "* Fix for reading water meter values\n* Updated app store image according to Iungo standards"
@@ -25,5 +25,8 @@
   },
   "1.0.3": {
     "en": "* Added fix for better logging of errors when device capabilities are not set correctly."
+  },
+  "1.0.4": {
+    "en": "* Added fix for new Homey Pro 2023 model and app initialization."
   }
 }

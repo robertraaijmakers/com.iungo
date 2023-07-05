@@ -55,8 +55,6 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 		}
 		else
 		{
-			let deviceInstance = iungo.getEnergyMeter(deviceData.id);
-		
 			iungo.on('refresh-' + deviceData.id, this.syncDevice.bind(this) );
 			this.syncDevice( );
 		}
@@ -83,9 +81,6 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 	 
    	    this.log('_syncDevice', deviceData.id);
 	    
-	    // Current device state
-	    let deviceState = this.getState();
-	    
 	    // New device state / data
 		var deviceInstance = iungo.getEnergyMeter( deviceData.id );
 		if( deviceInstance instanceof Error )
@@ -94,16 +89,24 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 		}
 	   
 		this.setAvailable( );
+	    
+	    // Current device state
+	    let deviceState = this.getState();
+		let capabilities = deviceState;
+
+		if(typeof deviceState === 'undefined' || deviceState === null || !('measure_power' in deviceState)) {
+			capabilities = deviceInstance;
+		}
 
 		// Sync values to internal state
-		for( let capabilityId in deviceState )
+		for(let capabilityId in capabilities)
 		{
 			let value = deviceInstance[ capabilityId ];
-			if( typeof value !== 'undefined' && value !== null) {
+			if(typeof value !== 'undefined' && value !== null) {
 				
 				let oldValue = deviceState[capabilityId];								
-				deviceState[ capabilityId ] = value;	
-		
+				deviceState[ capabilityId ] = value;
+
 				if(oldValue !== null && oldValue !== value)
 				{					
 					switch(capabilityId)
@@ -137,7 +140,7 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 						break;
 					}
 				}
-				
+
 				if(oldValue !== value)
 				{
 					this.setCapabilityValue(capabilityId, value)

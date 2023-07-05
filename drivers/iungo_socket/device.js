@@ -28,7 +28,6 @@ module.exports = class DeviceSocket extends Homey.Device {
 		}
 		else
 		{
-			let deviceInstance = iungo.getSocket(deviceData.id);
 			iungo.on('refresh-' + deviceData.id, this.syncDevice.bind(this) );
 			this.syncDevice( );
 		}
@@ -55,9 +54,6 @@ module.exports = class DeviceSocket extends Homey.Device {
 			return this.setUnavailable( this.homey.__('unreachable') );
 		}
 	    
-	    // Current device state
-	    let deviceState = this.getState();
-	    
 	    // New device state / data
 		var deviceInstance = iungo.getSocket( deviceData.id );
 		if( deviceInstance instanceof Error )
@@ -67,8 +63,16 @@ module.exports = class DeviceSocket extends Homey.Device {
 	   
 		this.setAvailable( );
 
+		// Current device state
+		let deviceState = this.getState();
+		let capabilities = deviceState;
+
+		if(typeof deviceState === 'undefined' || deviceState === null || !('measure_power' in deviceState)) {
+			capabilities = deviceInstance;
+		}
+
 		// Sync values to internal state
-		for( let capabilityId in deviceState )
+		for( let capabilityId in capabilities )
 		{
 			let value = deviceInstance[ capabilityId ];
 			if( typeof value !== 'undefined' ) {

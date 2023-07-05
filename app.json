@@ -6,7 +6,7 @@
     "en": "Iungo",
     "nl": "Iungo"
   },
-  "version": "1.0.3",
+  "version": "1.0.4",
   "compatibility": ">=5.0.0",
   "brandColor": "#3995ae",
   "description": {
@@ -360,7 +360,7 @@
         },
         "measure_current.l3": {
           "title": {
-            "en": "Current L2",
+            "en": "Current L3",
             "nl": "Stroomsterkte L3"
           }
         },
