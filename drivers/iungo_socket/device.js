@@ -61,7 +61,9 @@ module.exports = class DeviceSocket extends Homey.Device {
 			return this.setUnavailable( this.homey.__('unreachable') );
 		}
 	   
-		this.setAvailable( );
+		this.setAvailable()
+			.catch(this.error)
+			.then(this.log);
 
 		// Current device state
 		let deviceState = this.getState();
