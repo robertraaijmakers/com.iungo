@@ -109,8 +109,7 @@ Iungo.prototype = {
 	
 	setDeviceSettings: function(oid, props, callback)
 	{
-		console.log(oid);
-		console.log(props);
+		console.log(`setDeviceSettings ${oid} - ${props}`);
 		
 		var args = {
 			oid: oid,

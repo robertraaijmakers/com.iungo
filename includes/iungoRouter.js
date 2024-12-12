@@ -196,7 +196,7 @@ class IungoRouter extends events.EventEmitter {
 	
 	saveWater ( settings, action, value )
 	{
-		this.debug('savePower');
+		this.debug('saveWater');
 		console.log( settings );
 		return Promise.resolve(false);
 	}
@@ -242,7 +242,7 @@ class IungoRouter extends events.EventEmitter {
 		{
 			if(response === null)
 			{
-				console.log(err);
+				this.debug(err);
 			}
 			
 			for(var obj in response.objects)
@@ -272,7 +272,7 @@ class IungoRouter extends events.EventEmitter {
 				}
 				else if(device.type.indexOf("solar") !== -1)
 				{
-					// Wall socket
+					// Solar
 					var meter = parseSolarMeterValues(device.oid, device.name, device.driver, device.propsval);
 					this._solarMeters[meter.id] = meter;
 					this.emit('refresh-'+meter.id);
@@ -333,7 +333,7 @@ class IungoRouter extends events.EventEmitter {
 
 module.exports = IungoRouter;
 
-function parseEnergyMeterValues(oid, name, type, properties)
+function parseEnergyMeterValues(oid, name, driver, properties)
 {
 	// Register device variables
 	let energyMeter = 
@@ -341,16 +341,18 @@ function parseEnergyMeterValues(oid, name, type, properties)
 		id: oid,
 		uniqueId: oid,
 		name: name,
-		modelId: type.replace("energy-","").replace("energymeter-",""),
+		modelId: driver.replace("energy-","").replace("energymeter-",""),
 		settings: {}
 	}
 	
-	var measurePowerImport = 0;
-	var measurePowerExport = 0;
+	let measurePowerImport = 0;
+	let measurePowerExport = 0;
+	let meterPowerImported = 0;
+	let meterPowerExported = 0;
 	
-	for(var obj in properties)
+	for(let obj in properties)
 	{
-		var property = properties[obj];
+		let property = properties[obj];
 		
 		if(typeof energyMeterCapabilitiesMap[property.id] !== 'undefined')
 		{
@@ -361,14 +363,24 @@ function parseEnergyMeterValues(oid, name, type, properties)
 		{
 			energyMeter['settings'][energyMeterSettingsMap[property.id]] = property.value;
 		}
+
+		if(property.id == "T1" || property.id == "T2")
+		{
+			meterPowerImported += property.value;
+		}
+
+		if(property.id == "-T1" || property.id == "-T2")
+		{
+			meterPowerExported += property.value;
+		}
 		
-		if(property.id == "L1Pimp" || property.id == "L2Pimp" || property.id == "L3Pimp" )
+		if(property.id == "L1Pimp" || property.id == "L2Pimp" || property.id == "L3Pimp")
 		{
 			energyMeter[energyMeterCapabilitiesMap[property.id]] = property.value*1000;
 			measurePowerImport += property.value;
 		}
 		
-		if(property.id == "L1Pexp" || property.id == "L2Pexp" || property.id == "L3Pexp" )
+		if(property.id == "L1Pexp" || property.id == "L2Pexp" || property.id == "L3Pexp")
 		{
 			energyMeter[energyMeterCapabilitiesMap[property.id]] = property.value*1000;
 			measurePowerExport += property.value;
@@ -378,10 +390,18 @@ function parseEnergyMeterValues(oid, name, type, properties)
 	energyMeter["measure_power.import"] = measurePowerImport*1000;
 	energyMeter["measure_power.export"] = measurePowerExport*1000;
 
+	if(meterPowerImported > 0) {
+		energyMeter["meter_power.imported"] = meterPowerImported;
+	}
+
+	if(meterPowerExported > 0) {
+		energyMeter["meter_power.exported"] = meterPowerExported;
+	}
+
 	return energyMeter;
 }
 
-function parseWaterMeterValues(oid, name, type, properties)
+function parseWaterMeterValues(oid, name, driver, properties)
 {
 	// Register device variables
 	let waterMeter = 
@@ -389,7 +409,7 @@ function parseWaterMeterValues(oid, name, type, properties)
 		id: oid,
 		uniqueId: oid,
 		name: name,
-		modelId: type.replace("water",""),
+		modelId: driver.replace("water-",""),
 		present: true,
 		settings: {}
 	}
@@ -427,7 +447,7 @@ function parseWaterMeterValues(oid, name, type, properties)
 	return waterMeter;
 }
 
-function parseSocketValues(oid, name, type, properties)
+function parseSocketValues(oid, name, driver, properties)
 {
 	// Register device variables
 	let socket = 
@@ -435,7 +455,7 @@ function parseSocketValues(oid, name, type, properties)
 		id: oid,
 		uniqueId: oid,
 		name: name,
-		modelId: type.replace("powerswitch-","")
+		modelId: driver.replace("powerswitch-","")
 	}
 	
 	for(var obj in properties)
@@ -459,7 +479,7 @@ function parseSocketValues(oid, name, type, properties)
 	return socket;
 }
 
-function parseSolarMeterValues(oid, name, type, properties)
+function parseSolarMeterValues(oid, name, driver, properties)
 {
 	// Register device variables
 	let solarMeter = 

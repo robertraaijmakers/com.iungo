@@ -1,7 +1,6 @@
 "use strict";
 
 const Homey 		= require('homey');
-const events		= require('events');
 const IungoRouter	= require('./includes/iungoRouter.js');
 const IungoDiscover	= require('./includes/iungoDiscover.js').IungoDiscover;
 const findIungosInterval = 600000;

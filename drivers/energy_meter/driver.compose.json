@@ -11,14 +11,14 @@
   "capabilities": [
     "measure_power",
     "meter_power.sum",
+    "meter_power.imported",
+    "meter_power.exported",
     "meter_gas",
     "meter_gas.sum",
     "meter_power.t1",
     "meter_power.t2",
     "meter_power.rt1",
     "meter_power.rt2",
-    "measure_power.import",
-    "measure_power.export",
     "measure_current.l1",
     "measure_current.l2",
     "measure_current.l3",
@@ -66,6 +66,18 @@
         "nl": "Teruglevering 2"
       }
     },
+    "meter_power.imported": {
+      "title": {
+        "en": "Power Total Import",
+        "nl": "Totaal verbuik import"
+      }
+    },
+    "meter_power.exported": {
+      "title": {
+        "en": "Power Total Export",
+        "nl": "Totaal verbruik export"
+      }
+    },
     "meter_gas": {
       "title": {
         "en": "Gas",
@@ -94,18 +106,6 @@
       "title": {
         "en": "Current L3",
         "nl": "Stroomsterkte L3"
-      }
-    },
-    "measure_power.import": {
-      "title": {
-        "en": "Power Import",
-        "nl": "Vermogen Import"
-      }
-    },
-    "measure_power.export": {
-      "title": {
-        "en": "Power Export",
-        "nl": "Vermogen Export"
       }
     },
     "measure_power.l1i": {
@@ -143,12 +143,24 @@
         "en": "Export 3",
         "nl": "Export 3"
       }
+    },
+    "measure_power.import": {
+      "title": {
+        "en": "Power Import",
+        "nl": "Vermogen Import"
+      }
+    },
+    "measure_power.export": {
+      "title": {
+        "en": "Power Export",
+        "nl": "Vermogen Export"
+      }
     }
   },
   "energy": {
     "cumulative": true,
-    "cumulativeImportedCapability": "measure_power.import",
-    "cumulativeExportedCapability": "measure_power.export"
+    "cumulativeImportedCapability": "meter_power.imported",
+    "cumulativeExportedCapability": "meter_power.exported"
   },
   "pair": [
     {
