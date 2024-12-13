@@ -79,7 +79,6 @@ module.exports = class DriverEnergyMeter extends Homey.Driver {
 			if(typeof state.iungo._energyMeters[power_meter]['meter_power.rt1'] !== 'undefined' && state.iungo._energyMeters[power_meter]['meter_power.rt1'] > 0)
 			{
 				capabilities.push('meter_power.rt1');
-				capabilities.push('meter_power.exported');
 				exportValue = true;
 			}
 			
@@ -91,11 +90,15 @@ module.exports = class DriverEnergyMeter extends Homey.Driver {
 			if(typeof state.iungo._energyMeters[power_meter]['meter_power.rt2'] !== 'undefined' && (state.iungo._energyMeters[power_meter]['meter_power.rt2'] > 0 || exportValue == true))
 			{
 				capabilities.push('meter_power.rt2');
+				
+				// We only add the total power imported & total power exported capability for smart meters. These can be regognized by the fact that they have 2 'telwerken'
+				capabilities.push("meter_power.imported");
+				capabilities.push('meter_power.exported');
 				exportValue = true;
 			}
 			
 			// We don't need the export capabilities if we don't export power.
-			// We also don't need the import capability because the import total is always equal to the current power usage.
+			// We also don't need the import capability because the import total is always equal to the current measure_power capability.
 			if(exportValue)
 			{
 				capabilities.push("measure_power.import");

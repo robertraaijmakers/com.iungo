@@ -44,7 +44,10 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 		// Wait for the iungo to be available (and start recieving update events)
 		let deviceData = this.getData();
 		let iungo = this.getIungo(deviceData);
-		
+
+		if(this.hasCapability('meter_power.rt2') && !this.hasCapability('meter_power.imported')) await this.addCapability('meter_power.imported').catch(this.error);
+		if(this.hasCapability('meter_power.rt2') && !this.hasCapability('meter_power.exported')) await this.addCapability('meter_power.exported').catch(this.error);
+
 		if(iungo instanceof Error )
 		{
 			this.homey.app.once('iungo_available', ( iungo ) => {
