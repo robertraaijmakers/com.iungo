@@ -32,7 +32,7 @@
   "1.0.6": {
     "en": "* Updated app to be compliant with new Homey development guidelines."
   },
-  "1.1.1": {
+  "1.1.2": {
     "en": "* Added support for new energy management features."
   }
 }
