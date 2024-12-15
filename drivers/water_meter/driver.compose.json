@@ -26,6 +26,9 @@
       }
     }
   },
+  "energy": {
+    "cumulative": true
+  },
   "pair": [
     {
       "id": "select_iungo",
