@@ -244,6 +244,8 @@ class IungoRouter extends events.EventEmitter {
 			{
 				this.debug(err);
 			}
+
+			//this.debug(`RESPONSE:`, response);
 			
 			for(var obj in response.objects)
 			{				
@@ -398,6 +400,11 @@ function parseEnergyMeterValues(oid, name, driver, properties)
 		energyMeter["meter_power.exported"] = meterPowerExported;
 	}
 
+	// Combine meter_power.imported and meter_power.exported into the standard meter_power capability
+	if(meterPowerExported > 0 || meterPowerImported > 0) {
+		energyMeter["meter_power"] = meterPowerImported - meterPowerExported;
+	}
+
 	return energyMeter;
 }
 
@@ -495,6 +502,8 @@ function parseSolarMeterValues(oid, name, driver, properties)
 	var offset = null;
 	var pulstotal = null;
 	var ppkwh = null;
+	var importMeter = null;
+	var exportMeter = null;
 	
 	for(var obj in properties)
 	{
@@ -509,6 +518,12 @@ function parseSolarMeterValues(oid, name, driver, properties)
 				offset = property.value;
 				solarMeter["settings"]["offset"] = property.value;
 			break;
+			case "import":
+				importMeter = property.value;
+				break;
+			case "export":
+				exportMeter = property.value
+				break;
 			case "pulstotal":
 				pulstotal = property.value;
 			break;
@@ -517,9 +532,14 @@ function parseSolarMeterValues(oid, name, driver, properties)
 			break;
 		}
 	}
-	
-	if(offset !== null && pulstotal !== null && ppkwh !== null)
-	{
+
+	// For modbus kWh meters: Solar panels consume energy and produce energy, combine into default meter_power capability
+	if(offset !== null && importMeter !== null && exportMeter !== null) {
+		solarMeter['meter_power'] = offset + exportMeter - importMeter;
+	}
+
+	// In case of pulse energy measurement devices, determine the energy meter state based on offset + (pulstotal / ppkwh)
+	if(offset !== null && pulstotal !== null && ppkwh !== null) {
 		solarMeter["meter_power"] = offset + (pulstotal / ppkwh);
 	}
 

@@ -162,6 +162,10 @@
     "cumulativeImportedCapability": "meter_power.imported",
     "cumulativeExportedCapability": "meter_power.exported"
   },
+  "gas": {
+    "cumulative": true,
+    "cumulativeExportedCapability": "meter_gas"
+  },
   "pair": [
     {
       "id": "select_iungo",

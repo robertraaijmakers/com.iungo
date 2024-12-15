@@ -6,7 +6,7 @@
     "en": "Iungo",
     "nl": "Iungo"
   },
-  "version": "1.1.1",
+  "version": "1.1.2",
   "compatibility": ">=12.1.2",
   "brandColor": "#3995ae",
   "description": {
@@ -430,6 +430,10 @@
         "cumulativeImportedCapability": "meter_power.imported",
         "cumulativeExportedCapability": "meter_power.exported"
       },
+      "gas": {
+        "cumulative": true,
+        "cumulativeExportedCapability": "meter_gas"
+      },
       "pair": [
         {
           "id": "select_iungo",
@@ -669,6 +673,10 @@
         "small": "drivers/water_meter/assets/images/small.png"
       },
       "class": "sensor",
+      "water": {
+        "cumulative": true,
+        "cumulativeExportedCapability": "meter_water"
+      },
       "capabilities": [
         "measure_water",
         "meter_water"

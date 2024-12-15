@@ -58,6 +58,13 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 		}
 		else
 		{
+			// For Modbus devices (also other device type?), empty the Engery object (no cummulative measuring device) and add the default meter_power capability (required for Homey Energy consumers)
+			var deviceInstance = iungo.getEnergyMeter( deviceData.id );
+			if(deviceInstance['modelId'].includes('-modbus')) {
+				if(this.getEnergy !== null) await this.setEnergy({});
+				if(!this.hasCapability('meter_power')) await this.addCapability('meter_power').catch(this.error);
+			}
+
 			iungo.on('refresh-' + deviceData.id, this.syncDevice.bind(this) );
 			this.syncDevice( );
 		}
@@ -93,7 +100,7 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 	   
 		this.setAvailable()
 			.catch(this.error)
-			.then(this.log);
+			.then(this.log(`Meter available ${deviceData.id}`));
 	    
 	    // Current device state
 	    let deviceState = this.getState();
@@ -117,41 +124,51 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 					switch(capabilityId)
 					{
 						case 'meter_power.t1':
-							this.flowCards["meter_power_t1_changed"].trigger(this, { power_used: value }, null).then(this.log).catch(this.error);
+							this.flowCards["meter_power_t1_changed"].trigger(this, { power_used: value }, null).then(this.log(`trigger flowCard ${capabilityId}`)).catch(this.error);
 						break;
 						case 'meter_power.t2':
-							this.flowCards["meter_power_t2_changed"].trigger(this, { power_used: value }, null).then(this.log).catch(this.error);
+							this.flowCards["meter_power_t2_changed"].trigger(this, { power_used: value }, null).then(this.log(`trigger flowCard ${capabilityId}`)).catch(this.error);
 						break;
 						case 'meter_power.rt1':
-							this.flowCards["meter_power_rt1_changed"].trigger(this, { power_used: value }, null).then(this.log).catch(this.error);
+							this.flowCards["meter_power_rt1_changed"].trigger(this, { power_used: value }, null).then(this.log(`trigger flowCard ${capabilityId}`)).catch(this.error);
 						break;
 						case 'meter_power.rt2':
-							this.flowCards["meter_power_rt2_changed"].trigger(this, { power_used: value }, null).then(this.log).catch(this.error);
+							this.flowCards["meter_power_rt2_changed"].trigger(this, { power_used: value }, null).then(this.log(`trigger flowCard ${capabilityId}`)).catch(this.error);
 						break;
 						case 'measure_current.l1':
-							this.flowCards["measure_current_l1_changed"].trigger(this, { current_value: value }, null).then(this.log).catch(this.error);
+							this.flowCards["measure_current_l1_changed"].trigger(this, { current_value: value }, null).then(this.log(`trigger flowCard ${capabilityId}`)).catch(this.error);
 						break;
 						case 'measure_current.l2':
-							this.flowCards["measure_current_l2_changed"].trigger(this, { current_value: value }, null).then(this.log).catch(this.error);
+							this.flowCards["measure_current_l2_changed"].trigger(this, { current_value: value }, null).then(this.log(`trigger flowCard ${capabilityId}`)).catch(this.error);
 						break;
 						case 'measure_current.l3':
-							this.flowCards["measure_current_l3_changed"].trigger(this, { current_value: value }, null).then(this.log).catch(this.error);
+							this.flowCards["measure_current_l3_changed"].trigger(this, { current_value: value }, null).then(this.log(`trigger flowCard ${capabilityId}`)).catch(this.error);
 						break;
 						case 'measure_power.import':
-							this.flowCards["measure_power_import_changed"].trigger(this, { power_used: value }, null).then(this.log).catch(this.error);
+							this.flowCards["measure_power_import_changed"].trigger(this, { power_used: value }, null).then(this.log(`trigger flowCard ${capabilityId}`)).catch(this.error);
 						break;
 						case 'measure_power.export':
-							this.flowCards["measure_power_export_changed"].trigger(this, { power_used: value }, null).then(this.log).catch(this.error);
+							this.flowCards["measure_power_export_changed"].trigger(this, { power_used: value }, null).then(this.log(`trigger flowCard ${capabilityId}`)).catch(this.error);
 						break;
 					}
 				}
 
-				if(oldValue !== value)
-				{
-					this.setCapabilityValue(capabilityId, value)
-						.catch(this.error)
-						.then(this.log);
+				if(oldValue === value) continue;
+				
+				let hasCapability = this.hasCapability(capabilityId);
+				if(hasCapability === false) {
+					if((capabilityId === 'meter_power' && deviceInstance['modelId'].includes('-modbus')) || capabilityId !== 'meter_power') {
+						this.log(`Received data ${value} for ${capabilityId}, but capability is missing, adding capabiliity`);
+						this.addCapability(capabilityId).catch(this.error);
+						hasCapability = true;
+					}
 				}
+
+				if(hasCapability === false) continue;
+
+				this.setCapabilityValue(capabilityId, value)
+					.catch(this.error)
+					.then(this.log(`Updated capability ${capabilityId} with value ${value}`));
 			}
 		}
 		
@@ -170,8 +187,17 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 			{
 				var oldSetting = settings[settingId];
 				var newSetting = deviceInstance.settings[settingId];
-				if(oldSetting !== newSetting)
-				{
+
+				// Skip if the new setting is undefined
+				if (typeof newSetting === 'undefined') continue;
+
+				const isNumber = typeof oldSetting === 'number' && typeof newSetting === 'number';
+				const valuesAreDifferent = isNumber 
+					? Math.abs(oldSetting - newSetting) > 1e-10  // Compare with a small tolerance
+					: oldSetting !== newSetting;
+
+				if (valuesAreDifferent) {
+					this.log(`Setting ID: ${settingId}. Old setting: ${oldSetting}, New Setting: ${newSetting}`);
 					changed = true;
 				}
 			}
@@ -180,7 +206,7 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 			{
 				this.setSettings( deviceInstance.settings )
 				.catch(this.error)
-				.then(this.log);
+				.then(this.log(`Settings changed, updating settings ${deviceData.id}`));
 			}
 		}
     }
