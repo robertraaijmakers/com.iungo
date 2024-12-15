@@ -61,7 +61,7 @@ module.exports = class DeviceSolarMeter extends Homey.Device {
 	   
 		this.setAvailable()
 			.catch(this.error)
-			.then(this.log(`Device avaliable (solar): ${deviceData.id}`));
+			.then(this.log(`Device available (solar): ${deviceData.id}`));
 
 		// Current device state
 		let deviceState = this.getState();
