@@ -34,5 +34,8 @@
   },
   "1.1.1": {
     "en": "* Added support for new energy management features."
+  },
+  "1.1.2": {
+    "en": "* [BREAKING CHANGE] Flow-cards now use native triggering. If you were using flow cards for your energy meter you might need to replace them."
   }
 }
