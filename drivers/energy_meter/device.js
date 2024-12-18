@@ -11,36 +11,6 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
         this.log('name:', this.getName());
         this.log('class:', this.getClass());
 
-		// Register flow cards that we need to trigger manualy
-		this.flowCards = {};
-		
-		var meter_power_t1_changed = this.homey.flow.getDeviceTriggerCard('meter_power_t1_changed');
-		this.flowCards["meter_power_t1_changed"] = meter_power_t1_changed;
-		
-		var meter_power_t2_changed = this.homey.flow.getDeviceTriggerCard('meter_power_t2_changed');
-		this.flowCards["meter_power_t2_changed"] = meter_power_t2_changed;
-		
-		var meter_power_rt1_changed = this.homey.flow.getDeviceTriggerCard('meter_power_rt1_changed');
-		this.flowCards["meter_power_rt1_changed"] = meter_power_rt1_changed;
-		
-		var meter_power_rt2_changed = this.homey.flow.getDeviceTriggerCard('meter_power_rt2_changed');
-		this.flowCards["meter_power_rt2_changed"] = meter_power_rt2_changed;
-		
-		var measure_current_l1_changed = this.homey.flow.getDeviceTriggerCard('measure_current_l1_changed');
-		this.flowCards["measure_current_l1_changed"] = measure_current_l1_changed;
-		
-		var measure_current_l2_changed = this.homey.flow.getDeviceTriggerCard('measure_current_l2_changed');
-		this.flowCards["measure_current_l2_changed"] = measure_current_l2_changed;
-		
-		var measure_current_l3_changed = this.homey.flow.getDeviceTriggerCard('measure_current_l3_changed');
-		this.flowCards["measure_current_l3_changed"] = measure_current_l3_changed;
-		
-		var measure_power_import_changed = this.homey.flow.getDeviceTriggerCard('measure_power_import_changed');
-		this.flowCards["measure_power_import_changed"] = measure_power_import_changed;
-		
-		var measure_power_export_changed = this.homey.flow.getDeviceTriggerCard('measure_power_export_changed');
-		this.flowCards["measure_power_export_changed"] = measure_power_export_changed;
-				
 		// Wait for the iungo to be available (and start recieving update events)
 		let deviceData = this.getData();
 		let iungo = this.getIungo(deviceData);
@@ -93,7 +63,7 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 	   
 		this.setAvailable()
 			.catch(this.error)
-			.then(this.log);
+			.then(this.log(`Device ${deviceData.id} is available.`));
 	    
 	    // Current device state
 	    let deviceState = this.getState();
@@ -112,45 +82,11 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 				let oldValue = deviceState[capabilityId];								
 				deviceState[ capabilityId ] = value;
 
-				if(oldValue !== null && oldValue !== value)
-				{					
-					switch(capabilityId)
-					{
-						case 'meter_power.t1':
-							this.flowCards["meter_power_t1_changed"].trigger(this, { power_used: value }, null).then(this.log).catch(this.error);
-						break;
-						case 'meter_power.t2':
-							this.flowCards["meter_power_t2_changed"].trigger(this, { power_used: value }, null).then(this.log).catch(this.error);
-						break;
-						case 'meter_power.rt1':
-							this.flowCards["meter_power_rt1_changed"].trigger(this, { power_used: value }, null).then(this.log).catch(this.error);
-						break;
-						case 'meter_power.rt2':
-							this.flowCards["meter_power_rt2_changed"].trigger(this, { power_used: value }, null).then(this.log).catch(this.error);
-						break;
-						case 'measure_current.l1':
-							this.flowCards["measure_current_l1_changed"].trigger(this, { current_value: value }, null).then(this.log).catch(this.error);
-						break;
-						case 'measure_current.l2':
-							this.flowCards["measure_current_l2_changed"].trigger(this, { current_value: value }, null).then(this.log).catch(this.error);
-						break;
-						case 'measure_current.l3':
-							this.flowCards["measure_current_l3_changed"].trigger(this, { current_value: value }, null).then(this.log).catch(this.error);
-						break;
-						case 'measure_power.import':
-							this.flowCards["measure_power_import_changed"].trigger(this, { power_used: value }, null).then(this.log).catch(this.error);
-						break;
-						case 'measure_power.export':
-							this.flowCards["measure_power_export_changed"].trigger(this, { power_used: value }, null).then(this.log).catch(this.error);
-						break;
-					}
-				}
-
 				if(oldValue !== value)
 				{
 					this.setCapabilityValue(capabilityId, value)
 						.catch(this.error)
-						.then(this.log);
+						.then(this.log(`Capability ${capabilityId} set to ${value}.`));
 				}
 			}
 		}
@@ -180,7 +116,7 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 			{
 				this.setSettings( deviceInstance.settings )
 				.catch(this.error)
-				.then(this.log);
+				.then(this.log(`Settings updated.`));
 			}
 		}
     }

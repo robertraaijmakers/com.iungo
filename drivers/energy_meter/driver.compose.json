@@ -11,17 +11,19 @@
   "capabilities": [
     "measure_power",
     "meter_power.sum",
-    "meter_power.imported",
-    "meter_power.exported",
     "meter_gas",
     "meter_gas.sum",
     "meter_power.t1",
     "meter_power.t2",
+    "meter_power.imported",
     "meter_power.rt1",
     "meter_power.rt2",
+    "meter_power.exported",
     "measure_current.l1",
     "measure_current.l2",
     "measure_current.l3",
+    "measure_power.import",
+    "measure_power.export",
     "measure_power.l1i",
     "measure_power.l2i",
     "measure_power.l3i",
@@ -54,6 +56,12 @@
         "nl": "Telwerk 2"
       }
     },
+    "meter_power.imported": {
+      "title": {
+        "en": "Power Total Import",
+        "nl": "Totaal verbuik import"
+      }
+    },
     "meter_power.rt1": {
       "title": {
         "en": "Power -T1",
@@ -64,12 +72,6 @@
       "title": {
         "en": "Power -T2",
         "nl": "Teruglevering 2"
-      }
-    },
-    "meter_power.imported": {
-      "title": {
-        "en": "Power Total Import",
-        "nl": "Totaal verbuik import"
       }
     },
     "meter_power.exported": {
