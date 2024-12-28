@@ -8,9 +8,8 @@
     "small": "drivers/water_meter/assets/images/small.png"
   },
   "class": "sensor",
-  "water": {
-    "cumulative": true,
-    "cumulativeExportedCapability": "meter_water"
+  "energy": {
+    "cumulative": true
   },
   "capabilities": [
     "measure_water",
