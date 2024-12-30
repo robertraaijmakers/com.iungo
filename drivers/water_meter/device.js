@@ -10,11 +10,11 @@ module.exports = class DeviceWaterMeter extends Homey.Device {
         this.log('device init');
         this.log('name:', this.getName());
         this.log('class:', this.getClass());
-		
+
 		// Wait for the iungo to be available (and start recieving update events)
 		let deviceData = this.getData();
 		let iungo = this.getIungo(deviceData);
-		
+
 		if(iungo instanceof Error )
 		{
 			this.homey.app.once('iungo_available', ( iungo ) => {
@@ -29,7 +29,7 @@ module.exports = class DeviceWaterMeter extends Homey.Device {
 			this.syncDevice( );
 		}
     }
-    
+
     getIungo( device_data ) {
 		if(typeof this.homey === 'undefined' || typeof this.homey.app === 'undefined')
 		{
@@ -38,29 +38,31 @@ module.exports = class DeviceWaterMeter extends Homey.Device {
 
 		return this.homey.app.getIungo( device_data.iungo_id );
 	}
-    
+
     // sync device data and settings
     syncDevice( )
-    {	    
+    {
 	    let deviceData = this.getData();
    	    this.log('_syncDevice', deviceData.id);
-   	    
+
 	    let iungo = this.getIungo( deviceData );
 		if( iungo instanceof Error )
 		{
 			return this.setUnavailable( this.homey.__('unreachable') );
 		}
-	    
+
 	    // New device state / data
 		var deviceInstance = iungo.getWaterMeter( deviceData.id );
 		if( deviceInstance instanceof Error )
 		{
 			return this.setUnavailable( this.homey.__('unreachable') );
 		}
-	   
-		this.setAvailable()
-			.catch(this.error)
-			.then(this.log);
+
+    if(!this.getAvailable()){
+      this.setAvailable()
+  			.catch(this.error)
+  			.then(this.log(`Device ${deviceData.id} is available.`));
+    }
 
 		// Current device state
 		let deviceState = this.getState();
@@ -75,8 +77,8 @@ module.exports = class DeviceWaterMeter extends Homey.Device {
 		{
 			let value = deviceInstance[ capabilityId ];
 			if( typeof value !== 'undefined' ) {
-				
-				let oldValue = deviceState[capabilityId];								
+
+				let oldValue = deviceState[capabilityId];
 				deviceState[ capabilityId ] = value;
 
 				if(oldValue !== value)
@@ -87,12 +89,12 @@ module.exports = class DeviceWaterMeter extends Homey.Device {
 				}
 			}
 		}
-		
+
 		// Sync settings to internal state
 		if(typeof deviceInstance.settings !== 'undefined')
 		{
 			let settings = this.getSettings();
-			
+
 			if(settings.length === 0) {
 				// No settings yet available. Apply all settings.
 				this.setSettings( deviceInstance.settings );
@@ -110,7 +112,7 @@ module.exports = class DeviceWaterMeter extends Homey.Device {
 						changed = true;
 					}
 				}
-				
+
 				if(changed)
 				{
 					this.setSettings( deviceInstance.settings );
@@ -122,39 +124,39 @@ module.exports = class DeviceWaterMeter extends Homey.Device {
     // This method is called when the Device is added
     onAdded() {
         this.log('device added');
-        
+
         // Sync (new) device name with Iungo
         let deviceData = this.getData();
         let iungo = this.getIungo( deviceData );
-        return iungo.save(_deviceType, deviceData, 'name', this.getName());        
+        return iungo.save(_deviceType, deviceData, 'name', this.getName());
     }
-    
+
     onRenamed(newName)
     {
         // Sync (new) device name with Iungo
         let deviceData = this.getData();
         let iungo = this.getIungo( deviceData );
-        return iungo.save(_deviceType, deviceData, 'name', newName); 	    
+        return iungo.save(_deviceType, deviceData, 'name', newName);
     }
 
     // This method is called when the Device is deleted
     onDeleted() {
         this.log('device deleted');
-        
+
         let deviceData = this.getData();
-        
+
         let iungo = this.getIungo( deviceData );
 		if ( iungo )
 		{
 			iungo.removeListener('refresh-' + deviceData.id, this.syncDevice.bind(this));
 		}
     }
-	
+
 	// Fired when the settings of this device are changed by the user.
 	onSettings ( oldSettingsObj, newSettingsObj, changedKeysArr )
 	{
 		let device_data = this.getData();
-		
+
 		this.log ('Changed settings: ' + JSON.stringify(device_data) + ' / new = ' + JSON.stringify(newSettingsObj) + ' / old = ' + JSON.stringify(oldSettingsObj) + ' / changedKeys = ' + JSON.stringify(changedKeysArr));
 		let iungo = this.getIungo(device_data);
 
@@ -165,7 +167,7 @@ module.exports = class DeviceWaterMeter extends Homey.Device {
 					.catch(this.error)
 					.then(this.log);
 			});
-			
+
 			Promise.resolve(true);
 		} catch (error) {
 			Promise.reject(error);
