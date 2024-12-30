@@ -68,14 +68,14 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
 			return this.setUnavailable( this.homey.__('unreachable') );
 		}
 
-    if(!this.getAvailable()){
-      this.setAvailable()
-  			.catch(this.error)
-  			.then(this.log(`Device ${deviceData.id} is available.`));
-    }
+		if(!this.getAvailable()) {
+			this.setAvailable()
+				.catch(this.error)
+				.then(this.log(`Device ${deviceData.id} is available.`));
+		}
 
-	  // Current device state
-	  let deviceState = this.getState();
+		// Current device state
+		let deviceState = this.getState();
 		let capabilities = deviceState;
 
 		if(typeof deviceState === 'undefined' || deviceState === null || !('measure_power' in deviceState)) {
@@ -172,16 +172,15 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
         this.log('device deleted');
 
         let deviceData = this.getData();
-
         let iungo = this.getIungo( deviceData );
-		if ( iungo )
+		if (iungo)
 		{
 			iungo.removeListener('refresh-' + deviceData.id, this.syncDevice.bind(this));
 		}
     }
 
 	// Fired when the settings of this device are changed by the user.
-	onSettings ( oldSettingsObj, newSettingsObj, changedKeysArr )
+	onSettings(oldSettingsObj, newSettingsObj, changedKeysArr)
 	{
 		let device_data = this.getData();
 

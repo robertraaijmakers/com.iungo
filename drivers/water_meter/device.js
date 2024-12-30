@@ -58,11 +58,11 @@ module.exports = class DeviceWaterMeter extends Homey.Device {
 			return this.setUnavailable( this.homey.__('unreachable') );
 		}
 
-    if(!this.getAvailable()){
-      this.setAvailable()
-  			.catch(this.error)
-  			.then(this.log(`Device ${deviceData.id} is available.`));
-    }
+		if(!this.getAvailable()){
+			this.setAvailable()
+				.catch(this.error)
+				.then(this.log(`Device ${deviceData.id} is available.`));
+		}
 
 		// Current device state
 		let deviceState = this.getState();
