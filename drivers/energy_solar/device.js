@@ -68,25 +68,32 @@ module.exports = class DeviceSolarMeter extends Homey.Device {
 		let deviceState = this.getState();
 		let capabilities = deviceState;
 
-		if(typeof deviceState === 'undefined' || deviceState === null || !('meter_power' in deviceState)) {
+		if(typeof deviceState === 'undefined' || deviceState === null || !('measure_power' in deviceState)) {
 			capabilities = deviceInstance;
 		}
 
 		// Sync values to internal state
-		for( let capabilityId in capabilities )
+		for(let capabilityId in capabilities)
 		{
 			let value = deviceInstance[ capabilityId ];
-			if( typeof value !== 'undefined' ) {
+			if(typeof value !== 'undefined' && value !== null) {
 
 				let oldValue = deviceState[capabilityId];
 				deviceState[ capabilityId ] = value;
 
-				if(oldValue !== value)
-				{
-					this.setCapabilityValue(capabilityId, value)
-						.catch(this.error)
-						.then(this.log(`Update capability: ${capabilityId} with value ${value}`));
+				if(oldValue === value) continue;
+
+				let hasCapability = this.hasCapability(capabilityId);
+				if(hasCapability === false) {
+					this.addCapability(capabilityId).catch(this.error);
+					hasCapability = true;
 				}
+
+				if(hasCapability === false) continue;
+
+				this.setCapabilityValue(capabilityId, value)
+					.catch(this.error)
+					.then(this.log(`Updated capability ${capabilityId} with value ${value}`));
 			}
 		}
 

@@ -520,9 +520,11 @@ function parseSolarMeterValues(oid, name, driver, properties)
 			break;
 			case "import":
 				importMeter = property.value;
+				solarMeter['meter_power.imported'] = importMeter;
 				break;
 			case "export":
-				exportMeter = property.value
+				exportMeter = property.value;
+				solarMeter['meter_power.exported'] = exportMeter;
 				break;
 			case "pulstotal":
 				pulstotal = property.value;

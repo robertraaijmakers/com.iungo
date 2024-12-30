@@ -10,7 +10,9 @@
   "class": "solarpanel",
   "capabilities": [
     "measure_power",
-    "meter_power"
+    "meter_power",
+    "meter_power.imported",
+    "meter_power.exported"
   ],
   "capabilitiesOptions": {
     "measure_power": {
@@ -23,6 +25,18 @@
       "title": {
         "en": "Power Total",
         "nl": "Totaal opbrengst"
+      }
+    },
+    "meter_power.imported": {
+      "title": {
+        "en": "Power Total Import",
+        "nl": "Totaal verbuik import"
+      }
+    },
+    "meter_power.exported": {
+      "title": {
+        "en": "Power Total Export",
+        "nl": "Totaal verbuik export"
       }
     }
   },
