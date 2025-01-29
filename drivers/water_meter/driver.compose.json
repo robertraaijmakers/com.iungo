@@ -7,10 +7,11 @@
     "large": "drivers/water_meter/assets/images/large.png",
     "small": "drivers/water_meter/assets/images/small.png"
   },
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "class": "sensor",
-  "water": {
-    "cumulative": true,
-    "cumulativeExportedCapability": "meter_water"
+  "energy": {
+    "cumulative": true
   },
   "capabilities": [
     "measure_water",

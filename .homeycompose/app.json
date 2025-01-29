@@ -5,6 +5,9 @@
     "en": "Iungo",
     "nl": "Iungo"
   },
+  "platforms": [
+    "local"
+  ],
   "version": "1.1.2",
   "compatibility": ">=12.1.2",
   "brandColor": "#3995ae",
@@ -43,5 +46,6 @@
   "bugs": {
     "url": "https://github.com/robertraaijmakers/com.iungo/issues"
   },
-  "source": "https://github.com/robertraaijmakers/com.iungo"
+  "support": "https://github.com/robertraaijmakers/com.iungo/",
+  "source": "https://github.com/robertraaijmakers/com.iungo/"
 }

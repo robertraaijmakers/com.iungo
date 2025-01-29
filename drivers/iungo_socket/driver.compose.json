@@ -7,6 +7,8 @@
     "large": "drivers/iungo_socket/assets/images/large.jpg",
     "small": "drivers/iungo_socket/assets/images/small.jpg"
   },
+  "platforms": ["local"],
+  "connectivity": ["lan"],
   "class": "socket",
   "capabilities": [
     "measure_power",

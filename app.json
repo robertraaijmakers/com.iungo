@@ -6,6 +6,9 @@
     "en": "Iungo",
     "nl": "Iungo"
   },
+  "platforms": [
+    "local"
+  ],
   "version": "1.1.2",
   "compatibility": ">=12.1.2",
   "brandColor": "#3995ae",
@@ -44,7 +47,8 @@
   "bugs": {
     "url": "https://github.com/robertraaijmakers/com.iungo/issues"
   },
-  "source": "https://github.com/robertraaijmakers/com.iungo",
+  "support": "https://github.com/robertraaijmakers/com.iungo/",
+  "source": "https://github.com/robertraaijmakers/com.iungo/",
   "flow": {
     "triggers": [
       {
@@ -275,6 +279,12 @@
         "large": "drivers/energy_meter/assets/images/large.jpg",
         "small": "drivers/energy_meter/assets/images/small.jpg"
       },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
       "class": "sensor",
       "capabilities": [
         "measure_power",
@@ -568,6 +578,12 @@
         "large": "drivers/energy_solar/assets/images/large.jpg",
         "small": "drivers/energy_solar/assets/images/small.jpg"
       },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
       "class": "solarpanel",
       "capabilities": [
         "measure_power",
@@ -637,6 +653,12 @@
         "large": "drivers/iungo_socket/assets/images/large.jpg",
         "small": "drivers/iungo_socket/assets/images/small.jpg"
       },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
       "class": "socket",
       "capabilities": [
         "measure_power",
@@ -672,10 +694,15 @@
         "large": "drivers/water_meter/assets/images/large.png",
         "small": "drivers/water_meter/assets/images/small.png"
       },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
       "class": "sensor",
-      "water": {
-        "cumulative": true,
-        "cumulativeExportedCapability": "meter_water"
+      "energy": {
+        "cumulative": true
       },
       "capabilities": [
         "measure_water",
