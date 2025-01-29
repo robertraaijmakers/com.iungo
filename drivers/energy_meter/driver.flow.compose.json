@@ -1,166 +1,74 @@
 {
   "triggers": [
     {
-      "id": "meter_power_t1_changed",
+      "id": "meter_power.sum_changed",
+      "title": {
+        "en": "Power meter totaal",
+        "nl": "Totaal verbruik veranderd"
+      }
+    },
+    {
+      "id": "meter_power.t1_changed",
       "title": {
         "en": "Power meter T1 changed",
         "nl": "Verbruik T1 veranderd"
-      },
-      "args": [],
-      "tokens": [
-        {
-          "name": "power_used",
-          "type": "number",
-          "title": {
-            "en": "kWh",
-            "nl": "kWh"
-          }
-        }
-      ]
+      }
     },
     {
-      "id": "meter_power_t2_changed",
+      "id": "meter_power.t2_changed",
       "title": {
         "en": "Power meter T2 changed",
         "nl": "Verbruik T2 veranderd"
-      },
-      "args": [],
-      "tokens": [
-        {
-          "name": "power_used",
-          "type": "number",
-          "title": {
-            "en": "kWh",
-            "nl": "kWh"
-          }
-        }
-      ]
+      }
     },
     {
-      "id": "meter_power_rt1_changed",
+      "id": "meter_power.rt1_changed",
       "title": {
         "en": "Power meter -T1 changed",
         "nl": "Verbruik teruglevering 1 veranderd"
-      },
-      "args": [],
-      "tokens": [
-        {
-          "name": "power_used",
-          "type": "number",
-          "title": {
-            "en": "kWh",
-            "nl": "kWh"
-          }
-        }
-      ]
+      }
     },
     {
-      "id": "meter_power_rt2_changed",
+      "id": "meter_power.rt2_changed",
       "title": {
         "en": "Power meter -T2 changed",
         "nl": "Verbruik teruglevering 2 veranderd"
-      },
-      "args": [],
-      "tokens": [
-        {
-          "name": "power_used",
-          "type": "number",
-          "title": {
-            "en": "kWh",
-            "nl": "kWh"
-          }
-        }
-      ]
+      }
     },
     {
-      "id": "measure_current_l1_changed",
+      "id": "measure_current.l1_changed",
       "title": {
         "en": "Current L1 changed",
         "nl": "Vermogen L1 veranderd"
-      },
-      "args": [],
-      "tokens": [
-        {
-          "name": "current_value",
-          "type": "number",
-          "title": {
-            "en": "Ampere",
-            "nl": "Ampère"
-          }
-        }
-      ]
+      }
     },
     {
-      "id": "measure_current_l2_changed",
+      "id": "measure_current.l2_changed",
       "title": {
         "en": "Current L2 changed",
         "nl": "Vermogen L2 veranderd"
-      },
-      "args": [],
-      "tokens": [
-        {
-          "name": "current_value",
-          "type": "number",
-          "title": {
-            "en": "Ampere",
-            "nl": "Ampère"
-          }
-        }
-      ]
+      }
     },
     {
-      "id": "measure_current_l3_changed",
+      "id": "measure_current.l3_changed",
       "title": {
         "en": "Current L3 changed",
         "nl": "Vermogen L3 veranderd"
-      },
-      "args": [],
-      "tokens": [
-        {
-          "name": "current_value",
-          "type": "number",
-          "title": {
-            "en": "Ampere",
-            "nl": "Ampère"
-          }
-        }
-      ]
+      }
     },
     {
-      "id": "measure_power_import_changed",
+      "id": "measure_power.import_changed",
       "title": {
         "en": "Power import changed",
-        "nl": "Geïmporteerd verbruik veranderd"
-      },
-      "args": [],
-      "tokens": [
-        {
-          "name": "power_used",
-          "type": "number",
-          "title": {
-            "en": "W",
-            "nl": "W"
-          }
-        }
-      ]
+        "nl": "Geïmporteerd vermogen veranderd"
+      }
     },
     {
-      "id": "measure_power_export_changed",
+      "id": "measure_power.export_changed",
       "title": {
         "en": "Power export changed",
-        "nl": "Opgeleverde stroom veranderd"
-      },
-      "args": [],
-      "tokens": [
-        {
-          "name": "power_used",
-          "type": "number",
-          "title": {
-            "en": "W",
-            "nl": "W"
-          }
-        }
-      ]
+        "nl": "Opgeleverde vermogen veranderd"
+      }
     }
   ]
 }

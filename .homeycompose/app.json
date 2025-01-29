@@ -8,7 +8,7 @@
   "platforms": [
     "local"
   ],
-  "version": "1.1.2",
+  "version": "1.1.4",
   "compatibility": ">=12.1.2",
   "brandColor": "#3995ae",
   "description": {
@@ -33,6 +33,10 @@
       {
         "name": "Robert Raaijmakers",
         "email": "dutchfighter@live.nl"
+      },
+      {
+        "name": "Ted Tolboom",
+        "email": "dTNL.Homey@gmail.com"
       }
     ]
   },

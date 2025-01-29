@@ -99,12 +99,12 @@ class IungoRouter extends events.EventEmitter {
 		})
 
 		this._client = new Iungo("", "", this.address);
-		
+
 		// Set refresh interval
 		if( this._refreshInterval ) clearInterval(this._refreshInterval);
 		this._refreshInterval = setInterval( this._refreshDevices.bind(this), pollInterval);
-		
-		
+
+
 		this._refreshDevices((err) =>
 		{
 			this.log(err);
@@ -121,12 +121,12 @@ class IungoRouter extends events.EventEmitter {
 		{
 			return;
 		}
-		
+
 		if(typeof this._client.options === 'undefined')
 		{
 			this._client.options = {};
 		}
-		
+
 		this._client.options.url = address;
 	}
 
@@ -139,10 +139,10 @@ class IungoRouter extends events.EventEmitter {
 
 		this.homey.manager('settings')
 			 .set(`iungo_settings_${this.id}`.toLowerCase(), { username: username, password: password });
-		
+
 		this.init(callback);
 	}
-	
+
 	/*
 		Generic device methods
 	*/
@@ -154,12 +154,12 @@ class IungoRouter extends events.EventEmitter {
 	}
 
 	/*
-		Generic save	
+		Generic save
 	*/
 	save( type, instance, action, value )
 	{
 		this.debug('save', type, instance, action, value);
-		
+
 		switch(action)
 		{
 			case 'name':
@@ -171,7 +171,7 @@ class IungoRouter extends events.EventEmitter {
 				this._client.setDeviceSettings(instance.id, value, (err, result) => { });
 				return Promise.resolve(true);
 		}
-		
+
 		if( type === 'energy_meter' )
 			return this.savePower( instance, action, value );
 
@@ -180,7 +180,7 @@ class IungoRouter extends events.EventEmitter {
 
 		if ( type === 'socket' )
 			return this.saveSocket ( instance, action, value );
-			
+
 		if ( type === 'solar_meter' )
 			return this.saveSolarMeter ( instance, action, value );
 
@@ -193,33 +193,33 @@ class IungoRouter extends events.EventEmitter {
 		console.log( settings );
 		return Promise.resolve(false);
 	}
-	
+
 	saveWater ( settings, action, value )
 	{
 		this.debug('saveWater');
 		console.log( settings );
 		return Promise.resolve(false);
 	}
-	
+
 	saveSolarMeter ( settings, action, value )
 	{
 		this.debug('saveSolarMeter');
 		console.log( settings );
 		return Promise.resolve(false);
 	}
-	
+
 	saveSocket ( instance, action, value )
 	{
 		this.debug('saveSocket');
-		
+
 		switch(action)
 		{
 			case 'onoff':
 				this._client.setDeviceOnOff(instance.id, value, (err, result) => { });
 				return Promise.resolve(true);
 		}
-		
-		return Promise.resolve(false);		
+
+		return Promise.resolve(false);
 	}
 
 	/*
@@ -246,11 +246,11 @@ class IungoRouter extends events.EventEmitter {
 			}
 
 			//this.debug(`RESPONSE:`, response);
-			
+
 			for(var obj in response.objects)
-			{				
+			{
 				var device = response.objects[obj];
-				
+
 				if(device.type.indexOf("energy") !== -1)
 				{
 					// Energy meter, fill all values
@@ -283,32 +283,32 @@ class IungoRouter extends events.EventEmitter {
 			callback();
 		}).bind(this));
 	}
-	
+
 	getEnergyMeter( meterId ) {
 		let device = _.findWhere( this._energyMeters, { uniqueId: meterId });
 		if(typeof device === 'undefined' || device === null)
 		{
 			return new Error('invalid_energy_meter');
 		}
-		
+
 		if(typeof device.present !== 'undefined' && device.present !== true)
 		{
 			return new Error('invalid_energy_meter');
 		}
-		
+
 		return device;
 	}
-	
+
 	getWaterMeter( meterId ) {
 		let device = _.findWhere( this._waterMeters, { uniqueId: meterId });
 		if(typeof device === 'undefined' || device === null || device.present !== true)
 		{
 			return  new Error('invalid_water_meter');
 		}
-		
+
 		return device;
 	}
-	
+
 	getSocket( socketId ) {
 		let device = _.findWhere( this._sockets, { uniqueId: socketId });
 		//console.log(this._sockets);
@@ -318,17 +318,17 @@ class IungoRouter extends events.EventEmitter {
 			console.log(device);
 			return  new Error('invalid_socket');
 		}
-		
+
 		return device;
 	}
-	
+
 	getSolarMeter( meterId ) {
 		let device = _.findWhere( this._solarMeters, { uniqueId: meterId });
 		if(typeof device === 'undefined' || device === null || device.present !== true)
 		{
 			return  new Error('invalid_solar_meter');
 		}
-		
+
 		return device;
 	}
 }
@@ -338,7 +338,7 @@ module.exports = IungoRouter;
 function parseEnergyMeterValues(oid, name, driver, properties)
 {
 	// Register device variables
-	let energyMeter = 
+	let energyMeter =
 	{
 		id: oid,
 		uniqueId: oid,
@@ -346,21 +346,21 @@ function parseEnergyMeterValues(oid, name, driver, properties)
 		modelId: driver.replace("energy-","").replace("energymeter-",""),
 		settings: {}
 	}
-	
+
 	let measurePowerImport = 0;
 	let measurePowerExport = 0;
 	let meterPowerImported = 0;
 	let meterPowerExported = 0;
-	
+
 	for(let obj in properties)
 	{
 		let property = properties[obj];
-		
+
 		if(typeof energyMeterCapabilitiesMap[property.id] !== 'undefined')
 		{
 			energyMeter[energyMeterCapabilitiesMap[property.id]] = property.value;
 		}
-		
+
 		if(typeof energyMeterSettingsMap[property.id] !== 'undefined')
 		{
 			energyMeter['settings'][energyMeterSettingsMap[property.id]] = property.value;
@@ -375,20 +375,20 @@ function parseEnergyMeterValues(oid, name, driver, properties)
 		{
 			meterPowerExported += property.value;
 		}
-		
+
 		if(property.id == "L1Pimp" || property.id == "L2Pimp" || property.id == "L3Pimp")
 		{
 			energyMeter[energyMeterCapabilitiesMap[property.id]] = property.value*1000;
 			measurePowerImport += property.value;
 		}
-		
+
 		if(property.id == "L1Pexp" || property.id == "L2Pexp" || property.id == "L3Pexp")
 		{
 			energyMeter[energyMeterCapabilitiesMap[property.id]] = property.value*1000;
 			measurePowerExport += property.value;
 		}
 	}
-	
+
 	energyMeter["measure_power.import"] = measurePowerImport*1000;
 	energyMeter["measure_power.export"] = measurePowerExport*1000;
 
@@ -411,7 +411,7 @@ function parseEnergyMeterValues(oid, name, driver, properties)
 function parseWaterMeterValues(oid, name, driver, properties)
 {
 	// Register device variables
-	let waterMeter = 
+	let waterMeter =
 	{
 		id: oid,
 		uniqueId: oid,
@@ -420,14 +420,14 @@ function parseWaterMeterValues(oid, name, driver, properties)
 		present: true,
 		settings: {}
 	}
-		
+
 	var offset = null;
 	var pulstotal = null;
 	var kfact = null;
-	
+
 	for(var obj in properties)
 	{
-		var property = properties[obj];		
+		var property = properties[obj];
 		switch(property.id)
 		{
 			case "flow":
@@ -445,7 +445,7 @@ function parseWaterMeterValues(oid, name, driver, properties)
 			break;
 		}
 	}
-	
+
 	if(offset !== null && pulstotal !== null && kfact !== null)
 	{
 		waterMeter["meter_water"] = offset + (pulstotal / kfact);
@@ -457,18 +457,18 @@ function parseWaterMeterValues(oid, name, driver, properties)
 function parseSocketValues(oid, name, driver, properties)
 {
 	// Register device variables
-	let socket = 
+	let socket =
 	{
 		id: oid,
 		uniqueId: oid,
 		name: name,
 		modelId: driver.replace("powerswitch-","")
 	}
-	
+
 	for(var obj in properties)
 	{
 		var property = properties[obj];
-		
+
 		switch(property.id)
 		{
 			case "usage":
@@ -489,7 +489,7 @@ function parseSocketValues(oid, name, driver, properties)
 function parseSolarMeterValues(oid, name, driver, properties)
 {
 	// Register device variables
-	let solarMeter = 
+	let solarMeter =
 	{
 		id: oid,
 		uniqueId: oid,
@@ -498,17 +498,17 @@ function parseSolarMeterValues(oid, name, driver, properties)
 		present: true,
 		settings: {}
 	}
-		
+
 	var offset = null;
 	var pulstotal = null;
 	var ppkwh = null;
 	var importMeter = null;
 	var exportMeter = null;
-	
+
 	for(var obj in properties)
 	{
 		var property = properties[obj];
-		
+
 		switch(property.id)
 		{
 			case "solar":
@@ -520,9 +520,11 @@ function parseSolarMeterValues(oid, name, driver, properties)
 			break;
 			case "import":
 				importMeter = property.value;
+				solarMeter['meter_power.imported'] = importMeter;
 				break;
 			case "export":
-				exportMeter = property.value
+				exportMeter = property.value;
+				solarMeter['meter_power.exported'] = exportMeter;
 				break;
 			case "pulstotal":
 				pulstotal = property.value;
@@ -534,8 +536,8 @@ function parseSolarMeterValues(oid, name, driver, properties)
 	}
 
 	// For modbus kWh meters: Solar panels consume energy and produce energy, combine into default meter_power capability
-	if(offset !== null && importMeter !== null && exportMeter !== null) {
-		solarMeter['meter_power'] = offset + exportMeter - importMeter;
+	if(importMeter !== null && exportMeter !== null) {
+		solarMeter['meter_power'] = exportMeter - importMeter;
 	}
 
 	// In case of pulse energy measurement devices, determine the energy meter state based on offset + (pulstotal / ppkwh)
