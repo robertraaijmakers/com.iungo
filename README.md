@@ -1,9 +1,16 @@
 # Iungo
 This app let's you connect your Iungo to Homey. You can add your Iungo smart meters and connected devices. Once done it will show up in the flow-editor, ready to be used!
 
+
+
 **If you like this app, please consider to donate**
 
+
+
 If you have any suggestions or bugs, please post them on GitHub: https://github.com/robertraaijmakers/com.iungo/
+v2.0.0:
+* Completely rebuild app to be compatible with Homey v12. You might need to reconnect your devices. Sorry!
+* Added support for multiple Iungo controllers to be handled within the same app. Visit the App Settings page after installation for the right configuration.
 
 v1.0.0:
 * Completely rebuild app to be compatible with Homey v5. You might need to reconnect your devices. Sorry!
