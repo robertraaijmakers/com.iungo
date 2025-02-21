@@ -26,6 +26,10 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
         .then(() => this.log(`Device is available (${deviceData.iungo_id}-${deviceData.id}).`));
     }
 
+    if (refreshedData.modelId.includes('-modbus')) {
+      if (this.getEnergy !== null) await this.setEnergy({});
+    }
+
     // Current device state
     let deviceState = this.getState();
     for (const [capabilityId, value] of Object.entries(refreshedData.capabilities)) {
