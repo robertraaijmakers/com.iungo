@@ -37,5 +37,8 @@
   },
   "1.1.4": {
     "en": "* [BREAKING CHANGE] Flow-cards now use native triggering. If you were using flow cards for your energy meter you might need to replace them."
+  },
+  "2.0.0": {
+    "en": "Full rewrite of the app to be better prepared for future. Added support for multiple Iungo controllers within your network."
   }
 }

@@ -1,8 +1,12 @@
 {
     "settings": {
         "title": "Iungo instellingen",
-        "intro": "Om verbinding te kunnen maken met uw Iungo zijn onderstaande gegevens benodigd.",
-        "password": "Wachtwoord",
+        "description": "Om meerdere Iungo's te verbinden, of als je Iungo niet gevonden kan worden door de standaard discovery. Kan je gebruikmaken van deze instellingen. In principe is dit niet nodig en zou het standaard moeten werken zonder deze geavanceerde instellingen. Je kan tot drie Iungo controllers toevoegen.",
+        "advancedCheck": {
+            "label": "Activeer Advanced Settings",
+            "yes": "Ja, mijn Iungo(s) zijn geconfigureerd met een statisch IP",
+            "no": "Nee"
+        },
         "save": "Opslaan"
     },
     "pair":

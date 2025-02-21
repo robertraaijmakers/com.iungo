@@ -9,7 +9,7 @@
   "platforms": [
     "local"
   ],
-  "version": "1.1.4",
+  "version": "2.0.0",
   "compatibility": ">=12.1.2",
   "brandColor": "#3995ae",
   "description": {
@@ -34,10 +34,6 @@
       {
         "name": "Robert Raaijmakers",
         "email": "dutchfighter@live.nl"
-      },
-      {
-        "name": "Ted Tolboom",
-        "email": "dTNL.Homey@gmail.com"
       }
     ]
   },
@@ -53,6 +49,12 @@
   },
   "support": "https://github.com/robertraaijmakers/com.iungo/",
   "source": "https://github.com/robertraaijmakers/com.iungo/",
+  "api": {
+    "getIungos": {
+      "method": "GET",
+      "path": "/getIungoDevices"
+    }
+  },
   "flow": {
     "triggers": [
       {
@@ -394,6 +396,48 @@
         }
       ],
       "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Meter Type",
+            "nl": "Meter Type"
+          },
+          "children": [
+            {
+              "id": "deviceClass",
+              "type": "dropdown",
+              "value": "sensor-p1",
+              "label": {
+                "en": "Type",
+                "nl": "Type"
+              },
+              "values": [
+                {
+                  "id": "sensor",
+                  "value": "sensor-p1",
+                  "label": {
+                    "en": "P1 Meter",
+                    "nl": "P1 Meter"
+                  }
+                },
+                {
+                  "id": "evcharger",
+                  "label": {
+                    "en": "EV-Charger",
+                    "nl": "Laadpaal"
+                  }
+                },
+                {
+                  "id": "sensor-other",
+                  "label": {
+                    "en": "Other",
+                    "nl": "Other"
+                  }
+                }
+              ]
+            }
+          ]
+        },
         {
           "type": "group",
           "label": {

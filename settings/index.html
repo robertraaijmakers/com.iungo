@@ -1,0 +1,45 @@
+<html>
+<head>
+	<script defer type="module" src="index.mjs"></script>
+	<script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+
+	<style>
+		
+	  </style>
+</head>
+
+<body>
+	<header class="homey-header">
+		<h1 class="homey-title" data-i18n="settings.title">
+			<!-- This will be filled with the translated string with key 'settings.title'. -->
+		</h1>
+		<p class="homey-subtitle" data-i18n="settings.description">
+			<!-- This field will also be translated -->
+		</p>
+	</header>
+	<fieldset class="homey-form-fieldset">
+		<legend class="homey-form-legend" data-i18n="settings.title"></legend>
+        <div class="homey-form-group">
+			<label class="homey-form-label" for="advanced" data-i18n="settings.advancedCheck.label"></label>
+			<select class="homey-form-select" id="advanced">
+				<option value="yes" data-i18n="settings.advancedCheck.yes">Yes, I configured static IP</option>
+				<option value="no" data-i18n="settings.advancedCheck.no">No</option>
+			</select>
+        </div>
+		<div class="homey-form-group" id="iungoAddress_1_group">
+			<label class="homey-form-label" for="iungoAddress_1" data-i18n="settings.input.primary"></label>
+            <input class="homey-form-input" placeholder="192.168.178.100" id="iungoAddress_1" type="text" minlength="7" maxlength="15" size="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$" />
+        </div>
+		<div class="homey-form-group" id="iungoAddress_2_group">
+			<label class="homey-form-label" for="iungoAddress_2" data-i18n="settings.input.secondary"></label>
+            <input class="homey-form-input" placeholder="192.168.178.200" id="iungoAddress_2" type="text" minlength="7" maxlength="15" size="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$" />
+        </div>
+		<div class="homey-form-group" id="iungoAddress_3_group">
+			<label class="homey-form-label" for="iungoAddress_3" data-i18n="settings.input.tertiary"></label>
+            <input class="homey-form-input" placeholder="192.168.178.245" id="iungoAddress_3" type="text" minlength="7" maxlength="15" size="15" pattern="^((\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.){3}(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$" />
+        </div>
+    </fieldset>
+    <button id="apiSave" class="homey-button-primary-full" data-i18n="settings.save" ></button>
+	<br /><br />
+</body>
+</html>

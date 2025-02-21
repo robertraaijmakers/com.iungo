@@ -1,8 +1,17 @@
 {
     "settings": {
         "title": "Iungo settings",
-        "intro": "To connect to your Iungo we need the settings below.",
-        "password": "Password",
+        "description": "To configure multiple Iungo's, or if your Iungo can't be found by the standard discovery. You can use these settings. In general this is not needed and the discovery should work out of the box without these advanced settings. You can add up to three Iungo controllers.",
+        "advancedCheck": {
+            "label": "Enable Advanced Settings",
+            "yes": "Yes, I configured static IP",
+            "no": "No"
+        },
+        "input": {
+            "primary": "Primary Iungo IP",
+            "secondary": "Secondary Iungo IP",
+            "tertiary": "Tertiary Iungo IP"
+        },
         "save": "Save"
     },
     "pair":

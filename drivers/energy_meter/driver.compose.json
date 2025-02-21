@@ -193,6 +193,48 @@
     {
       "type": "group",
       "label": {
+        "en": "Meter Type",
+        "nl": "Meter Type"
+      },
+      "children": [
+        {
+          "id": "deviceClass",
+          "type": "dropdown",
+          "value": "sensor-p1",
+          "label": {
+            "en": "Type",
+            "nl": "Type"
+          },
+          "values": [
+            {
+              "id": "sensor",
+              "value": "sensor-p1",
+              "label": {
+                "en": "P1 Meter",
+                "nl": "P1 Meter"
+              }
+            },
+            {
+              "id": "evcharger",
+              "label": {
+                "en": "EV-Charger",
+                "nl": "Laadpaal"
+              }
+            },
+            {
+              "id": "sensor-other",
+              "label": {
+                "en": "Other",
+                "nl": "Other"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "label": {
         "en": "Tariff settings",
         "nl": "Tarief instellingen"
       },
@@ -206,8 +248,8 @@
           },
           "value": 0,
           "attr": {
-            "min": 0,
-            "max": 5,
+            "min": 0.00000,
+            "max": 5.00000,
             "step": 0.00001
           }
         },
@@ -220,8 +262,8 @@
           },
           "value": 0,
           "attr": {
-            "min": 0,
-            "max": 5,
+            "min": 0.00000,
+            "max": 5.00000,
             "step": 0.00001
           }
         },
@@ -234,8 +276,8 @@
           },
           "value": 0,
           "attr": {
-            "min": 0,
-            "max": 5,
+            "min": 0.00000,
+            "max": 5.00000,
             "step": 0.00001
           }
         },
@@ -248,8 +290,8 @@
           },
           "value": 0,
           "attr": {
-            "min": 0,
-            "max": 5,
+            "min": 0.00000,
+            "max": 5.00000,
             "step": 0.00001
           }
         },
@@ -262,8 +304,8 @@
           },
           "value": 0,
           "attr": {
-            "min": 0,
-            "max": 5,
+            "min": 0.00000,
+            "max": 5.00000,
             "step": 0.00001
           }
         }
