@@ -40,5 +40,8 @@
   },
   "2.0.0": {
     "en": "Full rewrite of the app to be better prepared for future. Added support for multiple Iungo controllers within your network."
+  },
+  "2.0.1": {
+    "en": "Added fix for setting settings of energy meter. Now able to disable energy meters from being shown as main meter and also able to set a meter as EV-Charger."
   }
 }

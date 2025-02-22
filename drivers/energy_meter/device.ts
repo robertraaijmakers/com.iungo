@@ -4,6 +4,7 @@ import Homey from 'homey';
 import { IungoApp, IungoDevice } from '../../types/types';
 
 const deviceType = 'energy_meter';
+const meterSettings = ['Cost-T1', 'Cost-T2', 'Cost-nT1', 'Cost-nT2', 'Cost-gas', 'Gas-Interval'];
 
 module.exports = class DeviceEnergyMeter extends Homey.Device {
   async onInit() {
@@ -50,12 +51,17 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
     // Sync settings to internal state
     let settings = this.getSettings();
     if (settings.length === 0) {
+      refreshedData.settings.energy_cumulative_include = true;
+      (refreshedData.settings.energy_exclude = false), (refreshedData.settings.deviceClass = 'sensor-p1');
+
       // No settings yet available. Apply all settings.
       this.setSettings(refreshedData.settings);
     } else {
       // Check if there are differences, and update all values (performance wise cheaper, only one call).
       let changed = false;
       for (let settingId in settings) {
+        if (!(settingId in meterSettings)) continue;
+
         var oldSetting = settings[settingId];
         var newSetting = refreshedData.settings[settingId];
 
@@ -70,11 +76,12 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
         if (valuesAreDifferent) {
           this.log(`Setting ID: ${settingId}. Old setting: ${oldSetting}, New Setting: ${newSetting}`);
           changed = true;
+          settings[settingId] = newSetting;
         }
       }
 
       if (changed) {
-        await this.setSettings(refreshedData.settings);
+        await this.setSettings(settings);
       }
     }
   }
@@ -147,6 +154,7 @@ module.exports = class DeviceEnergyMeter extends Homey.Device {
         return;
       }
 
+      if (!(key in meterSettings)) return;
       (this.homey.app as IungoApp).save(deviceData.iungo_id, deviceType, deviceData.id, 'settings', { key: key, value: newSettings[key] });
     });
 

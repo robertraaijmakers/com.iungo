@@ -207,8 +207,7 @@
           },
           "values": [
             {
-              "id": "sensor",
-              "value": "sensor-p1",
+              "id": "sensor-p1",
               "label": {
                 "en": "P1 Meter",
                 "nl": "P1 Meter"
@@ -246,12 +245,13 @@
             "en": "T1",
             "nl": "Telwerk 1"
           },
-          "value": 0,
+          "value": 0.00000,
           "attr": {
             "min": 0.00000,
             "max": 5.00000,
             "step": 0.00001
-          }
+          },
+          "units": { "en": "€", "nl": "€" }
         },
         {
           "id": "Cost-T2",
@@ -260,12 +260,13 @@
             "en": "T2",
             "nl": "Telwerk 2"
           },
-          "value": 0,
+          "value": 0.00000,
           "attr": {
             "min": 0.00000,
             "max": 5.00000,
             "step": 0.00001
-          }
+          },
+          "units": { "en": "€", "nl": "€" }
         },
         {
           "id": "Cost-nT1",
@@ -274,12 +275,13 @@
             "en": "Redelivery T1",
             "nl": "Teruglevering 1"
           },
-          "value": 0,
+          "value": 0.00000,
           "attr": {
             "min": 0.00000,
             "max": 5.00000,
             "step": 0.00001
-          }
+          },
+          "units": { "en": "€", "nl": "€" }
         },
         {
           "id": "Cost-nT2",
@@ -288,12 +290,13 @@
             "en": "Redelivery T2",
             "nl": "Teruglevering 2"
           },
-          "value": 0,
+          "value": 0.00000,
           "attr": {
             "min": 0.00000,
             "max": 5.00000,
             "step": 0.00001
-          }
+          },
+          "units": { "en": "€", "nl": "€" }
         },
         {
           "id": "Cost-gas",
@@ -302,12 +305,13 @@
             "en": "Gas",
             "nl": "Gas"
           },
-          "value": 0,
+          "value": 0.00000,
           "attr": {
             "min": 0.00000,
             "max": 5.00000,
             "step": 0.00001
-          }
+          },
+          "units": { "en": "€", "nl": "€" }
         }
       ]
     },
