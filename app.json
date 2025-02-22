@@ -47,7 +47,9 @@
   "bugs": {
     "url": "https://github.com/robertraaijmakers/com.iungo/issues"
   },
-  "support": "https://github.com/robertraaijmakers/com.iungo/",
+  "homepage": "https://github.com/robertraaijmakers/com.iungo/",
+  "support": "https://github.com/robertraaijmakers/com.iungo/issues",
+  "homeyCommunityTopicId": 131326,
   "source": "https://github.com/robertraaijmakers/com.iungo/",
   "api": {
     "getIungos": {
