@@ -9,7 +9,7 @@
   "platforms": [
     "local"
   ],
-  "version": "2.0.2",
+  "version": "2.0.3",
   "compatibility": ">=12.1.2",
   "brandColor": "#3995ae",
   "description": {
@@ -57,151 +57,245 @@
       "path": "/getIungoDevices"
     }
   },
-  "flow": {
-    "triggers": [
-      {
-        "id": "meter_power.sum_changed",
-        "title": {
-          "en": "Power meter totaal",
-          "nl": "Totaal verbruik veranderd"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=energy_meter"
-          }
-        ]
-      },
-      {
-        "id": "meter_power.t1_changed",
-        "title": {
-          "en": "Power meter T1 changed",
-          "nl": "Verbruik T1 veranderd"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=energy_meter"
-          }
-        ]
-      },
-      {
-        "id": "meter_power.t2_changed",
-        "title": {
-          "en": "Power meter T2 changed",
-          "nl": "Verbruik T2 veranderd"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=energy_meter"
-          }
-        ]
-      },
-      {
-        "id": "meter_power.rt1_changed",
-        "title": {
-          "en": "Power meter -T1 changed",
-          "nl": "Verbruik teruglevering 1 veranderd"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=energy_meter"
-          }
-        ]
-      },
-      {
-        "id": "meter_power.rt2_changed",
-        "title": {
-          "en": "Power meter -T2 changed",
-          "nl": "Verbruik teruglevering 2 veranderd"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=energy_meter"
-          }
-        ]
-      },
-      {
-        "id": "measure_current.l1_changed",
-        "title": {
-          "en": "Current L1 changed",
-          "nl": "Vermogen L1 veranderd"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=energy_meter"
-          }
-        ]
-      },
-      {
-        "id": "measure_current.l2_changed",
-        "title": {
-          "en": "Current L2 changed",
-          "nl": "Vermogen L2 veranderd"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=energy_meter"
-          }
-        ]
-      },
-      {
-        "id": "measure_current.l3_changed",
-        "title": {
-          "en": "Current L3 changed",
-          "nl": "Vermogen L3 veranderd"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=energy_meter"
-          }
-        ]
-      },
-      {
-        "id": "measure_power.import_changed",
-        "title": {
-          "en": "Power import changed",
-          "nl": "Geïmporteerd vermogen veranderd"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=energy_meter"
-          }
-        ]
-      },
-      {
-        "id": "measure_power.export_changed",
-        "title": {
-          "en": "Power export changed",
-          "nl": "Opgeleverde vermogen veranderd"
-        },
-        "args": [
-          {
-            "type": "device",
-            "name": "device",
-            "filter": "driver_id=energy_meter"
-          }
-        ]
-      }
-    ]
-  },
   "drivers": [
+    {
+      "name": {
+        "en": "Car Charger",
+        "nl": "Laadpaal"
+      },
+      "images": {
+        "large": "drivers/energy_carcharger/assets/images/large.jpg",
+        "small": "drivers/energy_carcharger/assets/images/small.jpg"
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "class": "evcharger",
+      "capabilities": [
+        "measure_power",
+        "meter_power",
+        "meter_power.t1",
+        "meter_power.rt1"
+      ],
+      "energy": {
+        "evCharger": true,
+        "meterPowerImportedCapability": "meter_power"
+      },
+      "capabilitiesOptions": {
+        "measure_power": {
+          "title": {
+            "en": "Power",
+            "nl": "Vermogen"
+          }
+        },
+        "meter_power": {
+          "title": {
+            "en": "Power Total",
+            "nl": "Totaal verbruik"
+          }
+        },
+        "meter_power.t1": {
+          "title": {
+            "en": "Power Total T1",
+            "nl": "Totaal verbruik T1"
+          }
+        },
+        "meter_power.rt1": {
+          "title": {
+            "en": "Power Total -T1",
+            "nl": "Totaal teruglevering T1"
+          }
+        }
+      },
+      "pair": [
+        {
+          "id": "select_iungo",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Car charger settings",
+            "nl": "Instellingen laadpaal"
+          },
+          "children": [
+            {
+              "id": "Cost-T1",
+              "type": "number",
+              "label": {
+                "en": "Cost T1",
+                "nl": "Kosten T1"
+              },
+              "value": 0,
+              "units": {
+                "en": "€/kWh"
+              }
+            },
+            {
+              "id": "Cost-nT1",
+              "type": "number",
+              "label": {
+                "en": "Cost -T1",
+                "nl": "Kosten -T1"
+              },
+              "value": 0,
+              "units": {
+                "en": "€/kWh"
+              }
+            }
+          ]
+        }
+      ],
+      "id": "energy_carcharger"
+    },
+    {
+      "name": {
+        "en": "Home Battery",
+        "nl": "Thuisbatterij"
+      },
+      "images": {
+        "large": "drivers/energy_homebattery/assets/images/large.jpg",
+        "small": "drivers/energy_homebattery/assets/images/small.jpg"
+      },
+      "platforms": [
+        "local"
+      ],
+      "connectivity": [
+        "lan"
+      ],
+      "class": "battery",
+      "capabilities": [
+        "measure_power",
+        "meter_power.import",
+        "meter_power.export",
+        "meter_power"
+      ],
+      "capabilitiesOptions": {
+        "measure_power": {
+          "title": {
+            "en": "Power",
+            "nl": "Vermogen"
+          }
+        },
+        "meter_power.import": {
+          "title": {
+            "en": "Total Import",
+            "nl": "Totaal import"
+          }
+        },
+        "meter_power.export": {
+          "title": {
+            "en": "Total Export",
+            "nl": "Totaal export"
+          }
+        },
+        "meter_power": {
+          "title": {
+            "en": "Total",
+            "nl": "Totaal"
+          }
+        }
+      },
+      "energy": {
+        "homeBattery": true,
+        "meterPowerImportedCapability": "meter_power.import",
+        "meterPowerExportedCapability": "meter_power.export"
+      },
+      "pair": [
+        {
+          "id": "select_iungo",
+          "navigation": {
+            "next": "list_devices"
+          }
+        },
+        {
+          "id": "list_devices",
+          "template": "list_devices",
+          "navigation": {
+            "next": "add_devices"
+          }
+        },
+        {
+          "id": "add_devices",
+          "template": "add_devices"
+        }
+      ],
+      "settings": [
+        {
+          "type": "group",
+          "label": {
+            "en": "Battery settings",
+            "nl": "Batterij instellingen"
+          },
+          "children": [
+            {
+              "id": "capacity",
+              "type": "number",
+              "label": {
+                "en": "Capacity",
+                "nl": "Capaciteit"
+              },
+              "value": 0,
+              "units": {
+                "en": "kWh"
+              }
+            },
+            {
+              "id": "efficiency",
+              "type": "number",
+              "label": {
+                "en": "Efficiency",
+                "nl": "Efficiëntie"
+              },
+              "value": 92,
+              "units": {
+                "en": "%"
+              }
+            },
+            {
+              "id": "dailydischarge",
+              "type": "number",
+              "label": {
+                "en": "Daily Self Discharge",
+                "nl": "Dagelijkse zelfontlading"
+              },
+              "value": 0.9,
+              "units": {
+                "en": "kWh"
+              }
+            },
+            {
+              "id": "inverted",
+              "type": "checkbox",
+              "label": {
+                "en": "Inverted",
+                "nl": "Omgekeerd"
+              },
+              "value": false
+            }
+          ]
+        }
+      ],
+      "id": "energy_homebattery"
+    },
     {
       "name": {
         "en": "Energy Controller",
@@ -772,5 +866,149 @@
       ],
       "id": "water_meter"
     }
-  ]
+  ],
+  "flow": {
+    "triggers": [
+      {
+        "id": "meter_power.sum_changed",
+        "title": {
+          "en": "Power meter totaal",
+          "nl": "Totaal verbruik veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ]
+      },
+      {
+        "id": "meter_power.t1_changed",
+        "title": {
+          "en": "Power meter T1 changed",
+          "nl": "Verbruik T1 veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ]
+      },
+      {
+        "id": "meter_power.t2_changed",
+        "title": {
+          "en": "Power meter T2 changed",
+          "nl": "Verbruik T2 veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ]
+      },
+      {
+        "id": "meter_power.rt1_changed",
+        "title": {
+          "en": "Power meter -T1 changed",
+          "nl": "Verbruik teruglevering 1 veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ]
+      },
+      {
+        "id": "meter_power.rt2_changed",
+        "title": {
+          "en": "Power meter -T2 changed",
+          "nl": "Verbruik teruglevering 2 veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ]
+      },
+      {
+        "id": "measure_current.l1_changed",
+        "title": {
+          "en": "Current L1 changed",
+          "nl": "Vermogen L1 veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ]
+      },
+      {
+        "id": "measure_current.l2_changed",
+        "title": {
+          "en": "Current L2 changed",
+          "nl": "Vermogen L2 veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ]
+      },
+      {
+        "id": "measure_current.l3_changed",
+        "title": {
+          "en": "Current L3 changed",
+          "nl": "Vermogen L3 veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ]
+      },
+      {
+        "id": "measure_power.import_changed",
+        "title": {
+          "en": "Power import changed",
+          "nl": "Geïmporteerd vermogen veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ]
+      },
+      {
+        "id": "measure_power.export_changed",
+        "title": {
+          "en": "Power export changed",
+          "nl": "Opgeleverde vermogen veranderd"
+        },
+        "args": [
+          {
+            "type": "device",
+            "name": "device",
+            "filter": "driver_id=energy_meter"
+          }
+        ]
+      }
+    ]
+  }
 }
