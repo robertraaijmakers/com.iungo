@@ -20,7 +20,7 @@ export interface IungoDevice {
   name: string;
   modelId: string;
   present: boolean;
-  type: 'energy_meter' | 'water_meter' | 'socket' | 'solar_meter' | 'evcharger';
+  type: 'energy_meter' | 'water_meter' | 'socket' | 'solar_meter' | 'evcharger' | 'homebattery';
   settings: { [settingId: string]: any };
   capabilities: { [capabilityId: string]: any };
 }

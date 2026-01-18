@@ -85,6 +85,7 @@ export class IungoRouter {
     if (type === 'socket') return this.saveSocket(objectId, action, value);
     if (type === 'solar_meter') return this.saveSolarMeter(objectId, action, value);
     if (type === 'evcharger') return this.saveCarChargerMeter(objectId, action, value);
+    if (type === 'homebattery') return this.saveHomeBattery(objectId, action, value);
 
     return new Error('invalid_type');
   }
@@ -102,6 +103,10 @@ export class IungoRouter {
   }
 
   async saveCarChargerMeter(objectId: string, action: string, value: string | boolean) {
+    return false;
+  }
+
+  async saveHomeBattery(objectId: string, action: string, value: string | boolean) {
     return false;
   }
 
@@ -147,6 +152,10 @@ export class IungoRouter {
         // Solar
         let meter = this.#parseSolarMeterValues(device.oid, device.name, device.driver, device.propsval);
         deviceData[meter.uniqueId] = meter;
+      } else if (device.type.indexOf('energystorage') !== -1) {
+        // Home Battery
+        let battery = this.#parseHomeBatteryValues(device.oid, device.name, device.driver, device.propsval);
+        deviceData[battery.uniqueId] = battery;
       } else if (device.type.indexOf('modbusenergy') !== -1) {
         // Check if it's a car charger based on functiongroup
         const functionGroup = device.propsval?.find((prop: any) => prop.id === 'functiongroup')?.value;
@@ -425,5 +434,67 @@ export class IungoRouter {
     }
 
     return carChargerMeter;
+  }
+
+  #parseHomeBatteryValues(oid: string, name: string, driver: string, properties: any) {
+    // Register device variables
+    let homeBattery: IungoDevice = {
+      id: oid,
+      uniqueId: `${this.id}-${oid}`,
+      name: name,
+      modelId: driver.replace('storagemeter-', '').replace('-modbus', ''),
+      present: true,
+      type: 'homebattery',
+      settings: {
+        capacity: 0,
+        efficiency: 92,
+        dailydischarge: 0.9,
+        inverted: false,
+      },
+      capabilities: {},
+    };
+
+    let importMeter = null;
+    let exportMeter = null;
+
+    for (var obj in properties) {
+      var property = properties[obj];
+
+      switch (property.id) {
+        case 'power':
+          homeBattery.capabilities['measure_power'] = property.value;
+          break;
+        case 'import':
+          importMeter = property.value;
+          homeBattery.capabilities['meter_power.import'] = importMeter;
+          break;
+        case 'export':
+          exportMeter = property.value;
+          homeBattery.capabilities['meter_power.export'] = exportMeter;
+          break;
+        case 'capacity':
+          homeBattery['settings']['capacity'] = property.value;
+          break;
+        case 'efficiency':
+          homeBattery['settings']['efficiency'] = property.value;
+          break;
+        case 'dailydischarge':
+          homeBattery['settings']['dailydischarge'] = property.value;
+          break;
+        case 'inverted':
+          homeBattery['settings']['inverted'] = property.value;
+          break;
+        case 'available':
+          homeBattery.present = property.value;
+          break;
+      }
+    }
+
+    // Calculate total meter_power (imported - exported to show net flow)
+    if (importMeter !== null && exportMeter !== null) {
+      homeBattery.capabilities['meter_power'] = importMeter - exportMeter;
+    }
+
+    return homeBattery;
   }
 }

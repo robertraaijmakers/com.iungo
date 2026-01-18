@@ -1,0 +1,125 @@
+{
+  "name": {
+    "en": "Home Battery",
+    "nl": "Thuisbatterij"
+  },
+  "images": {
+    "large": "drivers/energy_homebattery/assets/images/large.jpg",
+    "small": "drivers/energy_homebattery/assets/images/small.jpg"
+  },
+  "platforms": ["local"],
+  "connectivity": ["lan"],
+  "class": "battery",
+  "capabilities": [
+    "measure_power",
+    "meter_power.import",
+    "meter_power.export",
+    "meter_power"
+  ],
+  "capabilitiesOptions": {
+    "measure_power": {
+      "title": {
+        "en": "Power",
+        "nl": "Vermogen"
+      }
+    },
+    "meter_power.import": {
+      "title": {
+        "en": "Total Import",
+        "nl": "Totaal import"
+      }
+    },
+    "meter_power.export": {
+      "title": {
+        "en": "Total Export",
+        "nl": "Totaal export"
+      }
+    },
+    "meter_power": {
+      "title": {
+        "en": "Total",
+        "nl": "Totaal"
+      }
+    }
+  },
+  "energy": {
+    "homeBattery": true,
+    "meterPowerImportedCapability": "meter_power.import",
+    "meterPowerExportedCapability": "meter_power.export"
+  },
+  "pair": [
+    {
+      "id": "select_iungo",
+      "navigation": {
+        "next": "list_devices"
+      }
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Battery settings",
+        "nl": "Batterij instellingen"
+      },
+      "children": [
+        {
+          "id": "capacity",
+          "type": "number",
+          "label": {
+            "en": "Capacity",
+            "nl": "Capaciteit"
+          },
+          "value": 0,
+          "units": {
+            "en": "kWh"
+          }
+        },
+        {
+          "id": "efficiency",
+          "type": "number",
+          "label": {
+            "en": "Efficiency",
+            "nl": "Efficiëntie"
+          },
+          "value": 92,
+          "units": {
+            "en": "%"
+          }
+        },
+        {
+          "id": "dailydischarge",
+          "type": "number",
+          "label": {
+            "en": "Daily Self Discharge",
+            "nl": "Dagelijkse zelfontlading"
+          },
+          "value": 0.9,
+          "units": {
+            "en": "kWh"
+          }
+        },
+        {
+          "id": "inverted",
+          "type": "checkbox",
+          "label": {
+            "en": "Inverted",
+            "nl": "Omgekeerd"
+          },
+          "value": false
+        }
+      ]
+    }
+  ]
+}

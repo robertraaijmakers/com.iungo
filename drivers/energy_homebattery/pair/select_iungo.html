@@ -1,0 +1,55 @@
+<style type="text/css">
+.device span.name {
+	padding-left: 10px;
+}
+</style>
+
+<script type="text/javascript">
+
+Homey.setTitle( __('pair.select_iungo.title') );
+
+Homey.emit('select_iungo', null, function( err, iungos ){
+	$('#iungos-list-loading').fadeOut(200);
+
+	if( err ) return error( err );
+
+
+	if( iungos.length === 0 )
+		return error( 'pair.select_iungo.no_iungos' );
+
+	// render list
+	var iungosRender = $('#iungos-list-template').render( iungos );
+	$('#iungos-list').html( iungosRender );
+
+	// auto-select first item
+	if( $('#iungos-list .radio input').length > 0 && $('#iungos-list .radio input:checked').length < 1 ) {
+		$('#iungos-list .radio input').first().prop('checked', true).trigger('change');
+	}
+})
+
+function error( str ) {
+	$('#error').html( __( str ) );
+	Homey.setNavigationClose();
+}
+
+$(document).on('change', '#iungos-list input:radio', function() {
+	window.iungo_routerId = this.value;
+});
+
+</script>
+
+<script type="text/html" id="iungos-list-template">
+	<li class="device">
+		<label for='device-{{:id}}' class="name">
+			<span class="icon" style="-webkit-mask-image: url({{:icon}})"></span>
+			<span class="name">{{:name}}</span>
+		</label>
+		<label for='device-{{:id}}' class="radio">
+			<input id='device-{{:id}}' type="radio" name="device" value="{{:id}}" tabindex="{{:#index+1}}" />
+		</label>
+	</li>
+</script>
+
+<i id="iungos-list-loading" class="loading fa fa-cog fa-spin"></i>
+<ul id="iungos-list" class="deviceclasses-list"></ul>
+<p id="error"></p>
