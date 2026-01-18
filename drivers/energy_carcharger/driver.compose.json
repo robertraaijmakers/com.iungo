@@ -1,0 +1,103 @@
+{
+  "name": {
+    "en": "Car Charger",
+    "nl": "Laadpaal"
+  },
+  "images": {
+    "large": "drivers/energy_carcharger/assets/images/large.jpg",
+    "small": "drivers/energy_carcharger/assets/images/small.jpg"
+  },
+  "platforms": ["local"],
+  "connectivity": ["lan"],
+  "class": "evcharger",
+  "capabilities": [
+    "measure_power",
+    "meter_power",
+    "meter_power.t1",
+    "meter_power.rt1"
+  ],
+  "energy": {
+    "evCharger": true,
+    "meterPowerImportedCapability": "meter_power"
+  },
+  "capabilitiesOptions": {
+    "measure_power": {
+      "title": {
+        "en": "Power",
+        "nl": "Vermogen"
+      }
+    },
+    "meter_power": {
+      "title": {
+        "en": "Power Total",
+        "nl": "Totaal verbruik"
+      }
+    },
+    "meter_power.t1": {
+      "title": {
+        "en": "Power Total T1",
+        "nl": "Totaal verbruik T1"
+      }
+    },
+    "meter_power.rt1": {
+      "title": {
+        "en": "Power Total -T1",
+        "nl": "Totaal teruglevering T1"
+      }
+    }
+  },
+  "pair": [
+    {
+      "id": "select_iungo",
+      "navigation": {
+        "next": "list_devices"
+      }
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ],
+  "settings": [
+    {
+      "type": "group",
+      "label": {
+        "en": "Car charger settings",
+        "nl": "Instellingen laadpaal"
+      },
+      "children": [
+        {
+          "id": "Cost-T1",
+          "type": "number",
+          "label": {
+            "en": "Cost T1",
+            "nl": "Kosten T1"
+          },
+          "value": 0,
+          "units": {
+            "en": "€/kWh"
+          }
+        },
+        {
+          "id": "Cost-nT1",
+          "type": "number",
+          "label": {
+            "en": "Cost -T1",
+            "nl": "Kosten -T1"
+          },
+          "value": 0,
+          "units": {
+            "en": "€/kWh"
+          }
+        }
+      ]
+    }
+  ]
+}

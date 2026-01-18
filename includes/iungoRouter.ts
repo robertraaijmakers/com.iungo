@@ -84,6 +84,7 @@ export class IungoRouter {
     if (type === 'water_meter') return this.saveWater(objectId, action, value);
     if (type === 'socket') return this.saveSocket(objectId, action, value);
     if (type === 'solar_meter') return this.saveSolarMeter(objectId, action, value);
+    if (type === 'evcharger') return this.saveCarChargerMeter(objectId, action, value);
 
     return new Error('invalid_type');
   }
@@ -97,6 +98,10 @@ export class IungoRouter {
   }
 
   async saveSolarMeter(objectId: string, action: string, value: string | boolean) {
+    return false;
+  }
+
+  async saveCarChargerMeter(objectId: string, action: string, value: string | boolean) {
     return false;
   }
 
@@ -142,6 +147,13 @@ export class IungoRouter {
         // Solar
         let meter = this.#parseSolarMeterValues(device.oid, device.name, device.driver, device.propsval);
         deviceData[meter.uniqueId] = meter;
+      } else if (device.type.indexOf('modbusenergy') !== -1) {
+        // Check if it's a car charger based on functiongroup
+        const functionGroup = device.propsval?.find((prop: any) => prop.id === 'functiongroup')?.value;
+        if (functionGroup === 'carcharger') {
+          let meter = this.#parseCarChargerMeterValues(device.oid, device.name, device.driver, device.propsval);
+          deviceData[meter.uniqueId] = meter;
+        }
       }
     }
 
@@ -360,5 +372,58 @@ export class IungoRouter {
     }
 
     return solarMeter;
+  }
+
+  #parseCarChargerMeterValues(oid: string, name: string, driver: string, properties: any) {
+    // Register device variables
+    let carChargerMeter: IungoDevice = {
+      id: oid,
+      uniqueId: `${this.id}-${oid}`,
+      name: name,
+      modelId: driver.replace('energymeter-', '').replace('-modbus', ''),
+      present: true,
+      type: 'evcharger',
+      settings: {
+        'Cost-T1': '0.0',
+        'Cost-nT1': '0.0',
+      },
+      capabilities: {},
+    };
+
+    let meterPowerT1 = null;
+    let meterPowerRT1 = null;
+
+    for (var obj in properties) {
+      var property = properties[obj];
+
+      switch (property.id) {
+        case 'usage':
+          carChargerMeter.capabilities['measure_power'] = property.value;
+          break;
+        case 'T1':
+          meterPowerT1 = property.value;
+          carChargerMeter.capabilities['meter_power.t1'] = meterPowerT1;
+          break;
+        case '-T1':
+          meterPowerRT1 = property.value;
+          carChargerMeter.capabilities['meter_power.rt1'] = meterPowerRT1;
+          break;
+        case 'Cost-T1':
+          carChargerMeter['settings']['Cost-T1'] = property.value;
+          break;
+        case 'Cost-nT1':
+          carChargerMeter['settings']['Cost-nT1'] = property.value;
+          break;
+      }
+    }
+
+    // Calculate total meter_power (imported - exported)
+    if (meterPowerT1 !== null && meterPowerRT1 !== null) {
+      carChargerMeter.capabilities['meter_power'] = meterPowerT1 - meterPowerRT1;
+    } else if (meterPowerT1 !== null) {
+      carChargerMeter.capabilities['meter_power'] = meterPowerT1;
+    }
+
+    return carChargerMeter;
   }
 }

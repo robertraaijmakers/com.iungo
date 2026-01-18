@@ -20,9 +20,15 @@ export interface IungoDevice {
   name: string;
   modelId: string;
   present: boolean;
-  type: 'energy_meter' | 'water_meter' | 'socket' | 'solar_meter';
+  type: 'energy_meter' | 'water_meter' | 'socket' | 'solar_meter' | 'evcharger';
   settings: { [settingId: string]: any };
   capabilities: { [capabilityId: string]: any };
+}
+
+export interface EnergySettings {
+  evCharger?: boolean;
+  meterPowerImportedCapability?: string;
+  meterPowerExportedCapability?: string;
 }
 
 export interface IungoApp extends Homey.App {

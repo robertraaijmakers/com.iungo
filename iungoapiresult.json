@@ -1,0 +1,3195 @@
+{
+    "ok": true,
+    "type": "response",
+    "time": 0.032377330993768,
+    "rv": {
+        "objects": [
+            {
+                "driver": "energymeter-sdm220-modbus",
+                "name": "Laadpaal",
+                "oid": "88a7d1ea",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "Laadpaal"
+                    },
+                    {
+                        "id": "usage",
+                        "value": 6
+                    },
+                    {
+                        "id": "T1",
+                        "value": 9673.679
+                    },
+                    {
+                        "id": "-T1",
+                        "value": 0.004
+                    },
+                    {
+                        "id": "logu",
+                        "value": false
+                    },
+                    {
+                        "id": "Cost-T1",
+                        "value": 0
+                    },
+                    {
+                        "id": "Cost-nT1",
+                        "value": 0
+                    },
+                    {
+                        "id": "functiongroup",
+                        "value": "carcharger"
+                    },
+                    {
+                        "id": "Client-blob",
+                        "value": ""
+                    },
+                    {
+                        "id": "hidden",
+                        "value": false
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "number",
+                        "label": "Power",
+                        "id": "usage",
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "number",
+                        "label": "T1",
+                        "id": "T1",
+                        "log": true,
+                        "cumulative": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "number",
+                        "label": "-T1",
+                        "id": "-T1",
+                        "log": true,
+                        "cumulative": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "number",
+                        "label": "L Volt",
+                        "id": "L1U",
+                        "log": true,
+                        "unit": "V"
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "log phase voltage",
+                        "id": "logu",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "logchange": true,
+                        "type": "number",
+                        "default": 0,
+                        "label": "â‚¬ T1",
+                        "id": "Cost-T1",
+                        "writable": true,
+                        "persistent": true,
+                        "unit": "Â¤/kWh"
+                    },
+                    {
+                        "logchange": true,
+                        "type": "number",
+                        "default": 0,
+                        "label": "â‚¬ -T1",
+                        "id": "Cost-nT1",
+                        "writable": true,
+                        "persistent": true,
+                        "unit": "Â¤/kWh"
+                    },
+                    {
+                        "type": "number",
+                        "label": "Sumgroup",
+                        "id": "sumgroup",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "enum",
+                        "default": "misc",
+                        "label": "Functiongroup",
+                        "id": "functiongroup",
+                        "writable": true,
+                        "range": "misc,carcharger,heatpump,device,waterboiler,floorheating,airco,oven,stove,fridge,dishwasher,heating,ventilation,aux,ehelp,laundryroom,carwash,irpanel,groupByName",
+                        "persistent": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "",
+                        "label": "Client-blob",
+                        "id": "Client-blob",
+                        "writable": true,
+                        "persistent": true,
+                        "hidden": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "Hidden",
+                        "id": "hidden",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "Available",
+                        "id": "available",
+                        "writable": false,
+                        "log": false
+                    }
+                ],
+                "uid": "3",
+                "type": "modbusenergy"
+            },
+            {
+                "driver": "energymeter-sdm630-modbus",
+                "name": "Warmtepomp",
+                "oid": "1af45cb7",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "Warmtepomp"
+                    },
+                    {
+                        "id": "usage",
+                        "value": 34.059
+                    },
+                    {
+                        "id": "T1",
+                        "value": 9207.492
+                    },
+                    {
+                        "id": "-T1",
+                        "value": 0.564
+                    },
+                    {
+                        "id": "L1P",
+                        "value": 6.23
+                    },
+                    {
+                        "id": "L2P",
+                        "value": 0
+                    },
+                    {
+                        "id": "L3P",
+                        "value": 27.92
+                    },
+                    {
+                        "id": "logp",
+                        "value": true
+                    },
+                    {
+                        "id": "L1I",
+                        "value": 0.027
+                    },
+                    {
+                        "id": "L2I",
+                        "value": 0.348
+                    },
+                    {
+                        "id": "L3I",
+                        "value": 0.127
+                    },
+                    {
+                        "id": "logi",
+                        "value": true
+                    },
+                    {
+                        "id": "Cost-T1",
+                        "value": 0
+                    },
+                    {
+                        "id": "Cost-nT1",
+                        "value": 0
+                    },
+                    {
+                        "id": "functiongroup",
+                        "value": "heatpump"
+                    },
+                    {
+                        "id": "Client-blob",
+                        "value": ""
+                    },
+                    {
+                        "id": "hidden",
+                        "value": false
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "number",
+                        "label": "Power",
+                        "id": "usage",
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "number",
+                        "label": "T1",
+                        "id": "T1",
+                        "log": true,
+                        "cumulative": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "number",
+                        "label": "-T1",
+                        "id": "-T1",
+                        "log": true,
+                        "cumulative": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "number",
+                        "label": "L1 Power",
+                        "id": "L1P",
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "number",
+                        "label": "L2 Power",
+                        "id": "L2P",
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "number",
+                        "label": "L3 Power",
+                        "id": "L3P",
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "boolean",
+                        "default": true,
+                        "label": "log phase power",
+                        "id": "logp",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "number",
+                        "label": "L1 Current",
+                        "id": "L1I",
+                        "log": true,
+                        "unit": "A"
+                    },
+                    {
+                        "type": "number",
+                        "label": "L2 Current",
+                        "id": "L2I",
+                        "log": true,
+                        "unit": "A"
+                    },
+                    {
+                        "type": "number",
+                        "label": "L3 Current",
+                        "id": "L3I",
+                        "log": true,
+                        "unit": "A"
+                    },
+                    {
+                        "type": "boolean",
+                        "default": true,
+                        "label": "log phase current",
+                        "id": "logi",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "logchange": true,
+                        "type": "number",
+                        "default": 0,
+                        "label": "â‚¬ T1",
+                        "id": "Cost-T1",
+                        "writable": true,
+                        "persistent": true,
+                        "unit": "Â¤/kWh"
+                    },
+                    {
+                        "logchange": true,
+                        "type": "number",
+                        "default": 0,
+                        "label": "â‚¬ -T1",
+                        "id": "Cost-nT1",
+                        "writable": true,
+                        "persistent": true,
+                        "unit": "Â¤/kWh"
+                    },
+                    {
+                        "type": "enum",
+                        "default": "misc",
+                        "label": "Functiongroup",
+                        "id": "functiongroup",
+                        "writable": true,
+                        "range": "misc,carcharger,heatpump,device,waterboiler,floorheating,airco,oven,stove,fridge,dishwasher,heating,ventilation,aux,ehelp,laundryroom,carwash,irpanel,groupByName",
+                        "persistent": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "",
+                        "label": "Client-blob",
+                        "id": "Client-blob",
+                        "writable": true,
+                        "persistent": true,
+                        "hidden": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "Hidden",
+                        "id": "hidden",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "Available",
+                        "id": "available",
+                        "writable": false,
+                        "log": false
+                    }
+                ],
+                "uid": "8",
+                "type": "modbusenergy"
+            },
+            {
+                "driver": "alert-log",
+                "name": "-",
+                "oid": "20fa6711",
+                "propsval": {},
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "Enable",
+                        "id": "enable",
+                        "writable": true,
+                        "persistent": true
+                    }
+                ],
+                "uid": "log alerts",
+                "type": "alert"
+            },
+            {
+                "driver": "energy-solar-sdm630-modbus",
+                "name": "Zonnepanelen",
+                "oid": "ae587066",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "Zonnepanelen"
+                    },
+                    {
+                        "id": "solar",
+                        "value": 1424.538
+                    },
+                    {
+                        "id": "import",
+                        "value": 237.377
+                    },
+                    {
+                        "id": "export",
+                        "value": 48444.531
+                    },
+                    {
+                        "id": "L1P",
+                        "value": -481.306
+                    },
+                    {
+                        "id": "L2P",
+                        "value": -482.867
+                    },
+                    {
+                        "id": "L3P",
+                        "value": -456.878
+                    },
+                    {
+                        "id": "logp",
+                        "value": true
+                    },
+                    {
+                        "id": "inverted",
+                        "value": false
+                    },
+                    {
+                        "id": "logu",
+                        "value": false
+                    },
+                    {
+                        "id": "connection",
+                        "value": "-"
+                    },
+                    {
+                        "id": "functiongroup",
+                        "value": "solar"
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "number",
+                        "label": "Energy output",
+                        "id": "solar",
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "log": true,
+                        "type": "number",
+                        "default": 0,
+                        "label": "import",
+                        "id": "import",
+                        "cumulative": true,
+                        "persistent": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "log": true,
+                        "type": "number",
+                        "default": 0,
+                        "label": "export",
+                        "id": "export",
+                        "cumulative": true,
+                        "persistent": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "number",
+                        "label": "L1 Power",
+                        "id": "L1P",
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "number",
+                        "label": "L2 Power",
+                        "id": "L2P",
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "number",
+                        "label": "L3 Power",
+                        "id": "L3P",
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "boolean",
+                        "default": true,
+                        "label": "log phase power",
+                        "id": "logp",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "number",
+                        "label": "L1 Volt",
+                        "id": "L1U",
+                        "log": true,
+                        "unit": "V"
+                    },
+                    {
+                        "type": "number",
+                        "label": "L2 Volt",
+                        "id": "L2U",
+                        "log": true,
+                        "unit": "V"
+                    },
+                    {
+                        "type": "number",
+                        "label": "L3 Volt",
+                        "id": "L3U",
+                        "log": true,
+                        "unit": "V"
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "inverted",
+                        "id": "inverted",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "log phase voltage",
+                        "id": "logu",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "enum",
+                        "default": "-",
+                        "label": "Connection",
+                        "id": "connection",
+                        "writable": false,
+                        "range": "-",
+                        "persistent": false
+                    },
+                    {
+                        "type": "enum",
+                        "default": "solar",
+                        "label": "Functiongroup",
+                        "id": "functiongroup",
+                        "writable": true,
+                        "range": "solar,wind",
+                        "persistent": true
+                    }
+                ],
+                "uid": "2",
+                "type": "solar"
+            },
+            {
+                "driver": "sensormultilevel-zwave",
+                "name": "-",
+                "oid": "d5db3767",
+                "propsval": [
+                    {
+                        "id": "classes",
+                        "value": "{0x5e ,0x86 ,0x72 ,0x5a ,0x73 ,0x85 ,0x59 ,0x70 ,0x31 ,0x55 ,0x9f ,0x6c ,0x7a }"
+                    },
+                    {
+                        "id": "sensors",
+                        "value": "{0x17 ,0x00 ,0x01 ,0x20 ,0x44 ,0x00 ,0x40 }"
+                    },
+                    {
+                        "id": "hidden",
+                        "value": false
+                    },
+                    {
+                        "id": "available",
+                        "value": true
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "associate",
+                        "id": "associate",
+                        "writable": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "metering",
+                        "id": "associate3",
+                        "writable": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "string",
+                        "label": "Classes",
+                        "id": "classes",
+                        "writable": false,
+                        "persistent": true
+                    },
+                    {
+                        "id": "sensors",
+                        "type": "string",
+                        "persistent": true,
+                        "label": "sensors"
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "Hidden",
+                        "id": "hidden",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "Available",
+                        "id": "available",
+                        "writable": false,
+                        "fn_set": null
+                    }
+                ],
+                "uid": "4152958851:9",
+                "type": "sensorgroup"
+            },
+            {
+                "driver": "energy-dsmr4",
+                "name": "Energie Leverancier",
+                "oid": "538d72d9",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "Energie Leverancier"
+                    },
+                    {
+                        "id": "metertype",
+                        "value": "XMX"
+                    },
+                    {
+                        "id": "version",
+                        "value": "5"
+                    },
+                    {
+                        "id": "serial_e",
+                        "value": "4530303637303035363434373033383230"
+                    },
+                    {
+                        "id": "usage",
+                        "value": 0
+                    },
+                    {
+                        "id": "T1",
+                        "value": 19490.924
+                    },
+                    {
+                        "id": "T2",
+                        "value": 8058.539
+                    },
+                    {
+                        "id": "-T1",
+                        "value": 10696.67
+                    },
+                    {
+                        "id": "-T2",
+                        "value": 24935.299
+                    },
+                    {
+                        "id": "L1I",
+                        "value": 0
+                    },
+                    {
+                        "id": "L2I",
+                        "value": 1
+                    },
+                    {
+                        "id": "L3I",
+                        "value": 0
+                    },
+                    {
+                        "id": "L1U",
+                        "value": 231.5
+                    },
+                    {
+                        "id": "L2U",
+                        "value": 232.8
+                    },
+                    {
+                        "id": "L3U",
+                        "value": 232.8
+                    },
+                    {
+                        "id": "L1Pimp",
+                        "value": 0
+                    },
+                    {
+                        "id": "L2Pimp",
+                        "value": 0
+                    },
+                    {
+                        "id": "L3Pimp",
+                        "value": 0
+                    },
+                    {
+                        "id": "L1Pexp",
+                        "value": 0
+                    },
+                    {
+                        "id": "L2Pexp",
+                        "value": 0
+                    },
+                    {
+                        "id": "L3Pexp",
+                        "value": 0
+                    },
+                    {
+                        "id": "c_tariff",
+                        "value": 1
+                    },
+                    {
+                        "id": "Cost-T1",
+                        "value": 0.25406
+                    },
+                    {
+                        "id": "Cost-T2",
+                        "value": 0.31831
+                    },
+                    {
+                        "id": "Cost-nT1",
+                        "value": 0.115
+                    },
+                    {
+                        "id": "Cost-nT2",
+                        "value": 0.115
+                    },
+                    {
+                        "id": "netting",
+                        "value": "hi-low"
+                    },
+                    {
+                        "id": "Cost-net-comp",
+                        "value": 0
+                    },
+                    {
+                        "id": "Cost-gas",
+                        "value": 0
+                    },
+                    {
+                        "id": "Gas-interval",
+                        "value": 3600
+                    },
+                    {
+                        "id": "Client-blob",
+                        "value": ""
+                    },
+                    {
+                        "id": "crc_err",
+                        "value": 7764
+                    },
+                    {
+                        "id": "available",
+                        "value": true
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "string",
+                        "label": "Energy provider",
+                        "id": "provider_e",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "id": "metertype",
+                        "type": "string",
+                        "label": "type"
+                    },
+                    {
+                        "id": "version",
+                        "type": "string",
+                        "label": "SMR"
+                    },
+                    {
+                        "type": "string",
+                        "label": "E meter sn",
+                        "id": "serial_e",
+                        "persistent": true,
+                        "logchange": true
+                    },
+                    {
+                        "type": "number",
+                        "label": "Energy usage",
+                        "id": "usage",
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "number",
+                        "log_interval": 30,
+                        "label": "T1",
+                        "id": "T1",
+                        "log": true,
+                        "cumulative": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "number",
+                        "log_interval": 30,
+                        "label": "T2",
+                        "id": "T2",
+                        "log": true,
+                        "cumulative": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "number",
+                        "log_interval": 30,
+                        "label": "-T1",
+                        "id": "-T1",
+                        "log": true,
+                        "cumulative": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "number",
+                        "log_interval": 30,
+                        "label": "-T2",
+                        "id": "-T2",
+                        "log": true,
+                        "cumulative": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "number",
+                        "log_interval": 5,
+                        "label": "L1 Current",
+                        "id": "L1I",
+                        "log": true,
+                        "unit": "A"
+                    },
+                    {
+                        "type": "number",
+                        "log_interval": 5,
+                        "label": "L2 Current",
+                        "id": "L2I",
+                        "log": true,
+                        "unit": "A"
+                    },
+                    {
+                        "type": "number",
+                        "log_interval": 5,
+                        "label": "L3 Current",
+                        "id": "L3I",
+                        "log": true,
+                        "unit": "A"
+                    },
+                    {
+                        "type": "number",
+                        "label": "L1 Voltage",
+                        "id": "L1U",
+                        "log": true,
+                        "unit": "V"
+                    },
+                    {
+                        "type": "number",
+                        "label": "L2 Voltage",
+                        "id": "L2U",
+                        "log": true,
+                        "unit": "V"
+                    },
+                    {
+                        "type": "number",
+                        "label": "L3 Voltage",
+                        "id": "L3U",
+                        "log": true,
+                        "unit": "V"
+                    },
+                    {
+                        "type": "number",
+                        "log_interval": 5,
+                        "label": "L1 Power Import",
+                        "id": "L1Pimp",
+                        "log": true,
+                        "unit": "kW"
+                    },
+                    {
+                        "type": "number",
+                        "log_interval": 5,
+                        "label": "L2 Power Import",
+                        "id": "L2Pimp",
+                        "log": true,
+                        "unit": "kW"
+                    },
+                    {
+                        "type": "number",
+                        "log_interval": 5,
+                        "label": "L3 Power Import",
+                        "id": "L3Pimp",
+                        "log": true,
+                        "unit": "kW"
+                    },
+                    {
+                        "type": "number",
+                        "log_interval": 5,
+                        "label": "L1 Power Export",
+                        "id": "L1Pexp",
+                        "log": true,
+                        "unit": "kW"
+                    },
+                    {
+                        "type": "number",
+                        "log_interval": 5,
+                        "label": "L2 Power Export",
+                        "id": "L2Pexp",
+                        "log": true,
+                        "unit": "kW"
+                    },
+                    {
+                        "type": "number",
+                        "log_interval": 5,
+                        "label": "L3 Power Export",
+                        "id": "L3Pexp",
+                        "log": true,
+                        "unit": "kW"
+                    },
+                    {
+                        "type": "number",
+                        "log_interval": 30,
+                        "label": "Tariff",
+                        "id": "c_tariff",
+                        "log": true,
+                        "unit": "x"
+                    },
+                    {
+                        "type": "string",
+                        "label": "Gas meter sn",
+                        "id": "serial_g",
+                        "persistent": true,
+                        "logchange": true
+                    },
+                    {
+                        "type": "string",
+                        "label": "Gas provider",
+                        "id": "provider_g",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "number",
+                        "label": "Gas usage",
+                        "id": "gas_usage",
+                        "log": true,
+                        "unit": "mÂ³"
+                    },
+                    {
+                        "type": "number",
+                        "label": "Gas total",
+                        "id": "gas",
+                        "log": true,
+                        "cumulative": true,
+                        "unit": "mÂ³"
+                    },
+                    {
+                        "log": true,
+                        "type": "number",
+                        "default": 0,
+                        "label": "â‚¬ T1",
+                        "id": "Cost-T1",
+                        "writable": true,
+                        "persistent": true,
+                        "unit": "Â¤/kWh"
+                    },
+                    {
+                        "log": true,
+                        "type": "number",
+                        "default": 0,
+                        "label": "â‚¬ T2",
+                        "id": "Cost-T2",
+                        "writable": true,
+                        "persistent": true,
+                        "unit": "Â¤/kWh"
+                    },
+                    {
+                        "log": true,
+                        "type": "number",
+                        "default": 0,
+                        "label": "â‚¬ -T1",
+                        "id": "Cost-nT1",
+                        "writable": true,
+                        "persistent": true,
+                        "unit": "Â¤/kWh"
+                    },
+                    {
+                        "log": true,
+                        "type": "number",
+                        "default": 0,
+                        "label": "â‚¬ -T2",
+                        "id": "Cost-nT2",
+                        "writable": true,
+                        "persistent": true,
+                        "unit": "Â¤/kWh"
+                    },
+                    {
+                        "type": "enum",
+                        "default": "off",
+                        "label": "netting",
+                        "id": "netting",
+                        "writable": true,
+                        "range": "off,tgroup,hi-low",
+                        "persistent": true
+                    },
+                    {
+                        "type": "number",
+                        "default": 0,
+                        "label": "compensation",
+                        "id": "Cost-net-comp",
+                        "writable": true,
+                        "persistent": true,
+                        "unit": "Â¤/kWh"
+                    },
+                    {
+                        "log": true,
+                        "type": "number",
+                        "default": 0,
+                        "label": "â‚¬ Gas",
+                        "id": "Cost-gas",
+                        "writable": true,
+                        "persistent": true,
+                        "unit": "Â¤/mÂ³"
+                    },
+                    {
+                        "type": "number",
+                        "default": 3600,
+                        "label": "Gas interval",
+                        "id": "Gas-interval",
+                        "persistent": true,
+                        "unit": "sec"
+                    },
+                    {
+                        "type": "string",
+                        "default": "",
+                        "label": "Client-blob",
+                        "id": "Client-blob",
+                        "writable": true,
+                        "persistent": true,
+                        "hidden": true
+                    },
+                    {
+                        "id": "crc_err",
+                        "type": "number",
+                        "writable": false,
+                        "label": "crc errors"
+                    },
+                    {
+                        "id": "available",
+                        "type": "boolean",
+                        "label": "Available"
+                    }
+                ],
+                "uid": "-",
+                "type": "energy"
+            },
+            {
+                "driver": "bridge-usbuart",
+                "name": "-",
+                "oid": "3fd82057",
+                "propsval": [
+                    {
+                        "id": "available",
+                        "value": false
+                    },
+                    {
+                        "id": "iSerial",
+                        "value": "DO5VKIM3"
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "Available",
+                        "id": "available",
+                        "writable": false
+                    },
+                    {
+                        "type": "string",
+                        "default": "",
+                        "label": "iSerial",
+                        "id": "iSerial",
+                        "writable": false,
+                        "persistent": true
+                    }
+                ],
+                "uid": "1-1.3:1.0;115200",
+                "type": "bridge"
+            },
+            {
+                "driver": "powerswitch-zwave",
+                "name": "-",
+                "oid": "d3caba7a",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "-"
+                    },
+                    {
+                        "id": "state",
+                        "value": "na"
+                    },
+                    {
+                        "id": "classes",
+                        "value": "{0x5e ,0x22 ,0x85 ,0x59 ,0x70 ,0x56 ,0x5a ,0x7a ,0x72 ,0x32 ,0x8e ,0x71 ,0x73 ,0x98 ,0x31 ,0x25 ,0x86 }"
+                    },
+                    {
+                        "id": "hidden",
+                        "value": false
+                    },
+                    {
+                        "id": "enableset",
+                        "value": true
+                    },
+                    {
+                        "id": "msgs",
+                        "value": 0
+                    },
+                    {
+                        "id": "available",
+                        "value": true
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "command",
+                        "fn_set": null,
+                        "label": "Command",
+                        "id": "command",
+                        "writable": true,
+                        "range": "on,off",
+                        "timer": true
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "associate",
+                        "id": "associate",
+                        "writable": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "metering",
+                        "id": "associate3",
+                        "writable": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "string",
+                        "default": "na",
+                        "label": "state",
+                        "id": "state",
+                        "writable": false
+                    },
+                    {
+                        "type": "number",
+                        "filtmin": 0,
+                        "label": "Power",
+                        "id": "usage",
+                        "filtmax": 4000,
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "number",
+                        "filtmin": 0,
+                        "label": "usage",
+                        "id": "power",
+                        "log": true,
+                        "cumulative": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "string",
+                        "label": "Classes",
+                        "id": "classes",
+                        "writable": false,
+                        "persistent": true
+                    },
+                    {
+                        "type": "command",
+                        "label": "meter reset",
+                        "id": "meterreset",
+                        "writable": true,
+                        "range": "reset",
+                        "fn_set": null
+                    },
+                    {
+                        "type": "command",
+                        "label": "meter get",
+                        "id": "meterget",
+                        "writable": true,
+                        "range": "usage,power,state,config",
+                        "fn_set": null
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "Hidden",
+                        "id": "hidden",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": true,
+                        "label": "Enable set",
+                        "id": "enableset",
+                        "writable": true,
+                        "persistent": true,
+                        "fn_set": null
+                    },
+                    {
+                        "id": "msgs",
+                        "type": "number",
+                        "default": 0,
+                        "label": "msgs"
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "Available",
+                        "id": "available",
+                        "writable": true,
+                        "fn_set": null
+                    }
+                ],
+                "uid": "4152958851:12",
+                "type": "powerswitch"
+            },
+            {
+                "driver": "bridge-modbus",
+                "name": "-",
+                "oid": "b9cb127f",
+                "propsval": [
+                    {
+                        "id": "scan_status",
+                        "value": "{\"state\":\"idle\",\"results\":{}}"
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "fn_set": null,
+                        "label": "Scan",
+                        "id": "scan",
+                        "range": "scan",
+                        "type": "command"
+                    },
+                    {
+                        "id": "scan_status",
+                        "type": "string",
+                        "label": "Scan status"
+                    },
+                    {
+                        "type": "string",
+                        "label": "raw msg",
+                        "id": "rawmsg",
+                        "writable": true,
+                        "unit": "add,fnc,start,len"
+                    },
+                    {
+                        "type": "command",
+                        "label": "send raw",
+                        "id": "rawsend",
+                        "range": "send",
+                        "fn_set": null
+                    },
+                    {
+                        "id": "rawrsp",
+                        "type": "string",
+                        "label": "raw resp 0x"
+                    }
+                ],
+                "uid": "via 1-1.2:1.0",
+                "type": "bridge"
+            },
+            {
+                "driver": "powerswitch-zwave",
+                "name": "-",
+                "oid": "f49e3bd8",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "-"
+                    },
+                    {
+                        "id": "state",
+                        "value": "na"
+                    },
+                    {
+                        "id": "classes",
+                        "value": "{0x5e ,0x86 ,0x72 ,0x25 ,0x5a ,0x59 ,0x85 ,0x73 ,0x56 ,0x70 ,0x32 ,0x8e ,0x60 ,0x22 ,0x75 ,0x71 ,0x98 ,0x7a ,0x5b ,0xef ,0x26 }"
+                    },
+                    {
+                        "id": "hidden",
+                        "value": false
+                    },
+                    {
+                        "id": "enableset",
+                        "value": true
+                    },
+                    {
+                        "id": "msgs",
+                        "value": 0
+                    },
+                    {
+                        "id": "available",
+                        "value": true
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "command",
+                        "fn_set": null,
+                        "label": "Command",
+                        "id": "command",
+                        "writable": true,
+                        "range": "on,off",
+                        "timer": true
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "associate",
+                        "id": "associate",
+                        "writable": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "metering",
+                        "id": "associate3",
+                        "writable": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "string",
+                        "default": "na",
+                        "label": "state",
+                        "id": "state",
+                        "writable": false
+                    },
+                    {
+                        "type": "number",
+                        "filtmin": 0,
+                        "label": "Power",
+                        "id": "usage",
+                        "filtmax": 4000,
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "number",
+                        "filtmin": 0,
+                        "label": "usage",
+                        "id": "power",
+                        "log": true,
+                        "cumulative": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "string",
+                        "label": "Classes",
+                        "id": "classes",
+                        "writable": false,
+                        "persistent": true
+                    },
+                    {
+                        "type": "command",
+                        "label": "meter reset",
+                        "id": "meterreset",
+                        "writable": true,
+                        "range": "reset",
+                        "fn_set": null
+                    },
+                    {
+                        "type": "command",
+                        "label": "meter get",
+                        "id": "meterget",
+                        "writable": true,
+                        "range": "usage,power,state,config",
+                        "fn_set": null
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "Hidden",
+                        "id": "hidden",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": true,
+                        "label": "Enable set",
+                        "id": "enableset",
+                        "writable": true,
+                        "persistent": true,
+                        "fn_set": null
+                    },
+                    {
+                        "id": "msgs",
+                        "type": "number",
+                        "default": 0,
+                        "label": "msgs"
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "Available",
+                        "id": "available",
+                        "writable": true,
+                        "fn_set": null
+                    }
+                ],
+                "uid": "4152958851:15",
+                "type": "powerswitch"
+            },
+            {
+                "driver": "powerswitch-zwave",
+                "name": "Slaapkamer ",
+                "oid": "2a68f008",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "Slaapkamer "
+                    },
+                    {
+                        "id": "command",
+                        "value": "off"
+                    },
+                    {
+                        "id": "state",
+                        "value": "off"
+                    },
+                    {
+                        "id": "usage",
+                        "value": 0
+                    },
+                    {
+                        "id": "power",
+                        "value": 0.83
+                    },
+                    {
+                        "id": "classes",
+                        "value": "{0x5e ,0x86 ,0x72 ,0x25 ,0x5a ,0x59 ,0x85 ,0x73 ,0x56 ,0x70 ,0x32 ,0x8e ,0x60 ,0x22 ,0x75 ,0x71 ,0x98 ,0x7a ,0x5b ,0xef ,0x26 }"
+                    },
+                    {
+                        "id": "hidden",
+                        "value": false
+                    },
+                    {
+                        "id": "enableset",
+                        "value": true
+                    },
+                    {
+                        "id": "msgs",
+                        "value": 18157
+                    },
+                    {
+                        "id": "available",
+                        "value": true
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "command",
+                        "fn_set": null,
+                        "label": "Command",
+                        "id": "command",
+                        "writable": true,
+                        "range": "on,off",
+                        "timer": true
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "associate",
+                        "id": "associate",
+                        "writable": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "metering",
+                        "id": "associate3",
+                        "writable": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "string",
+                        "default": "na",
+                        "label": "state",
+                        "id": "state",
+                        "writable": false
+                    },
+                    {
+                        "type": "number",
+                        "filtmin": 0,
+                        "label": "Power",
+                        "id": "usage",
+                        "filtmax": 4000,
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "number",
+                        "filtmin": 0,
+                        "label": "usage",
+                        "id": "power",
+                        "log": true,
+                        "cumulative": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "string",
+                        "label": "Classes",
+                        "id": "classes",
+                        "writable": false,
+                        "persistent": true
+                    },
+                    {
+                        "type": "command",
+                        "label": "meter reset",
+                        "id": "meterreset",
+                        "writable": true,
+                        "range": "reset",
+                        "fn_set": null
+                    },
+                    {
+                        "type": "command",
+                        "label": "meter get",
+                        "id": "meterget",
+                        "writable": true,
+                        "range": "usage,power,state,config",
+                        "fn_set": null
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "Hidden",
+                        "id": "hidden",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": true,
+                        "label": "Enable set",
+                        "id": "enableset",
+                        "writable": true,
+                        "persistent": true,
+                        "fn_set": null
+                    },
+                    {
+                        "id": "msgs",
+                        "type": "number",
+                        "default": 0,
+                        "label": "msgs"
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "Available",
+                        "id": "available",
+                        "writable": true,
+                        "fn_set": null
+                    }
+                ],
+                "uid": "4152958851:18",
+                "type": "powerswitch"
+            },
+            {
+                "driver": "button-gpio",
+                "name": "-",
+                "oid": "c430d9e0",
+                "propsval": {},
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    }
+                ],
+                "uid": "button",
+                "type": "button"
+            },
+            {
+                "driver": "powerswitch-zwave",
+                "name": "Tuin verlichting ",
+                "oid": "f4e579c3",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "Tuin verlichting "
+                    },
+                    {
+                        "id": "state",
+                        "value": "on"
+                    },
+                    {
+                        "id": "usage",
+                        "value": 2.3
+                    },
+                    {
+                        "id": "power",
+                        "value": 104.26
+                    },
+                    {
+                        "id": "classes",
+                        "value": "{0x5e ,0x86 ,0x72 ,0x25 ,0x5a ,0x59 ,0x85 ,0x73 ,0x56 ,0x70 ,0x32 ,0x8e ,0x60 ,0x22 ,0x75 ,0x71 ,0x98 ,0x7a ,0x5b ,0xef ,0x26 }"
+                    },
+                    {
+                        "id": "hidden",
+                        "value": false
+                    },
+                    {
+                        "id": "enableset",
+                        "value": true
+                    },
+                    {
+                        "id": "msgs",
+                        "value": 14369
+                    },
+                    {
+                        "id": "available",
+                        "value": true
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "command",
+                        "fn_set": null,
+                        "label": "Command",
+                        "id": "command",
+                        "writable": true,
+                        "range": "on,off",
+                        "timer": true
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "associate",
+                        "id": "associate",
+                        "writable": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "metering",
+                        "id": "associate3",
+                        "writable": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "string",
+                        "default": "na",
+                        "label": "state",
+                        "id": "state",
+                        "writable": false
+                    },
+                    {
+                        "type": "number",
+                        "filtmin": 0,
+                        "label": "Power",
+                        "id": "usage",
+                        "filtmax": 4000,
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "number",
+                        "filtmin": 0,
+                        "label": "usage",
+                        "id": "power",
+                        "log": true,
+                        "cumulative": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "string",
+                        "label": "Classes",
+                        "id": "classes",
+                        "writable": false,
+                        "persistent": true
+                    },
+                    {
+                        "type": "command",
+                        "label": "meter reset",
+                        "id": "meterreset",
+                        "writable": true,
+                        "range": "reset",
+                        "fn_set": null
+                    },
+                    {
+                        "type": "command",
+                        "label": "meter get",
+                        "id": "meterget",
+                        "writable": true,
+                        "range": "usage,power,state,config",
+                        "fn_set": null
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "Hidden",
+                        "id": "hidden",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": true,
+                        "label": "Enable set",
+                        "id": "enableset",
+                        "writable": true,
+                        "persistent": true,
+                        "fn_set": null
+                    },
+                    {
+                        "id": "msgs",
+                        "type": "number",
+                        "default": 0,
+                        "label": "msgs"
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "Available",
+                        "id": "available",
+                        "writable": true,
+                        "fn_set": null
+                    }
+                ],
+                "uid": "4152958851:16",
+                "type": "powerswitch"
+            },
+            {
+                "driver": "powerswitch-zwave",
+                "name": "Veranda",
+                "oid": "b24b9339",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "Veranda"
+                    },
+                    {
+                        "id": "command",
+                        "value": "off"
+                    },
+                    {
+                        "id": "state",
+                        "value": "off"
+                    },
+                    {
+                        "id": "usage",
+                        "value": 0
+                    },
+                    {
+                        "id": "power",
+                        "value": 1.77
+                    },
+                    {
+                        "id": "classes",
+                        "value": "{0x5e ,0x86 ,0x72 ,0x25 ,0x5a ,0x59 ,0x85 ,0x73 ,0x56 ,0x70 ,0x32 ,0x8e ,0x60 ,0x22 ,0x75 ,0x71 ,0x98 ,0x7a ,0x5b ,0xef ,0x26 }"
+                    },
+                    {
+                        "id": "hidden",
+                        "value": false
+                    },
+                    {
+                        "id": "enableset",
+                        "value": true
+                    },
+                    {
+                        "id": "msgs",
+                        "value": 24088
+                    },
+                    {
+                        "id": "available",
+                        "value": true
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "command",
+                        "fn_set": null,
+                        "label": "Command",
+                        "id": "command",
+                        "writable": true,
+                        "range": "on,off",
+                        "timer": true
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "associate",
+                        "id": "associate",
+                        "writable": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "metering",
+                        "id": "associate3",
+                        "writable": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "string",
+                        "default": "na",
+                        "label": "state",
+                        "id": "state",
+                        "writable": false
+                    },
+                    {
+                        "type": "number",
+                        "filtmin": 0,
+                        "label": "Power",
+                        "id": "usage",
+                        "filtmax": 4000,
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "number",
+                        "filtmin": 0,
+                        "label": "usage",
+                        "id": "power",
+                        "log": true,
+                        "cumulative": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "string",
+                        "label": "Classes",
+                        "id": "classes",
+                        "writable": false,
+                        "persistent": true
+                    },
+                    {
+                        "type": "command",
+                        "label": "meter reset",
+                        "id": "meterreset",
+                        "writable": true,
+                        "range": "reset",
+                        "fn_set": null
+                    },
+                    {
+                        "type": "command",
+                        "label": "meter get",
+                        "id": "meterget",
+                        "writable": true,
+                        "range": "usage,power,state,config",
+                        "fn_set": null
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "Hidden",
+                        "id": "hidden",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": true,
+                        "label": "Enable set",
+                        "id": "enableset",
+                        "writable": true,
+                        "persistent": true,
+                        "fn_set": null
+                    },
+                    {
+                        "id": "msgs",
+                        "type": "number",
+                        "default": 0,
+                        "label": "msgs"
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "Available",
+                        "id": "available",
+                        "writable": true,
+                        "fn_set": null
+                    }
+                ],
+                "uid": "4152958851:17",
+                "type": "powerswitch"
+            },
+            {
+                "driver": "dat2ext",
+                "name": "-",
+                "oid": "e75dff04",
+                "propsval": [
+                    {
+                        "id": "t_send",
+                        "value": 1768701295
+                    },
+                    {
+                        "id": "t_send_ext",
+                        "value": 1768661963
+                    },
+                    {
+                        "id": "t_ping",
+                        "value": 1768665220
+                    },
+                    {
+                        "id": "Error",
+                        "value": 0
+                    },
+                    {
+                        "id": "WWANWDR",
+                        "value": 0
+                    },
+                    {
+                        "id": "status",
+                        "value": "OK"
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "number",
+                        "default": 0,
+                        "label": "T send",
+                        "id": "t_send",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "number",
+                        "default": 0,
+                        "label": "T send ext",
+                        "id": "t_send_ext",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "number",
+                        "default": 0,
+                        "label": "T ping",
+                        "id": "t_ping",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "id": "Error",
+                        "type": "number",
+                        "default": 0,
+                        "label": "Errors"
+                    },
+                    {
+                        "type": "number",
+                        "default": 0,
+                        "label": "E Resets",
+                        "id": "WWANWDR",
+                        "persistent": true
+                    },
+                    {
+                        "id": "status",
+                        "type": "string",
+                        "default": "",
+                        "label": "Status"
+                    },
+                    {
+                        "id": "request",
+                        "type": "string",
+                        "writable": true,
+                        "label": "Request"
+                    },
+                    {
+                        "type": "command",
+                        "label": "do req",
+                        "id": "execute",
+                        "range": "exec",
+                        "fn_set": null
+                    }
+                ],
+                "uid": "plushuis",
+                "type": "misc"
+            },
+            {
+                "driver": "storagemeter-sdm630-modbus",
+                "name": "BalansEnergie",
+                "oid": "9d3bb55f",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "BalansEnergie"
+                    },
+                    {
+                        "id": "power",
+                        "value": 1250.643
+                    },
+                    {
+                        "id": "import",
+                        "value": 152.07
+                    },
+                    {
+                        "id": "export",
+                        "value": 110.722
+                    },
+                    {
+                        "id": "L1P",
+                        "value": 431.355
+                    },
+                    {
+                        "id": "L2P",
+                        "value": 393.848
+                    },
+                    {
+                        "id": "L3P",
+                        "value": 423.555
+                    },
+                    {
+                        "id": "systemPF",
+                        "value": 0.975
+                    },
+                    {
+                        "id": "importr",
+                        "value": 8.885
+                    },
+                    {
+                        "id": "exportr",
+                        "value": 0.428
+                    },
+                    {
+                        "id": "efficiency",
+                        "value": 92
+                    },
+                    {
+                        "id": "dailydischarge",
+                        "value": 0.9
+                    },
+                    {
+                        "id": "inverted",
+                        "value": false
+                    },
+                    {
+                        "id": "connection",
+                        "value": "-"
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "number",
+                        "label": "Power",
+                        "id": "power",
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "number",
+                        "label": "import",
+                        "id": "import",
+                        "writable": false,
+                        "persistent": true,
+                        "unit": "kWh",
+                        "default": 0,
+                        "log": true,
+                        "cumulative": true
+                    },
+                    {
+                        "type": "number",
+                        "label": "export",
+                        "id": "export",
+                        "writable": false,
+                        "persistent": true,
+                        "unit": "kWh",
+                        "default": 0,
+                        "log": true,
+                        "cumulative": true
+                    },
+                    {
+                        "type": "number",
+                        "label": "L1 Power",
+                        "id": "L1P",
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "number",
+                        "label": "L2 Power",
+                        "id": "L2P",
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "number",
+                        "label": "L3 Power",
+                        "id": "L3P",
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "id": "systemPF",
+                        "type": "number",
+                        "log": true,
+                        "label": "system PF"
+                    },
+                    {
+                        "type": "number",
+                        "label": "import reactive",
+                        "id": "importr",
+                        "cumulative": true,
+                        "unit": "kVArh"
+                    },
+                    {
+                        "type": "number",
+                        "label": "export reactive",
+                        "id": "exportr",
+                        "cumulative": true,
+                        "unit": "kVArh"
+                    },
+                    {
+                        "type": "number",
+                        "label": "capacity",
+                        "id": "capacity",
+                        "writable": true,
+                        "persistent": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "number",
+                        "default": 92,
+                        "label": "efficiency",
+                        "id": "efficiency",
+                        "writable": true,
+                        "unit": "%"
+                    },
+                    {
+                        "type": "number",
+                        "default": 0.9,
+                        "label": "daily selfdischarge",
+                        "id": "dailydischarge",
+                        "writable": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "number",
+                        "label": "min level",
+                        "id": "minlevel",
+                        "log": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "number",
+                        "label": "max level",
+                        "id": "maxlevel",
+                        "log": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "inverted",
+                        "id": "inverted",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "Available",
+                        "id": "available",
+                        "writable": false,
+                        "log": false
+                    },
+                    {
+                        "type": "enum",
+                        "default": "-",
+                        "label": "Connection",
+                        "id": "connection",
+                        "writable": false,
+                        "range": "-",
+                        "persistent": false
+                    }
+                ],
+                "uid": "4",
+                "type": "energystorage"
+            },
+            {
+                "driver": "smartbridge-uart",
+                "name": "-",
+                "oid": "36c1fc52",
+                "propsval": [
+                    {
+                        "id": "available",
+                        "value": true
+                    },
+                    {
+                        "id": "metertype",
+                        "value": "Smart P1 DSMR 4"
+                    },
+                    {
+                        "id": "bytes_rx",
+                        "value": 360593257
+                    },
+                    {
+                        "id": "bytes_tx",
+                        "value": 0
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "Available",
+                        "id": "available",
+                        "writable": false
+                    },
+                    {
+                        "fn_set": null,
+                        "type": "enum",
+                        "default": "-",
+                        "label": "Metertype",
+                        "id": "metertype",
+                        "writable": true,
+                        "range": "-,Smart P1,Smart P1 DSMR 4,S1,IEC,analog,demo,modbus,gas only,Smart P1 SMR,DSMR double gas,dummy",
+                        "persistent": true
+                    },
+                    {
+                        "id": "bytes_rx",
+                        "type": "number",
+                        "writable": false,
+                        "label": "Bytes received"
+                    },
+                    {
+                        "id": "bytes_tx",
+                        "type": "number",
+                        "writable": false,
+                        "label": "Bytes transmitted"
+                    },
+                    {
+                        "type": "command",
+                        "label": "Firmware",
+                        "id": "fw-upgrade",
+                        "writable": true,
+                        "range": "upgrade",
+                        "fn_set": null
+                    },
+                    {
+                        "id": "message",
+                        "type": "string",
+                        "writable": false,
+                        "label": "message"
+                    }
+                ],
+                "uid": "/dev/ttyAPP:9600:e71",
+                "type": "bridge"
+            },
+            {
+                "driver": "powerswitch-zwave",
+                "name": "Luchtwarmtepomp",
+                "oid": "a3dd048b",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "Luchtwarmtepomp"
+                    },
+                    {
+                        "id": "state",
+                        "value": "on"
+                    },
+                    {
+                        "id": "usage",
+                        "value": 28
+                    },
+                    {
+                        "id": "power",
+                        "value": 3862.4
+                    },
+                    {
+                        "id": "classes",
+                        "value": "{0x5e ,0x22 ,0x85 ,0x59 ,0x70 ,0x56 ,0x5a ,0x7a ,0x72 ,0x32 ,0x8e ,0x71 ,0x73 ,0x98 ,0x31 ,0x25 ,0x86 }"
+                    },
+                    {
+                        "id": "hidden",
+                        "value": false
+                    },
+                    {
+                        "id": "enableset",
+                        "value": false
+                    },
+                    {
+                        "id": "msgs",
+                        "value": 18853
+                    },
+                    {
+                        "id": "available",
+                        "value": true
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "command",
+                        "fn_set": null,
+                        "label": "Command",
+                        "id": "command",
+                        "writable": true,
+                        "range": "on,off",
+                        "timer": true
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "associate",
+                        "id": "associate",
+                        "writable": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "metering",
+                        "id": "associate3",
+                        "writable": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "string",
+                        "default": "na",
+                        "label": "state",
+                        "id": "state",
+                        "writable": false
+                    },
+                    {
+                        "type": "number",
+                        "filtmin": 0,
+                        "label": "Power",
+                        "id": "usage",
+                        "filtmax": 4000,
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "number",
+                        "filtmin": 0,
+                        "label": "usage",
+                        "id": "power",
+                        "log": true,
+                        "cumulative": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "string",
+                        "label": "Classes",
+                        "id": "classes",
+                        "writable": false,
+                        "persistent": true
+                    },
+                    {
+                        "type": "command",
+                        "label": "meter reset",
+                        "id": "meterreset",
+                        "writable": true,
+                        "range": "reset",
+                        "fn_set": null
+                    },
+                    {
+                        "type": "command",
+                        "label": "meter get",
+                        "id": "meterget",
+                        "writable": true,
+                        "range": "usage,power,state,config",
+                        "fn_set": null
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "Hidden",
+                        "id": "hidden",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": true,
+                        "label": "Enable set",
+                        "id": "enableset",
+                        "writable": true,
+                        "persistent": true,
+                        "fn_set": null
+                    },
+                    {
+                        "id": "msgs",
+                        "type": "number",
+                        "default": 0,
+                        "label": "msgs"
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "Available",
+                        "id": "available",
+                        "writable": true,
+                        "fn_set": null
+                    }
+                ],
+                "uid": "4152958851:11",
+                "type": "powerswitch"
+            },
+            {
+                "driver": "bridge-zwave",
+                "name": "-",
+                "oid": "b387f0b5",
+                "propsval": [
+                    {
+                        "id": "home_id",
+                        "value": 4152958851
+                    },
+                    {
+                        "id": "available",
+                        "value": false
+                    },
+                    {
+                        "id": "node_count",
+                        "value": 9
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "number",
+                        "label": "home id",
+                        "id": "home_id",
+                        "writable": false,
+                        "logchange": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "Available",
+                        "id": "available",
+                        "writable": false
+                    },
+                    {
+                        "type": "number",
+                        "default": 0,
+                        "label": "nodes",
+                        "id": "node_count",
+                        "writable": false
+                    },
+                    {
+                        "type": "command",
+                        "fn_set": null,
+                        "label": "node",
+                        "id": "operation",
+                        "writable": true,
+                        "range": "add,delete,reset",
+                        "persistent": true
+                    },
+                    {
+                        "id": "cmd",
+                        "type": "string",
+                        "writable": true,
+                        "label": "cmd"
+                    },
+                    {
+                        "type": "command",
+                        "label": "exec",
+                        "id": "exec",
+                        "range": "exec",
+                        "fn_set": null
+                    },
+                    {
+                        "id": "message",
+                        "type": "string",
+                        "writable": false,
+                        "label": "message"
+                    }
+                ],
+                "uid": "via 1-1.3:1.0",
+                "type": "bridge"
+            },
+            {
+                "driver": "bridge-gpio",
+                "name": "-",
+                "oid": "b7bae611",
+                "propsval": [
+                    {
+                        "id": "available",
+                        "value": false
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "Available",
+                        "id": "available",
+                        "writable": false
+                    }
+                ],
+                "uid": "39",
+                "type": "bridge"
+            },
+            {
+                "driver": "powerswitch-zwave",
+                "name": "-",
+                "oid": "5d5ec6c2",
+                "propsval": [
+                    {
+                        "id": "name",
+                        "value": "-"
+                    },
+                    {
+                        "id": "command",
+                        "value": "off"
+                    },
+                    {
+                        "id": "state",
+                        "value": "off"
+                    },
+                    {
+                        "id": "classes",
+                        "value": "{0x5e ,0x25 ,0x26 ,0x33 ,0x70 ,0x27 ,0x32 ,0x81 ,0x85 ,0x59 ,0x72 ,0x86 ,0x7a ,0x73 ,0xef ,0x5a ,0x82 }"
+                    },
+                    {
+                        "id": "hidden",
+                        "value": false
+                    },
+                    {
+                        "id": "enableset",
+                        "value": true
+                    },
+                    {
+                        "id": "msgs",
+                        "value": 0
+                    },
+                    {
+                        "id": "available",
+                        "value": true
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "command",
+                        "fn_set": null,
+                        "label": "Command",
+                        "id": "command",
+                        "writable": true,
+                        "range": "on,off",
+                        "timer": true
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "associate",
+                        "id": "associate",
+                        "writable": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "metering",
+                        "id": "associate3",
+                        "writable": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "string",
+                        "default": "na",
+                        "label": "state",
+                        "id": "state",
+                        "writable": false
+                    },
+                    {
+                        "type": "number",
+                        "filtmin": 0,
+                        "label": "Power",
+                        "id": "usage",
+                        "filtmax": 4000,
+                        "log": true,
+                        "unit": "W"
+                    },
+                    {
+                        "type": "number",
+                        "filtmin": 0,
+                        "label": "usage",
+                        "id": "power",
+                        "log": true,
+                        "cumulative": true,
+                        "unit": "kWh"
+                    },
+                    {
+                        "type": "string",
+                        "label": "Classes",
+                        "id": "classes",
+                        "writable": false,
+                        "persistent": true
+                    },
+                    {
+                        "type": "command",
+                        "label": "meter reset",
+                        "id": "meterreset",
+                        "writable": true,
+                        "range": "reset",
+                        "fn_set": null
+                    },
+                    {
+                        "type": "command",
+                        "label": "meter get",
+                        "id": "meterget",
+                        "writable": true,
+                        "range": "usage,power,state,config",
+                        "fn_set": null
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "Hidden",
+                        "id": "hidden",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": true,
+                        "label": "Enable set",
+                        "id": "enableset",
+                        "writable": true,
+                        "persistent": true,
+                        "fn_set": null
+                    },
+                    {
+                        "id": "msgs",
+                        "type": "number",
+                        "default": 0,
+                        "label": "msgs"
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "Available",
+                        "id": "available",
+                        "writable": true,
+                        "fn_set": null
+                    }
+                ],
+                "uid": "4152958851:19",
+                "type": "powerswitch"
+            },
+            {
+                "driver": "weather-buienradar",
+                "name": "-",
+                "oid": "3e917329",
+                "propsval": [
+                    {
+                        "id": "location",
+                        "value": "Arnhem"
+                    },
+                    {
+                        "id": "temp_current",
+                        "value": 10.9
+                    },
+                    {
+                        "id": "prediction_class",
+                        "value": "Zwaar bewolkt"
+                    },
+                    {
+                        "id": "humidity",
+                        "value": 73
+                    },
+                    {
+                        "id": "windspeedMS",
+                        "value": 1.2
+                    },
+                    {
+                        "id": "winddirection",
+                        "value": 132
+                    },
+                    {
+                        "id": "airpressure",
+                        "value": 1019.1
+                    },
+                    {
+                        "id": "rain",
+                        "value": 0.1
+                    },
+                    {
+                        "id": "solarintensity",
+                        "value": 112
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "id": "location",
+                        "type": "string",
+                        "writable": true,
+                        "label": "Location"
+                    },
+                    {
+                        "type": "number",
+                        "label": "Current temperature",
+                        "id": "temp_current",
+                        "log": true,
+                        "unit": "Â°C"
+                    },
+                    {
+                        "id": "prediction_class",
+                        "type": "string",
+                        "label": "Prediction classification"
+                    },
+                    {
+                        "type": "number",
+                        "label": "Humidity",
+                        "id": "humidity",
+                        "log": true,
+                        "unit": "%"
+                    },
+                    {
+                        "type": "number",
+                        "label": "Windspeed",
+                        "id": "windspeedMS",
+                        "log": true,
+                        "unit": "m/s"
+                    },
+                    {
+                        "type": "number",
+                        "label": "Wind direction",
+                        "id": "winddirection",
+                        "log": true,
+                        "unit": "Â°"
+                    },
+                    {
+                        "type": "number",
+                        "label": "Air pressure",
+                        "id": "airpressure",
+                        "log": true,
+                        "unit": "hPa"
+                    },
+                    {
+                        "type": "number",
+                        "label": "Rain",
+                        "id": "rain",
+                        "log": true,
+                        "unit": "mm/h"
+                    },
+                    {
+                        "type": "number",
+                        "label": "Solar intensity",
+                        "id": "solarintensity",
+                        "log": true,
+                        "unit": "W/m2"
+                    }
+                ],
+                "uid": "6275",
+                "type": "weather"
+            },
+            {
+                "driver": "users",
+                "name": "-",
+                "oid": "ebbe39cd",
+                "propsval": [
+                    {
+                        "id": "blockuset",
+                        "value": false
+                    },
+                    {
+                        "id": "authenticated",
+                        "value": false
+                    },
+                    {
+                        "id": "language",
+                        "value": "nl"
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "password",
+                        "label": "password",
+                        "id": "password",
+                        "writable": true,
+                        "persistent": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "block user set",
+                        "id": "blockuset",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "id": "authenticated",
+                        "type": "boolean",
+                        "default": false,
+                        "label": "authenticated"
+                    },
+                    {
+                        "type": "enum",
+                        "default": "nl",
+                        "label": "language",
+                        "id": "language",
+                        "writable": true,
+                        "range": "nl,be,en,de",
+                        "persistent": true
+                    },
+                    {
+                        "type": "string",
+                        "label": "settings",
+                        "id": "settings",
+                        "writable": true,
+                        "persistent": true
+                    }
+                ],
+                "uid": "admin",
+                "type": "users"
+            },
+            {
+                "driver": "alert-email",
+                "name": "-",
+                "oid": "b4286b84",
+                "propsval": [
+                    {
+                        "id": "smtps",
+                        "value": false
+                    },
+                    {
+                        "id": "auth",
+                        "value": false
+                    },
+                    {
+                        "id": "from",
+                        "value": "alert@iungo.nl"
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "label": "Enable",
+                        "id": "enable",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "string",
+                        "label": "SMTP server",
+                        "id": "server",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "Use SMTPS protocol",
+                        "id": "smtps",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "Use authentication",
+                        "id": "auth",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "string",
+                        "label": "SMTP username",
+                        "id": "username",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "password",
+                        "label": "SMTP password",
+                        "id": "password",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "alert@iungo.nl",
+                        "label": "From address",
+                        "id": "from",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "string",
+                        "label": "Recipient address",
+                        "id": "rcpt",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "command",
+                        "label": "Send test e-mail",
+                        "id": "test",
+                        "writable": true,
+                        "range": "test",
+                        "fn_set": null
+                    },
+                    {
+                        "id": "status",
+                        "type": "string",
+                        "label": "Status"
+                    }
+                ],
+                "uid": "e-mail alerts",
+                "type": "alert"
+            },
+            {
+                "driver": "clock",
+                "name": "-",
+                "oid": "ce9577e3",
+                "propsval": [
+                    {
+                        "id": "time",
+                        "value": "15:58"
+                    },
+                    {
+                        "id": "date",
+                        "value": "17-01-2026"
+                    },
+                    {
+                        "id": "format",
+                        "value": "d-m-y"
+                    },
+                    {
+                        "id": "timezone",
+                        "value": "Europe/Amsterdam"
+                    },
+                    {
+                        "id": "ntp_server",
+                        "value": "pool.ntp.org"
+                    },
+                    {
+                        "id": "ntp_status",
+                        "value": "ok, peer \"178.239.19.63\""
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "id": "time",
+                        "type": "string",
+                        "label": "Time"
+                    },
+                    {
+                        "id": "date",
+                        "type": "string",
+                        "label": "Date"
+                    },
+                    {
+                        "fn_set": null,
+                        "type": "enum",
+                        "default": "d-m-y",
+                        "label": "Date format",
+                        "id": "format",
+                        "writable": true,
+                        "range": "y-m-d,d-m-y",
+                        "persistent": true
+                    },
+                    {
+                        "fn_set": null,
+                        "type": "enum",
+                        "default": "Europe/Amsterdam",
+                        "label": "Time zone",
+                        "id": "timezone",
+                        "writable": true,
+                        "range": "Africa/Abidjan,Africa/Accra,Africa/Addis_Ababa,Africa/Algiers,Africa/Asmara,Africa/Bamako,Africa/Bangui,Africa/Banjul,Africa/Bissau,Africa/Blantyre,Africa/Brazzaville,Africa/Bujumbura,Africa/Cairo,Africa/Casablanca,Africa/Ceuta,Africa/Conakry,Africa/Dakar,Africa/Dar_es_Salaam,Africa/Djibouti,Africa/Douala,Africa/El_Aaiun,Africa/Freetown,Africa/Gaborone,Africa/Harare,Africa/Johannesburg,Africa/Kampala,Africa/Khartoum,Africa/Kigali,Africa/Kinshasa,Africa/Lagos,Africa/Libreville,Africa/Lome,Africa/Luanda,Africa/Lubumbashi,Africa/Lusaka,Africa/Malabo,Africa/Maputo,Africa/Maseru,Africa/Mbabane,Africa/Mogadishu,Africa/Monrovia,Africa/Nairobi,Africa/Ndjamena,Africa/Niamey,Africa/Nouakchott,Africa/Ouagadougou,Africa/Porto-Novo,Africa/Sao_Tome,Africa/Tripoli,Africa/Tunis,Africa/Windhoek,America/Adak,America/Anchorage,America/Anguilla,America/Antigua,America/Araguaina,America/Argentina/Buenos_Aires,America/Argentina/Catamarca,America/Argentina/Cordoba,America/Argentina/Jujuy,America/Argentina/La_Rioja,America/Argentina/Mendoza,America/Argentina/Rio_Gallegos,America/Argentina/Salta,America/Argentina/San_Juan,America/Argentina/San_Luis,America/Argentina/Tucuman,America/Argentina/Ushuaia,America/Aruba,America/Asuncion,America/Atikokan,America/Bahia,America/Barbados,America/Belem,America/Belize,America/Blanc-Sablon,America/Boa_Vista,America/Bogota,America/Boise,America/Cambridge_Bay,America/Campo_Grande,America/Cancun,America/Caracas,America/Cayenne,America/Cayman,America/Chicago,America/Chihuahua,America/Costa_Rica,America/Cuiaba,America/Curacao,America/Danmarkshavn,America/Dawson,America/Dawson_Creek,America/Denver,America/Detroit,America/Dominica,America/Edmonton,America/Eirunepe,America/El_Salvador,America/Fortaleza,America/Glace_Bay,America/Godthab,America/Goose_Bay,America/Grand_Turk,America/Grenada,America/Guadeloupe,America/Guatemala,America/Guayaquil,America/Guyana,America/Halifax,America/Havana,America/Hermosillo,America/Indiana/Indianapolis,America/Indiana/Knox,America/Indiana/Marengo,America/Indiana/Petersburg,America/Indiana/Tell_City,America/Indiana/Vevay,America/Indiana/Vincennes,America/Indiana/Winamac,America/Inuvik,America/Iqaluit,America/Jamaica,America/Juneau,America/Kentucky/Louisville,America/Kentucky/Monticello,America/La_Paz,America/Lima,America/Los_Angeles,America/Maceio,America/Managua,America/Manaus,America/Marigot,America/Martinique,America/Mazatlan,America/Menominee,America/Merida,America/Mexico_City,America/Miquelon,America/Moncton,America/Monterrey,America/Montevideo,America/Montreal,America/Montserrat,America/Nassau,America/New_York,America/Nipigon,America/Nome,America/Noronha,America/North_Dakota/Center,America/North_Dakota/New_Salem,America/Panama,America/Pangnirtung,America/Paramaribo,America/Phoenix,America/Port-au-Prince,America/Port_of_Spain,America/Porto_Velho,America/Puerto_Rico,America/Rainy_River,America/Rankin_Inlet,America/Recife,America/Regina,America/Resolute,America/Rio_Branco,America/Santarem,America/Santiago,America/Santo_Domingo,America/Sao_Paulo,America/Scoresbysund,America/Shiprock,America/St_Barthelemy,America/St_Johns,America/St_Kitts,America/St_Lucia,America/St_Thomas,America/St_Vincent,America/Swift_Current,America/Tegucigalpa,America/Thule,America/Thunder_Bay,America/Tijuana,America/Toronto,America/Tortola,America/Vancouver,America/Whitehorse,America/Winnipeg,America/Yakutat,America/Yellowknife,Antarctica/Casey,Antarctica/Davis,Antarctica/DumontDUrville,Antarctica/Mawson,Antarctica/McMurdo,Antarctica/Palmer,Antarctica/Rothera,Antarctica/South_Pole,Antarctica/Syowa,Antarctica/Vostok,Arctic/Longyearbyen,Asia/Aden,Asia/Almaty,Asia/Amman,Asia/Anadyr,Asia/Aqtau,Asia/Aqtobe,Asia/Ashgabat,Asia/Baghdad,Asia/Bahrain,Asia/Baku,Asia/Bangkok,Asia/Beirut,Asia/Bishkek,Asia/Brunei,Asia/Choibalsan,Asia/Chongqing,Asia/Colombo,Asia/Damascus,Asia/Dhaka,Asia/Dili,Asia/Dubai,Asia/Dushanbe,Asia/Gaza,Asia/Harbin,Asia/Ho_Chi_Minh,Asia/Hong_Kong,Asia/Hovd,Asia/Irkutsk,Asia/Jakarta,Asia/Jayapura,Asia/Jerusalem,Asia/Kabul,Asia/Kamchatka,Asia/Karachi,Asia/Kashgar,Asia/Kathmandu,Asia/Kolkata,Asia/Krasnoyarsk,Asia/Kuala_Lumpur,Asia/Kuching,Asia/Kuwait,Asia/Macau,Asia/Magadan,Asia/Makassar,Asia/Manila,Asia/Muscat,Asia/Nicosia,Asia/Novosibirsk,Asia/Omsk,Asia/Oral,Asia/Phnom_Penh,Asia/Pontianak,Asia/Pyongyang,Asia/Qatar,Asia/Qyzylorda,Asia/Rangoon,Asia/Riyadh,Asia/Sakhalin,Asia/Samarkand,Asia/Seoul,Asia/Shanghai,Asia/Singapore,Asia/Taipei,Asia/Tashkent,Asia/Tbilisi,Asia/Tehran,Asia/Thimphu,Asia/Tokyo,Asia/Ulaanbaatar,Asia/Urumqi,Asia/Vientiane,Asia/Vladivostok,Asia/Yakutsk,Asia/Yekaterinburg,Asia/Yerevan,Atlantic/Azores,Atlantic/Bermuda,Atlantic/Canary,Atlantic/Cape_Verde,Atlantic/Faroe,Atlantic/Madeira,Atlantic/Reykjavik,Atlantic/South_Georgia,Atlantic/St_Helena,Atlantic/Stanley,Australia/Adelaide,Australia/Brisbane,Australia/Broken_Hill,Australia/Currie,Australia/Darwin,Australia/Eucla,Australia/Hobart,Australia/Lindeman,Australia/Lord_Howe,Australia/Melbourne,Australia/Perth,Australia/Sydney,Europe/Amsterdam,Europe/Andorra,Europe/Athens,Europe/Belgrade,Europe/Berlin,Europe/Bratislava,Europe/Brussels,Europe/Bucharest,Europe/Budapest,Europe/Chisinau,Europe/Copenhagen,Europe/Dublin,Europe/Gibraltar,Europe/Guernsey,Europe/Helsinki,Europe/Isle_of_Man,Europe/Istanbul,Europe/Jersey,Europe/Kaliningrad,Europe/Kiev,Europe/Lisbon,Europe/Ljubljana,Europe/London,Europe/Luxembourg,Europe/Madrid,Europe/Malta,Europe/Mariehamn,Europe/Minsk,Europe/Monaco,Europe/Moscow,Europe/Oslo,Europe/Paris,Europe/Podgorica,Europe/Prague,Europe/Riga,Europe/Rome,Europe/Samara,Europe/San_Marino,Europe/Sarajevo,Europe/Simferopol,Europe/Skopje,Europe/Sofia,Europe/Stockholm,Europe/Tallinn,Europe/Tirane,Europe/Uzhgorod,Europe/Vaduz,Europe/Vatican,Europe/Vienna,Europe/Vilnius,Europe/Volgograd,Europe/Warsaw,Europe/Zagreb,Europe/Zaporozhye,Europe/Zurich,Indian/Antananarivo,Indian/Chagos,Indian/Christmas,Indian/Cocos,Indian/Comoro,Indian/Kerguelen,Indian/Mahe,Indian/Maldives,Indian/Mauritius,Indian/Mayotte,Indian/Reunion,Pacific/Apia,Pacific/Auckland,Pacific/Chatham,Pacific/Easter,Pacific/Efate,Pacific/Enderbury,Pacific/Fakaofo,Pacific/Fiji,Pacific/Funafuti,Pacific/Galapagos,Pacific/Gambier,Pacific/Guadalcanal,Pacific/Guam,Pacific/Honolulu,Pacific/Johnston,Pacific/Kiritimati,Pacific/Kosrae,Pacific/Kwajalein,Pacific/Majuro,Pacific/Marquesas,Pacific/Midway,Pacific/Nauru,Pacific/Niue,Pacific/Norfolk,Pacific/Noumea,Pacific/Pago_Pago,Pacific/Palau,Pacific/Pitcairn,Pacific/Ponape,Pacific/Port_Moresby,Pacific/Rarotonga,Pacific/Saipan,Pacific/Tahiti,Pacific/Tarawa,Pacific/Tongatapu,Pacific/Truk,Pacific/Wake,Pacific/Wallis",
+                        "persistent": true
+                    },
+                    {
+                        "type": "string",
+                        "default": "pool.ntp.org",
+                        "label": "NTP server",
+                        "id": "ntp_server",
+                        "writable": true,
+                        "persistent": true,
+                        "fn_set": null
+                    },
+                    {
+                        "type": "string",
+                        "default": "",
+                        "label": "NTP status",
+                        "id": "ntp_status",
+                        "writable": false,
+                        "persistent": false
+                    }
+                ],
+                "uid": "system clock",
+                "type": "clock"
+            },
+            {
+                "driver": "bridge-usbuart",
+                "name": "-",
+                "oid": "0cbea738",
+                "propsval": [
+                    {
+                        "id": "available",
+                        "value": false
+                    },
+                    {
+                        "id": "iSerial",
+                        "value": "DO60HOOL"
+                    }
+                ],
+                "propertyInfo": [
+                    {
+                        "type": "string",
+                        "label": "Name",
+                        "id": "name",
+                        "writable": true,
+                        "persistent": true
+                    },
+                    {
+                        "type": "boolean",
+                        "default": false,
+                        "label": "Available",
+                        "id": "available",
+                        "writable": false
+                    },
+                    {
+                        "type": "string",
+                        "default": "",
+                        "label": "iSerial",
+                        "id": "iSerial",
+                        "writable": false,
+                        "persistent": true
+                    }
+                ],
+                "uid": "1-1.2:1.0;9600",
+                "type": "bridge"
+            }
+        ]
+    },
+    "systime": 1768661931,
+    "seq": 1,
+    "error": false
+}
