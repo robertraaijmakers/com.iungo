@@ -135,8 +135,20 @@ export class IungoRouter {
 
     for (var obj in response.objects) {
       var device = response.objects[obj];
+      var deviceGroup = device.propsval?.find((prop: any) => prop.id === 'functiongroup')?.value;
 
-      if (device.type.indexOf('energy') !== -1) {
+      if (deviceGroup == 'carcharger') {
+        let meter = this.#parseCarChargerMeterValues(device.oid, device.name, device.driver, device.propsval);
+        deviceData[meter.uniqueId] = meter;
+      } else if (device.type.indexOf('energystorage') !== -1) {
+        // Home Battery
+        let battery = this.#parseHomeBatteryValues(device.oid, device.name, device.driver, device.propsval);
+        deviceData[battery.uniqueId] = battery;
+      } else if (device.type.indexOf('solar') !== -1) {
+        // Solar
+        let meter = this.#parseSolarMeterValues(device.oid, device.name, device.driver, device.propsval);
+        deviceData[meter.uniqueId] = meter;
+      } else if (device.type.indexOf('energy') !== -1) {
         // Energy meter, fill all values
         let meter = this.#parseEnergyMeterValues(device.oid, device.name, device.driver, device.propsval);
         deviceData[meter.uniqueId] = meter;
@@ -148,21 +160,6 @@ export class IungoRouter {
         // Wall socket
         let socket = this.#parseSocketValues(device.oid, device.name, device.driver, device.propsval);
         deviceData[socket.uniqueId] = socket;
-      } else if (device.type.indexOf('solar') !== -1) {
-        // Solar
-        let meter = this.#parseSolarMeterValues(device.oid, device.name, device.driver, device.propsval);
-        deviceData[meter.uniqueId] = meter;
-      } else if (device.type.indexOf('energystorage') !== -1) {
-        // Home Battery
-        let battery = this.#parseHomeBatteryValues(device.oid, device.name, device.driver, device.propsval);
-        deviceData[battery.uniqueId] = battery;
-      } else if (device.type.indexOf('modbusenergy') !== -1) {
-        // Check if it's a car charger based on functiongroup
-        const functionGroup = device.propsval?.find((prop: any) => prop.id === 'functiongroup')?.value;
-        if (functionGroup === 'carcharger') {
-          let meter = this.#parseCarChargerMeterValues(device.oid, device.name, device.driver, device.propsval);
-          deviceData[meter.uniqueId] = meter;
-        }
       }
     }
 

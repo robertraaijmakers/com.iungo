@@ -46,5 +46,8 @@
   },
   "2.0.3": {
     "en": "Added support for Home Battery and Car Chargers through modbus energy meters."
+  },
+  "2.0.4": {
+    "en": "Added support for Home Battery and Car Chargers through modbus energy meters."
   }
 }
