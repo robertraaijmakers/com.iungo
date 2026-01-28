@@ -8,7 +8,7 @@
   "platforms": [
     "local"
   ],
-  "version": "2.0.7",
+  "version": "2.0.8",
   "compatibility": ">=12.1.2",
   "brandColor": "#3995ae",
   "description": {
