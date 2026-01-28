@@ -9,7 +9,7 @@
   "platforms": [
     "local"
   ],
-  "version": "2.0.4",
+  "version": "2.0.6",
   "compatibility": ">=12.1.2",
   "brandColor": "#3995ae",
   "description": {
@@ -145,20 +145,32 @@
                 "nl": "Kosten T1"
               },
               "value": 0,
+              "attr": {
+                "min": 0,
+                "max": 5,
+                "step": 0.00001
+              },
               "units": {
-                "en": "€/kWh"
+                "en": "€",
+                "nl": "€"
               }
             },
             {
               "id": "Cost-nT1",
               "type": "number",
               "label": {
-                "en": "Cost -T1",
-                "nl": "Kosten -T1"
+                "en": "Cost Redelivery T1",
+                "nl": "Kosten Teruglevering T1"
               },
               "value": 0,
+              "attr": {
+                "min": 0,
+                "max": 5,
+                "step": 0.00001
+              },
               "units": {
-                "en": "€/kWh"
+                "en": "€",
+                "nl": "€"
               }
             }
           ]

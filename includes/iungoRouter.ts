@@ -135,7 +135,7 @@ export class IungoRouter {
 
     for (var obj in response.objects) {
       var device = response.objects[obj];
-      var deviceGroup = device.propsval?.find((prop: any) => prop.id === 'functiongroup')?.value;
+      var deviceGroup = Array.isArray(device.propsval) ? device.propsval.find((prop: any) => prop.id === 'functiongroup')?.value : undefined;
 
       if (deviceGroup == 'carcharger') {
         let meter = this.#parseCarChargerMeterValues(device.oid, device.name, device.driver, device.propsval);

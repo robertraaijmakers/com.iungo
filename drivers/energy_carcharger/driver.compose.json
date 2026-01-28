@@ -80,22 +80,28 @@
             "en": "Cost T1",
             "nl": "Kosten T1"
           },
-          "value": 0,
-          "units": {
-            "en": "€/kWh"
-          }
+          "value": 0.00000,
+          "attr": {
+            "min": 0.00000,
+            "max": 5.00000,
+            "step": 0.00001
+          },
+          "units": { "en": "€", "nl": "€" }
         },
         {
           "id": "Cost-nT1",
           "type": "number",
           "label": {
-            "en": "Cost -T1",
-            "nl": "Kosten -T1"
+            "en": "Cost Redelivery T1",
+            "nl": "Kosten Teruglevering T1"
           },
-          "value": 0,
-          "units": {
-            "en": "€/kWh"
-          }
+          "value": 0.00000,
+          "attr": {
+            "min": 0.00000,
+            "max": 5.00000,
+            "step": 0.00001
+          },
+          "units": { "en": "€", "nl": "€" }
         }
       ]
     }
